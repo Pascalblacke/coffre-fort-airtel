@@ -2,7 +2,7 @@
 
 Auteur : BOULOUDI MOUNGUENGUI CLAINE PASCAL  
 Pays : Gabon  
-Date : [à compléter]
+Date : 13/04/2026
 
 ## Description
 Airtel SafeLock est une solution digitale d’épargne verrouillée permettant aux utilisateurs de bloquer une somme d’argent jusqu’à une date définie, sans possibilité de retrait anticipé.
