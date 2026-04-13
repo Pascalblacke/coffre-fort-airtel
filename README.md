@@ -18,3 +18,7 @@ Prototype fonctionnel (web app)
 
 ## Droits
 © Tous droits réservés – Toute reproduction, utilisation ou exploitation sans autorisation est interdite.
+
+Legal Notice:
+This project is protected under copyright law.
+Any unauthorized use, reproduction, or commercial exploitation is strictly prohibited.
