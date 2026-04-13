@@ -1,0 +1,10 @@
+Author: BOULOUDI MOUNGUENGUI CLAINE PASCAL
+Country: Gabon
+
+Project: Airtel SafeLock
+
+This repository contains the original prototype and concept of a locked savings system for mobile money.
+
+Date of creation: 2026-04-13
+
+© All rights reserved
