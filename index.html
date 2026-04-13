@@ -12,180 +12,252 @@
 <title>Coffre-Fort — Airtel Money</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-:root{--red:#E3001B;--rdark:#B00014;--rlight:#FFF0F0;--rmid:#FFCDD2;--grn:#16a34a;--grnl:#f0fdf4;--g50:#f7f7f7;--g100:#f0f0f0;--g200:#e2e2e2;--g400:#9e9e9e;--g600:#555;--g900:#111;--wh:#fff;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;--nav:64px;--sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);}
+:root{
+  --red:#E3001B;--rdark:#B00014;--rlight:#FFF0F0;--rmid:#FFCDD2;
+  --grn:#16a34a;--grnl:#f0fdf4;
+  --g50:#f8f8f8;--g100:#f0f0f0;--g200:#e3e3e3;--g400:#9e9e9e;--g600:#555;--g900:#111;
+  --wh:#fff;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  --nav:68px;--sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
+}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g50);color:var(--g900);-webkit-font-smoothing:antialiased;}
 #app{width:100%;max-width:430px;height:100%;margin:0 auto;position:relative;overflow:hidden;background:var(--g50);}
+
+/* ── PAGES ── */
 .pg{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--g50);}
-.pg.on{transform:translateX(0);opacity:1;pointer-events:all;transition:transform .28s cubic-bezier(.4,0,.2,1),opacity .25s;}
-.pg.off-r{transform:translateX(100%);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.4,0,.2,1),opacity .25s;}
-.pg.off-l{transform:translateX(-28%);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.4,0,.2,1),opacity .25s;}
-.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-bottom:calc(var(--nav) + var(--sb) + 20px);}
-.pad{padding:16px;display:flex;flex-direction:column;gap:12px;}
-.tbar{background:var(--red);color:#fff;padding:calc(var(--st)+14px) 18px 20px;flex-shrink:0;}
-.tbar-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.tbar h1{font-size:21px;font-weight:700;margin-bottom:3px;}
-.tbar p{font-size:11px;opacity:.82;}
-.logo{font-size:13px;font-weight:700;opacity:.88;}
-.ibtn{width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;border:none;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.pg.on{transform:translateX(0);opacity:1;pointer-events:all;transition:transform .28s cubic-bezier(.4,0,.2,1),opacity .22s;}
+.pg.off-r{transform:translateX(100%);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.4,0,.2,1),opacity .22s;}
+.pg.off-l{transform:translateX(-28%);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.4,0,.2,1),opacity .22s;}
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-bottom:calc(var(--nav) + var(--sb) + 24px);}
+.pad{padding:20px 16px;display:flex;flex-direction:column;gap:16px;}
+
+/* ── TOP BAR ── */
+.tbar{background:var(--red);color:#fff;padding:calc(var(--st)+18px) 20px 24px;flex-shrink:0;}
+.tbar-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.tbar h1{font-size:24px;font-weight:700;letter-spacing:-.3px;margin-bottom:5px;}
+.tbar p{font-size:12px;opacity:.75;}
+.logo{font-size:13px;font-weight:700;opacity:.85;letter-spacing:.02em;}
+.ibtn{width:38px;height:38px;background:rgba(255,255,255,.18);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s;}
+.ibtn:active{background:rgba(255,255,255,.3);}
 .ibtn svg{width:20px;height:20px;fill:#fff;}
-.bnav{position:absolute;bottom:0;left:0;right:0;height:calc(var(--nav)+var(--sb));background:var(--wh);border-top:1px solid var(--g200);display:flex;align-items:flex-start;padding-top:8px;z-index:50;}
-.nbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;color:var(--g400);background:none;border:none;font-family:var(--font);cursor:pointer;padding:0;}
+
+/* ── BOTTOM NAV ── */
+.bnav{position:absolute;bottom:0;left:0;right:0;height:calc(var(--nav)+var(--sb));background:var(--wh);border-top:1px solid var(--g200);display:flex;align-items:flex-start;padding-top:10px;z-index:50;}
+.nbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:600;color:var(--g400);background:none;border:none;font-family:var(--font);cursor:pointer;padding:0;}
 .nbtn.on{color:var(--red);}
 .nbtn svg{width:22px;height:22px;fill:currentColor;}
-.card{background:var(--wh);border:1px solid var(--g200);border-radius:16px;padding:16px;}
-.card-red{background:var(--red);border-radius:16px;padding:16px;color:#fff;}
+
+/* ── CARDS ── */
+.card{background:var(--wh);border:1px solid var(--g200);border-radius:18px;padding:20px;}
+.card-red{background:var(--red);border-radius:18px;padding:20px;color:#fff;}
+
+/* ── BALANCE ── */
 .balrow{display:flex;align-items:stretch;}
-.balhalf{flex:1;text-align:center;padding:4px 6px;}
-.baldiv{width:1px;background:var(--g200);margin:2px 0;}
-.ballbl{font-size:11px;color:var(--g400);margin-bottom:5px;}
-.balamt{font-size:20px;font-weight:700;}
+.balhalf{flex:1;text-align:center;padding:10px 8px;}
+.baldiv{width:1px;background:var(--g200);margin:4px 0;}
+.ballbl{font-size:11px;color:var(--g400);margin-bottom:8px;font-weight:500;}
+.balamt{font-size:22px;font-weight:700;}
 .balamt.red{color:var(--red);}
-.balcfa{font-size:11px;color:var(--g400);margin-right:2px;}
-.sbar{background:var(--wh);border:1px solid var(--g200);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;}
-.sdot{width:7px;height:7px;border-radius:50%;background:var(--grn);flex-shrink:0;animation:bl 2s infinite;}
+.balcfa{font-size:12px;color:var(--g400);margin-right:3px;}
+
+/* ── SERVER BAR ── */
+.sbar{background:var(--wh);border:1px solid var(--g200);border-radius:14px;padding:13px 18px;display:flex;align-items:center;gap:10px;}
+.sdot{width:8px;height:8px;border-radius:50%;background:var(--grn);flex-shrink:0;animation:bl 2s infinite;}
 @keyframes bl{0%,100%{opacity:1;}50%{opacity:.2;}}
-.slbl{font-size:11px;color:var(--g400);flex:1;}
+.slbl{font-size:12px;color:var(--g400);flex:1;}
 .stime{font-size:12px;font-weight:500;font-family:var(--mono);}
-.seclbl{font-size:11px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.07em;}
-/* VAULT CARDS */
-.vcard{background:var(--wh);border:1px solid var(--g200);border-radius:16px;overflow:hidden;margin-bottom:12px;}
-.vcard-head{background:var(--red);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;}
-.vcard-name{font-size:16px;font-weight:700;color:#fff;}
-.vcard-date{font-size:11px;color:rgba(255,255,255,.8);margin-top:2px;}
-.vcard-amt{font-size:20px;font-weight:700;color:#fff;text-align:right;}
-.vcard-amtlbl{font-size:10px;color:rgba(255,255,255,.75);text-align:right;margin-bottom:2px;}
-.vcard-body{padding:13px 16px;}
-.vcard-prog{height:5px;background:var(--g100);border-radius:100px;overflow:hidden;margin-bottom:10px;}
+
+/* ── SECTION LABEL ── */
+.seclbl{font-size:11px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.08em;padding:0 2px;}
+
+/* ── VAULT CARDS ── */
+.vcard{background:var(--wh);border:1px solid var(--g200);border-radius:18px;overflow:hidden;margin-bottom:14px;}
+.vcard-head{background:var(--red);padding:20px;display:flex;align-items:flex-start;justify-content:space-between;}
+.vcard-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px;}
+.vcard-date{font-size:11px;color:rgba(255,255,255,.8);}
+.vcard-amt{font-size:22px;font-weight:700;color:#fff;text-align:right;}
+.vcard-amtlbl{font-size:10px;color:rgba(255,255,255,.7);text-align:right;margin-bottom:4px;}
+.vcard-body{padding:18px 20px;}
+.vcard-prog{height:5px;background:var(--g100);border-radius:100px;overflow:hidden;margin-bottom:14px;}
 .vcard-progf{height:100%;background:var(--red);border-radius:100px;transition:width .4s;}
 .vcard-progf.done{background:var(--grn);}
-.vcard-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:6px;}
+.vcard-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:10px;}
 .vcard-row:last-child{margin-bottom:0;}
 .vcard-row .vl{color:var(--g400);}
 .vcard-row .vv{font-weight:600;}
 .vcard-row .vr{font-weight:600;color:var(--red);}
 .vcard-row .vg{font-weight:600;color:var(--grn);}
-.vcard-actions{display:flex;gap:8px;padding:0 16px 14px;}
-.vbtn-add{flex:1;background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:5px;}
-.vbtn-add svg{width:14px;height:14px;fill:#fff;}
-.vbtn-detail{flex:1;background:transparent;color:var(--red);border:1.5px solid var(--red);border-radius:10px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);}
-.empty{text-align:center;padding:40px 20px;color:var(--g400);}
-.empty svg{width:44px;height:44px;fill:var(--g200);margin:0 auto 12px;display:block;}
-.empty p{font-size:13px;line-height:1.7;}
-/* INPUT GROUP */
-.igrp{background:var(--wh);border:1px solid var(--g200);border-radius:14px;overflow:hidden;}
-.irow{display:flex;align-items:center;padding:13px 14px;gap:12px;border-bottom:1px solid var(--g100);}
+.vcard-actions{display:flex;gap:10px;padding:0 20px 20px;}
+.vbtn-add{flex:1;background:var(--red);color:#fff;border:none;border-radius:12px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity .15s;}
+.vbtn-add svg{width:15px;height:15px;fill:#fff;}
+.vbtn-add:active{opacity:.85;}
+.vbtn-detail{flex:1;background:transparent;color:var(--red);border:1.5px solid var(--red);border-radius:12px;padding:13px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:opacity .15s;}
+.vbtn-detail:active{opacity:.7;}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:50px 20px;}
+.empty svg{width:48px;height:48px;fill:var(--g200);margin:0 auto 16px;display:block;}
+.empty p{font-size:13px;color:var(--g400);line-height:1.8;}
+
+/* ── INPUT GROUP ── */
+.igrp{background:var(--wh);border:1px solid var(--g200);border-radius:16px;overflow:hidden;}
+.irow{display:flex;align-items:center;padding:16px 18px;gap:14px;border-bottom:1px solid var(--g100);}
 .irow:last-child{border-bottom:none;}
-.iico{width:34px;height:34px;background:var(--rlight);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.iico svg{width:17px;height:17px;fill:var(--red);}
+.iico{width:36px;height:36px;background:var(--rlight);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.iico svg{width:18px;height:18px;fill:var(--red);}
 .iwrap{flex:1;}
-.iwrap label{display:block;font-size:11px;color:var(--g400);font-weight:500;margin-bottom:3px;}
+.iwrap label{display:block;font-size:11px;color:var(--g400);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em;}
 .iwrap input[type=text],.iwrap input[type=number]{width:100%;border:none;outline:none;font-size:16px;font-weight:600;background:transparent;color:var(--g900);font-family:var(--font);}
 .iwrap input::placeholder{color:var(--g200);font-weight:400;font-size:15px;}
-.isuf{font-size:13px;font-weight:700;color:var(--red);}
-/* CUSTOM DATE/TIME PICKER TRIGGER */
-.picker-trigger{width:100%;border:none;outline:none;font-size:15px;font-weight:600;background:transparent;color:var(--g900);font-family:var(--font);cursor:pointer;text-align:left;padding:0;}
-.picker-trigger.empty-val{color:var(--g400);font-weight:400;}
-/* BOTTOM SHEET PICKER */
-.sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:flex-end;justify-content:center;}
-.sheet-overlay.open{display:flex;animation:fadeIn .2s;}
+.isuf{font-size:14px;font-weight:700;color:var(--red);}
+
+/* ── CUSTOM DATE/TIME PICKER TRIGGER ── */
+.picker-trigger{width:100%;border:none;outline:none;font-size:16px;font-weight:600;background:transparent;color:var(--g900);font-family:var(--font);cursor:pointer;text-align:left;padding:0;}
+.picker-trigger.pmt{color:var(--g400);font-weight:400;font-size:15px;}
+.irow-tap{cursor:pointer;}
+.irow-tap:active{background:var(--g50);}
+
+/* ── BOTTOM SHEET ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+.overlay.open{display:flex;animation:fadeIn .2s;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-.sheet{background:var(--wh);border-radius:20px 20px 0 0;width:100%;max-width:430px;padding:0 0 calc(16px + var(--sb));animation:slideUp .3s cubic-bezier(.4,0,.2,1);}
+.sheet{background:var(--wh);border-radius:24px 24px 0 0;width:100%;max-width:430px;padding:0 0 calc(20px + var(--sb));animation:slideUp .3s cubic-bezier(.4,0,.2,1);}
 @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
-.sheet-handle{width:36px;height:4px;background:var(--g200);border-radius:100px;margin:12px auto 0;}
-.sheet-title{font-size:15px;font-weight:700;text-align:center;padding:14px 20px 10px;}
-.sheet-divider{height:1px;background:var(--g100);}
-/* DATE PICKER GRID */
-.date-picker{padding:16px;}
-.dp-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.dp-nav-btn{width:36px;height:36px;background:var(--g100);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.dp-nav-btn svg{width:18px;height:18px;fill:var(--g600);}
-.dp-month-lbl{font-size:15px;font-weight:700;}
-.dp-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px;}
-.dp-weekday{font-size:11px;font-weight:600;color:var(--g400);text-align:center;padding:4px 0;}
-.dp-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
-.dp-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:14px;font-weight:500;cursor:pointer;border:none;background:transparent;font-family:var(--font);}
+.sheet-handle{width:40px;height:4px;background:var(--g200);border-radius:100px;margin:14px auto 0;}
+.sheet-title{font-size:16px;font-weight:700;text-align:center;padding:16px 20px 12px;}
+.sheet-div{height:1px;background:var(--g100);}
+.sheet-acts{display:flex;gap:10px;padding:16px 20px 0;}
+.sheet-cancel{flex:1;background:var(--g100);border:none;border-radius:14px;padding:14px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);color:var(--g600);}
+.sheet-ok{flex:2;background:var(--red);border:none;border-radius:14px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);color:#fff;}
+
+/* ── DATE PICKER ── */
+.dp-wrap{padding:18px 20px;}
+.dp-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.dp-nav-btn{width:38px;height:38px;background:var(--g100);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.dp-nav-btn svg{width:20px;height:20px;fill:var(--g600);}
+.dp-month-lbl{font-size:16px;font-weight:700;}
+.dp-wdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:8px;}
+.dp-wday{font-size:11px;font-weight:600;color:var(--g400);text-align:center;padding:4px 0;}
+.dp-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.dp-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:14px;font-weight:500;cursor:pointer;border:none;background:transparent;font-family:var(--font);color:var(--g900);}
 .dp-day:disabled{color:var(--g200);cursor:not-allowed;}
-.dp-day.today{border:1.5px solid var(--red);color:var(--red);}
-.dp-day.selected{background:var(--red);color:#fff;font-weight:700;}
-.dp-day:not(:disabled):not(.selected):hover{background:var(--rlight);}
-/* TIME PICKER */
-.time-picker{padding:16px 20px;}
-.tp-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;}
-.tp-col{display:flex;flex-direction:column;align-items:center;gap:6px;}
-.tp-lbl{font-size:11px;color:var(--g400);font-weight:500;}
-.tp-scroll{height:160px;overflow:hidden;position:relative;width:72px;}
-.tp-scroll::before,.tp-scroll::after{content:'';position:absolute;left:0;right:0;height:56px;z-index:2;pointer-events:none;}
-.tp-scroll::before{top:0;background:linear-gradient(to bottom,rgba(255,255,255,1),rgba(255,255,255,0));}
-.tp-scroll::after{bottom:0;background:linear-gradient(to top,rgba(255,255,255,1),rgba(255,255,255,0));}
-.tp-inner{display:flex;flex-direction:column;transition:transform .15s;}
-.tp-item{height:40px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600;color:var(--g200);cursor:pointer;user-select:none;flex-shrink:0;}
-.tp-item.active{color:var(--g900);font-size:26px;}
-.tp-sep{font-size:28px;font-weight:700;color:var(--g400);padding-top:50px;}
-.tp-selector{position:absolute;top:50%;transform:translateY(-50%);left:0;right:0;height:40px;border-top:2px solid var(--red);border-bottom:2px solid var(--red);pointer-events:none;z-index:1;}
-/* SHEET ACTIONS */
-.sheet-actions{display:flex;gap:10px;padding:12px 16px 0;}
-.sheet-btn-cancel{flex:1;background:var(--g100);border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);color:var(--g600);}
-.sheet-btn-ok{flex:2;background:var(--red);border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);color:#fff;}
-/* PREVIEW / WARN / INFO / ERROR */
-.prevbox{background:var(--wh);border:1px solid var(--g200);border-radius:14px;overflow:hidden;display:none;}
-.prevrow{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;font-size:13px;border-bottom:1px solid var(--g100);}
+.dp-day.today{border:2px solid var(--red);color:var(--red);}
+.dp-day.sel{background:var(--red);color:#fff;font-weight:700;}
+.dp-day:not(:disabled):not(.sel):active{background:var(--rlight);}
+
+/* ── TIME PICKER (SCROLL DRUM) ── */
+.tp-wrap{padding:20px;}
+.tp-row{display:flex;align-items:center;justify-content:center;gap:0;}
+.tp-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.tp-lbl{font-size:11px;color:var(--g400);font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+.tp-drum-wrap{position:relative;width:100%;}
+.tp-drum{
+  height:210px;
+  overflow-y:scroll;
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:y mandatory;
+  scrollbar-width:none;
+}
+.tp-drum::-webkit-scrollbar{display:none;}
+.tp-spacer{height:80px;display:block;flex-shrink:0;}
+.tp-item{
+  height:50px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;font-weight:600;
+  color:var(--g200);
+  scroll-snap-align:center;
+  user-select:none;flex-shrink:0;
+  cursor:pointer;
+}
+.tp-item.active{color:var(--g900);font-size:30px;font-weight:700;}
+.tp-highlight{
+  position:absolute;top:50%;transform:translateY(-50%);
+  left:10px;right:10px;height:50px;
+  border-top:2px solid var(--red);
+  border-bottom:2px solid var(--red);
+  pointer-events:none;z-index:2;border-radius:3px;
+}
+.tp-fade-top{
+  position:absolute;top:0;left:0;right:0;height:80px;
+  background:linear-gradient(to bottom,rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+  pointer-events:none;z-index:1;
+}
+.tp-fade-bot{
+  position:absolute;bottom:0;left:0;right:0;height:80px;
+  background:linear-gradient(to top,rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+  pointer-events:none;z-index:1;
+}
+.tp-sep{font-size:32px;font-weight:700;color:var(--g400);padding-top:100px;padding-left:2px;padding-right:2px;flex-shrink:0;}
+
+/* ── PREVIEW ── */
+.prevbox{background:var(--wh);border:1px solid var(--g200);border-radius:16px;overflow:hidden;display:none;}
+.prevrow{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;font-size:13px;border-bottom:1px solid var(--g100);}
 .prevrow:last-child{border-bottom:none;}
 .prevrow .pl{color:var(--g400);}
 .prevrow .pr{font-weight:600;color:var(--red);}
 .prevrow .pv{font-weight:600;}
-.wbox,.ibox{border-radius:12px;padding:12px 14px;font-size:12px;line-height:1.65;display:flex;gap:10px;align-items:flex-start;}
+
+/* ── WARN / INFO ── */
+.wbox,.ibox{border-radius:14px;padding:16px 18px;font-size:12px;line-height:1.8;display:flex;gap:12px;align-items:flex-start;}
 .wbox{background:var(--rlight);border:1px solid var(--rmid);color:var(--rdark);}
 .ibox{background:var(--grnl);border:1px solid #bbf7d0;color:#14532d;}
-.wbox svg,.ibox svg{width:16px;height:16px;fill:currentColor;flex-shrink:0;margin-top:1px;}
-.ebox{background:#fff8f8;border:1px solid var(--rmid);border-radius:12px;padding:11px 14px;font-size:12px;color:var(--rdark);font-weight:500;display:none;}
-/* BUTTONS */
-.btnp{background:var(--red);color:#fff;border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:700;width:100%;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s,transform .1s;}
+.wbox svg,.ibox svg{width:17px;height:17px;fill:currentColor;flex-shrink:0;margin-top:2px;}
+.ebox{background:#fff8f8;border:1px solid var(--rmid);border-radius:14px;padding:14px 18px;font-size:13px;color:var(--rdark);font-weight:500;display:none;}
+
+/* ── BUTTONS ── */
+.btnp{background:var(--red);color:#fff;border:none;border-radius:16px;padding:17px;font-size:15px;font-weight:700;width:100%;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s,transform .1s;}
 .btnp:active{opacity:.85;transform:scale(.98);}
 .btnp:disabled{opacity:.35;cursor:not-allowed;transform:none;}
 .btnp svg{width:18px;height:18px;fill:#fff;}
-.btns{background:transparent;color:var(--red);border:1.5px solid var(--red);border-radius:14px;padding:14px;font-size:14px;font-weight:600;width:100%;cursor:pointer;font-family:var(--font);}
-/* CONFIRM */
-.cfhero{text-align:center;padding:24px 16px 16px;}
-.cficon{width:64px;height:64px;background:var(--rlight);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
-.cficon svg{width:32px;height:32px;fill:var(--red);}
-.cflbl{font-size:12px;color:var(--g400);margin-bottom:4px;}
-.cfnum{font-size:34px;font-weight:700;}
-.cfcfa{font-size:16px;color:var(--g400);margin-right:4px;}
-.cflist{background:var(--wh);border:1px solid var(--g200);border-radius:14px;overflow:hidden;}
-.cfrow{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--g100);font-size:13px;}
+.btns{background:transparent;color:var(--red);border:1.5px solid var(--red);border-radius:16px;padding:15px;font-size:14px;font-weight:600;width:100%;cursor:pointer;font-family:var(--font);transition:opacity .15s;}
+.btns:active{opacity:.7;}
+
+/* ── CONFIRM ── */
+.cfhero{text-align:center;padding:28px 16px 20px;}
+.cficon{width:70px;height:70px;background:var(--rlight);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.cficon svg{width:34px;height:34px;fill:var(--red);}
+.cflbl{font-size:12px;color:var(--g400);margin-bottom:6px;}
+.cfnum{font-size:36px;font-weight:700;}
+.cfcfa{font-size:17px;color:var(--g400);margin-right:5px;}
+.cflist{background:var(--wh);border:1px solid var(--g200);border-radius:16px;overflow:hidden;}
+.cfrow{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--g100);font-size:13px;}
 .cfrow:last-child{border-bottom:none;}
 .cfrow .cl{color:var(--g400);}
 .cfrow .cv{font-weight:600;}
 .cfrow .cr{font-weight:600;color:var(--red);}
-/* DETAIL */
-.dep-chip{background:var(--wh);border:1px solid var(--g200);border-radius:12px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.dep-chip-left{display:flex;align-items:center;gap:10px;}
-.dep-chip-dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0;}
-.dep-chip-info .dcname{font-size:13px;font-weight:600;}
-.dep-chip-info .dcdate{font-size:11px;color:var(--g400);margin-top:1px;}
-.dep-chip-amt{font-size:14px;font-weight:700;}
-/* SUCCESS */
-.sucwrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;gap:14px;text-align:center;}
-.sucico{width:74px;height:74px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:pop .4s cubic-bezier(.34,1.56,.64,1);}
+
+/* ── DETAIL ── */
+.dep-chip{background:var(--wh);border:1px solid var(--g200);border-radius:14px;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.dep-dot{width:9px;height:9px;border-radius:50%;background:var(--red);flex-shrink:0;margin-right:12px;}
+.dep-chip-info .dcname{font-size:13px;font-weight:600;margin-bottom:2px;}
+.dep-chip-info .dcdate{font-size:11px;color:var(--g400);}
+.dep-chip-amt{font-size:15px;font-weight:700;}
+
+/* ── SUCCESS ── */
+.sucwrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 20px;gap:16px;text-align:center;}
+.sucico{width:80px;height:80px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:pop .4s cubic-bezier(.34,1.56,.64,1);}
 @keyframes pop{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
-.sucico svg{width:38px;height:38px;fill:#fff;}
-.suctitle{font-size:22px;font-weight:700;}
-.sucsub{font-size:13px;color:var(--g400);line-height:1.7;}
-.sucbtns{width:100%;display:flex;flex-direction:column;gap:10px;margin-top:8px;}
-/* HISTORY */
-.hitem{background:var(--wh);border:1px solid var(--g200);border-radius:14px;padding:13px 14px;display:flex;align-items:center;gap:12px;margin-bottom:8px;}
-.hdot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0;}
+.sucico svg{width:40px;height:40px;fill:#fff;}
+.suctitle{font-size:24px;font-weight:700;}
+.sucsub{font-size:13px;color:var(--g400);line-height:1.8;max-width:300px;}
+.sucbtns{width:100%;display:flex;flex-direction:column;gap:12px;margin-top:8px;}
+
+/* ── HISTORY ── */
+.hitem{background:var(--wh);border:1px solid var(--g200);border-radius:16px;padding:15px 18px;display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.hdot{width:9px;height:9px;border-radius:50%;background:var(--red);flex-shrink:0;}
 .hdot.done{background:var(--grn);}
 .hinfo{flex:1;}
-.hname{font-size:13px;font-weight:600;margin-bottom:2px;}
+.hname{font-size:13px;font-weight:600;margin-bottom:3px;}
 .hdate{font-size:11px;color:var(--g400);}
 .hright{text-align:right;}
-.hamt{font-size:13px;font-weight:700;}
-.hstat{font-size:11px;color:var(--g400);margin-top:2px;}
-.mode-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.18);border-radius:20px;font-size:10px;font-weight:600;padding:3px 9px;color:#fff;}
-/* TOAST */
-.toast{position:absolute;top:calc(var(--st)+12px);left:50%;transform:translateX(-50%) translateY(-80px);background:var(--g900);color:#fff;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:500;z-index:999;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;max-width:90%;}
+.hamt{font-size:14px;font-weight:700;}
+.hstat{font-size:11px;color:var(--g400);margin-top:3px;}
+
+/* ── MODE BADGE ── */
+.mbadge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.2);border-radius:20px;font-size:11px;font-weight:600;padding:4px 12px;color:#fff;}
+
+/* ── TOAST ── */
+.toast{position:absolute;top:calc(var(--st)+14px);left:50%;transform:translateX(-50%) translateY(-80px);background:var(--g900);color:#fff;padding:11px 22px;border-radius:100px;font-size:13px;font-weight:500;z-index:999;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;max-width:90%;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 </style>
 </head>
@@ -193,66 +265,67 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
 <div id="app">
 <div class="toast" id="toast"></div>
 
-<!-- ════ BOTTOM SHEET — DATE PICKER ════ -->
-<div class="sheet-overlay" id="sheet-date" onclick="closeSheetDate(event)">
+<!-- ══════ SHEET: DATE ══════ -->
+<div class="overlay" id="sheet-date" onclick="if(event.target===this)closeDateCancel()">
   <div class="sheet">
     <div class="sheet-handle"></div>
-    <div class="sheet-title" id="sheet-date-title">Choisir une date</div>
-    <div class="sheet-divider"></div>
-    <div class="date-picker">
+    <div class="sheet-title" id="sh-date-title">Choisir une date</div>
+    <div class="sheet-div"></div>
+    <div class="dp-wrap">
       <div class="dp-nav">
-        <button class="dp-nav-btn" onclick="dpPrevMonth()"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
-        <div class="dp-month-lbl" id="dp-month-lbl">—</div>
-        <button class="dp-nav-btn" onclick="dpNextMonth()"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+        <button class="dp-nav-btn" onclick="dpPrev()"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+        <div class="dp-month-lbl" id="dp-lbl">—</div>
+        <button class="dp-nav-btn" onclick="dpNext()"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
       </div>
-      <div class="dp-weekdays">
-        <div class="dp-weekday">Lun</div><div class="dp-weekday">Mar</div><div class="dp-weekday">Mer</div>
-        <div class="dp-weekday">Jeu</div><div class="dp-weekday">Ven</div><div class="dp-weekday">Sam</div><div class="dp-weekday">Dim</div>
-      </div>
+      <div class="dp-wdays"><div class="dp-wday">Lun</div><div class="dp-wday">Mar</div><div class="dp-wday">Mer</div><div class="dp-wday">Jeu</div><div class="dp-wday">Ven</div><div class="dp-wday">Sam</div><div class="dp-wday">Dim</div></div>
       <div class="dp-days" id="dp-days"></div>
     </div>
-    <div class="sheet-divider"></div>
-    <div class="sheet-actions">
-      <button class="sheet-btn-cancel" onclick="closeSheetDateCancel()">Annuler</button>
-      <button class="sheet-btn-ok" onclick="confirmDate()">Confirmer</button>
+    <div class="sheet-div"></div>
+    <div class="sheet-acts">
+      <button class="sheet-cancel" onclick="closeDateCancel()">Annuler</button>
+      <button class="sheet-ok" onclick="confirmDate()">Confirmer</button>
     </div>
   </div>
 </div>
 
-<!-- ════ BOTTOM SHEET — TIME PICKER ════ -->
-<div class="sheet-overlay" id="sheet-time" onclick="closeSheetTime(event)">
+<!-- ══════ SHEET: TIME ══════ -->
+<div class="overlay" id="sheet-time" onclick="if(event.target===this)closeTimeCancel()">
   <div class="sheet">
     <div class="sheet-handle"></div>
-    <div class="sheet-title">Choisir l'heure de déblocage</div>
-    <div class="sheet-divider"></div>
-    <div class="time-picker">
+    <div class="sheet-title">Heure de déblocage</div>
+    <div class="sheet-div"></div>
+    <div class="tp-wrap">
       <div class="tp-row">
         <div class="tp-col">
           <div class="tp-lbl">Heures</div>
-          <div class="tp-scroll" id="tp-hours-scroll">
-            <div class="tp-selector"></div>
-            <div class="tp-inner" id="tp-hours"></div>
+          <div class="tp-drum-wrap">
+            <div class="tp-fade-top"></div>
+            <div class="tp-fade-bot"></div>
+            <div class="tp-highlight"></div>
+            <div class="tp-drum" id="drum-h"></div>
           </div>
         </div>
         <div class="tp-sep">:</div>
         <div class="tp-col">
           <div class="tp-lbl">Minutes</div>
-          <div class="tp-scroll" id="tp-mins-scroll">
-            <div class="tp-selector"></div>
-            <div class="tp-inner" id="tp-mins"></div>
+          <div class="tp-drum-wrap">
+            <div class="tp-fade-top"></div>
+            <div class="tp-fade-bot"></div>
+            <div class="tp-highlight"></div>
+            <div class="tp-drum" id="drum-m"></div>
           </div>
         </div>
       </div>
     </div>
-    <div class="sheet-divider"></div>
-    <div class="sheet-actions">
-      <button class="sheet-btn-cancel" onclick="closeSheetTimeCancel()">Annuler</button>
-      <button class="sheet-btn-ok" onclick="confirmTime()">Confirmer</button>
+    <div class="sheet-div"></div>
+    <div class="sheet-acts">
+      <button class="sheet-cancel" onclick="closeTimeCancel()">Annuler</button>
+      <button class="sheet-ok" onclick="confirmTime()">Confirmer</button>
     </div>
   </div>
 </div>
 
-<!-- ════ PAGE ACCUEIL ════ -->
+<!-- ══════ PAGE: ACCUEIL ══════ -->
 <div class="pg on" id="pg-home">
   <div class="tbar">
     <div class="tbar-row">
@@ -272,44 +345,49 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
       </div>
     </div>
     <div class="seclbl">Mes coffres</div>
-    <div id="vaultlist"><div class="empty"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><p>Aucun coffre pour le moment.<br>Appuyez sur <strong>+</strong> pour créer votre premier coffre.</p></div></div>
+    <div id="vaultlist">
+      <div class="empty">
+        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        <p>Aucun coffre pour le moment.<br>Appuyez sur <strong>+</strong> pour créer votre premier coffre.</p>
+      </div>
+    </div>
   </div></div>
   <nav class="bnav">
-    <button class="nbtn on" onclick="tab('home')"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Coffres</button>
-    <button class="nbtn" onclick="tab('hist')"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Historique</button>
-    <button class="nbtn" onclick="tab('about')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>À propos</button>
+    <button class="nbtn on" onclick="goTab('home')"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Coffres</button>
+    <button class="nbtn" onclick="goTab('hist')"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Historique</button>
+    <button class="nbtn" onclick="goTab('about')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>À propos</button>
   </nav>
 </div>
 
-<!-- ════ PAGE CRÉER COFFRE ════ -->
+<!-- ══════ PAGE: CRÉER COFFRE ══════ -->
 <div class="pg off-r" id="pg-new-vault">
   <div class="tbar">
-    <div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:36px"></div></div>
-    <h1>Créer un coffre</h1>
-    <p>Nom et date de déblocage</p>
+    <div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:38px"></div></div>
+    <h1>Nouveau coffre</h1>
+    <p>Nommez votre coffre et fixez la date de déblocage</p>
   </div>
   <div class="scroll"><div class="pad">
     <div class="sbar"><div class="sdot"></div><div class="slbl">Heure serveur (non modifiable)</div><div class="stime" id="ck1">--:--:--</div></div>
-    <div class="wbox"><svg viewBox="0 0 24 24"><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/></svg><span>Un coffre a un nom et une date de déblocage fixe. Vous pourrez y ajouter de l'argent autant de fois que vous voulez, mais aucun retrait n'est possible avant la date choisie.</span></div>
+    <div class="wbox"><svg viewBox="0 0 24 24"><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/></svg><span>L'argent versé dans ce coffre sera bloqué jusqu'à la date choisie. Vous pouvez ajouter des versements à tout moment, mais aucun retrait n'est possible avant l'échéance.</span></div>
     <div class="igrp">
       <div class="irow">
         <div class="iico"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></div>
-        <div class="iwrap"><label>Nom du coffre</label><input type="text" id="nv-name" placeholder="Ex : École, Vacances, Loyer..."></div>
+        <div class="iwrap"><label>Nom du coffre</label><input type="text" id="nv-name" placeholder="Ex : École, Vacances, Loyer..." oninput="nvCheck()"></div>
       </div>
-      <div class="irow" onclick="openDatePicker('nv')" style="cursor:pointer;">
+      <div class="irow irow-tap" onclick="openDatePicker('nv')">
         <div class="iico"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
-        <div class="iwrap"><label>Date de déblocage</label><div class="picker-trigger empty-val" id="nv-date-display">Choisir une date</div></div>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#9e9e9e"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        <div class="iwrap"><label>Date de déblocage</label><div class="picker-trigger pmt" id="nv-date-disp">Choisir une date</div></div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#9e9e9e"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
       </div>
-      <div class="irow" onclick="openTimePicker('nv')" style="cursor:pointer;">
+      <div class="irow irow-tap" onclick="openTimePicker('nv')">
         <div class="iico"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
-        <div class="iwrap"><label>Heure de déblocage</label><div class="picker-trigger empty-val" id="nv-time-display">Choisir une heure</div></div>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#9e9e9e"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        <div class="iwrap"><label>Heure de déblocage</label><div class="picker-trigger pmt" id="nv-time-disp">Choisir une heure</div></div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#9e9e9e"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
       </div>
     </div>
     <div class="ebox" id="nv-err"></div>
     <div class="prevbox" id="nv-prev">
-      <div class="prevrow"><span class="pl">Nom du coffre</span><span class="pv" id="nvp-name">—</span></div>
+      <div class="prevrow"><span class="pl">Coffre</span><span class="pv" id="nvp-name">—</span></div>
       <div class="prevrow"><span class="pl">Déblocage le</span><span class="pv" id="nvp-date">—</span></div>
       <div class="prevrow"><span class="pl">Durée</span><span class="pr" id="nvp-days">—</span></div>
     </div>
@@ -320,25 +398,32 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
   </div></div>
 </div>
 
-<!-- ════ PAGE DÉTAIL COFFRE ════ -->
+<!-- ══════ PAGE: DÉTAIL COFFRE ══════ -->
 <div class="pg off-r" id="pg-detail">
   <div class="tbar">
-    <div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:36px"></div></div>
+    <div class="tbar-row">
+      <button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
+      <span class="logo">airtel money</span>
+      <!-- Home shortcut button -->
+      <button class="ibtn" onclick="goTab('home')" title="Accueil">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </button>
+    </div>
     <h1 id="det-title">Mon coffre</h1>
-    <p id="det-sub">Déblocage le —</p>
+    <p id="det-sub">—</p>
   </div>
   <div class="scroll"><div class="pad">
     <div class="sbar"><div class="sdot"></div><div class="slbl">Heure serveur</div><div class="stime" id="ck3">--:--:--</div></div>
     <div class="card-red">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
-        <div><div style="font-size:11px;opacity:.8;margin-bottom:4px;">Total dans ce coffre</div><div style="font-size:26px;font-weight:700;"><span style="font-size:13px;opacity:.8;margin-right:3px;">CFA</span><span id="det-total">0</span></div></div>
-        <div id="det-badge" class="mode-badge">—</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+        <div><div style="font-size:12px;opacity:.8;margin-bottom:6px;">Total dans ce coffre</div><div style="font-size:28px;font-weight:700;"><span style="font-size:14px;opacity:.8;margin-right:3px;">CFA</span><span id="det-total">0</span></div></div>
+        <div id="det-badge" class="mbadge">—</div>
       </div>
       <div style="height:5px;background:rgba(255,255,255,.25);border-radius:100px;overflow:hidden;"><div id="det-prog" style="height:100%;background:#fff;border-radius:100px;width:3%;transition:width .4s;"></div></div>
     </div>
-    <div class="card" style="padding:13px 16px;">
-      <div style="font-size:11px;color:var(--g400);margin-bottom:3px;">Votre solde Airtel Money disponible</div>
-      <div style="font-size:20px;font-weight:700;"><span style="font-size:12px;color:var(--g400);margin-right:3px;">CFA</span><span id="det-bal">50 000</span></div>
+    <div class="card" style="padding:16px 20px;">
+      <div style="font-size:11px;color:var(--g400);margin-bottom:6px;font-weight:500;">Votre solde Airtel Money disponible</div>
+      <div style="font-size:22px;font-weight:700;"><span style="font-size:13px;color:var(--g400);margin-right:3px;">CFA</span><span id="det-bal">50 000</span></div>
     </div>
     <button class="btnp" id="det-add-btn" onclick="openAddDeposit()">
       <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
@@ -351,18 +436,18 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
   </div></div>
 </div>
 
-<!-- ════ PAGE AJOUTER VERSEMENT ════ -->
-<div class="pg off-r" id="pg-add-deposit">
+<!-- ══════ PAGE: AJOUTER VERSEMENT ══════ -->
+<div class="pg off-r" id="pg-add-dep">
   <div class="tbar">
-    <div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:36px"></div></div>
-    <h1>Ajouter un versement</h1>
-    <p id="add-dep-vault-name">Coffre : —</p>
+    <div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:38px"></div></div>
+    <h1>Nouveau versement</h1>
+    <p id="add-dep-sub">Coffre : —</p>
   </div>
   <div class="scroll"><div class="pad">
     <div class="sbar"><div class="sdot"></div><div class="slbl">Heure serveur (non modifiable)</div><div class="stime" id="ck2">--:--:--</div></div>
-    <div class="card" style="padding:13px 16px;">
-      <div style="font-size:11px;color:var(--g400);margin-bottom:3px;">Solde disponible</div>
-      <div style="font-size:22px;font-weight:700;"><span style="font-size:12px;color:var(--g400);margin-right:3px;">CFA</span><span id="ad-bal">50 000</span></div>
+    <div class="card" style="padding:16px 20px;">
+      <div style="font-size:11px;color:var(--g400);margin-bottom:6px;font-weight:500;">Solde disponible</div>
+      <div style="font-size:22px;font-weight:700;"><span style="font-size:13px;color:var(--g400);margin-right:3px;">CFA</span><span id="ad-bal">50 000</span></div>
     </div>
     <div class="igrp">
       <div class="irow">
@@ -378,21 +463,21 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
       <div class="prevrow"><span class="pl">Déblocage le</span><span class="pv" id="adp-date">—</span></div>
     </div>
     <div class="ebox" id="ad-err"></div>
-    <div class="wbox"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><span>Cet argent rejoindra votre coffre et sera bloqué jusqu'à la date de déblocage. Modifier l'heure de votre téléphone est sans effet.</span></div>
+    <div class="wbox"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><span>Cet argent sera bloqué dans le coffre jusqu'à la date de déblocage. Modifier l'heure de votre téléphone est sans effet.</span></div>
     <button class="btnp" id="ad-btn" onclick="goAdConfirm()" disabled><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Continuer</button>
   </div></div>
 </div>
 
-<!-- ════ PAGE CONFIRMATION ════ -->
+<!-- ══════ PAGE: CONFIRMATION ══════ -->
 <div class="pg off-r" id="pg-cf">
   <div class="tbar">
-    <div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:36px"></div></div>
-    <h1>Confirmation</h1><p>Vérifiez avant de verser</p>
+    <div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:38px"></div></div>
+    <h1>Confirmation</h1><p>Vérifiez avant de confirmer</p>
   </div>
   <div class="scroll"><div class="pad">
     <div class="cfhero">
       <div class="cficon"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
-      <div class="cflbl">Versement dans le coffre</div>
+      <div class="cflbl">Montant à placer dans le coffre</div>
       <div class="cfnum"><span class="cfcfa">CFA</span><span id="cf-amt">—</span></div>
     </div>
     <div class="cflist">
@@ -404,64 +489,64 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
       <div class="cfrow"><span class="cl">Retrait anticipé</span><span class="cr">Impossible</span></div>
       <div class="cfrow"><span class="cl">Manip. heure tél.</span><span class="cr">Sans effet</span></div>
     </div>
-    <div class="wbox"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><span>Une fois confirmé, ce montant sera indisponible jusqu'à la date de déblocage du coffre. Action irréversible.</span></div>
-    <button class="btnp" onclick="execDeposit()"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Verser dans le coffre</button>
+    <div class="wbox"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><span>Une fois confirmé, ce montant sera indisponible jusqu'à la date de déblocage. Action irréversible.</span></div>
+    <button class="btnp" onclick="execDeposit()"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Confirmer le versement</button>
     <button class="btns" onclick="back()">Annuler</button>
   </div></div>
 </div>
 
-<!-- ════ PAGE SUCCÈS ════ -->
+<!-- ══════ PAGE: SUCCÈS ══════ -->
 <div class="pg off-r" id="pg-suc">
-  <div class="tbar" style="padding-bottom:14px;"><div class="tbar-row"><span class="logo">airtel money</span></div></div>
+  <div class="tbar" style="padding-bottom:18px;"><div class="tbar-row"><span class="logo">airtel money</span></div></div>
   <div class="scroll"><div class="sucwrap">
     <div class="sucico"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-    <div class="suctitle" id="suc-title">Versement effectué !</div>
+    <div class="suctitle">Versement effectué !</div>
     <div class="sucsub" id="suc-msg">—</div>
     <div class="sbar" style="width:100%;"><div class="sdot"></div><div class="slbl">Heure serveur</div><div class="stime" id="ck4">--:--:--</div></div>
     <div class="ibox" style="width:100%;text-align:left;"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><span>Le déblocage sera effectué automatiquement par le serveur Airtel à la date programmée.</span></div>
     <div class="sucbtns">
-      <button class="btnp" id="suc-btn-detail" onclick="goDetailAfterSuccess()">Voir mon coffre</button>
-      <button class="btns" onclick="tab('home')">Retour à l'accueil</button>
+      <button class="btnp" onclick="sucViewVault()">Voir mon coffre</button>
+      <button class="btns" onclick="goTab('home')">Retour à l'accueil</button>
     </div>
   </div></div>
 </div>
 
-<!-- ════ PAGE HISTORIQUE ════ -->
+<!-- ══════ PAGE: HISTORIQUE ══════ -->
 <div class="pg off-r" id="pg-hist">
   <div class="tbar"><div class="tbar-row"><span class="logo">airtel money</span></div><h1>Historique</h1><p>Tous les versements</p></div>
   <div class="scroll"><div class="pad"><div id="histlist"><div class="empty"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg><p>Aucun historique.</p></div></div></div></div>
   <nav class="bnav">
-    <button class="nbtn" onclick="tab('home')"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Coffres</button>
-    <button class="nbtn on" onclick="tab('hist')"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Historique</button>
-    <button class="nbtn" onclick="tab('about')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>À propos</button>
+    <button class="nbtn" onclick="goTab('home')"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Coffres</button>
+    <button class="nbtn on" onclick="goTab('hist')"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Historique</button>
+    <button class="nbtn" onclick="goTab('about')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>À propos</button>
   </nav>
 </div>
 
-<!-- ════ PAGE À PROPOS ════ -->
+<!-- ══════ PAGE: À PROPOS ══════ -->
 <div class="pg off-r" id="pg-about">
   <div class="tbar"><div class="tbar-row"><span class="logo">airtel money</span></div><h1>À propos</h1><p>Coffre-Fort Airtel Money</p></div>
   <div class="scroll"><div class="pad">
-    <div class="card" style="display:flex;flex-direction:column;gap:6px;"><div style="font-size:13px;font-weight:700;">Comment ça marche ?</div><div style="font-size:12px;color:var(--g600);line-height:1.7;">Créez un coffre avec un nom et une date de déblocage. Versez de l'argent quand vous voulez — autant de fois que vous souhaitez. Le total est bloqué jusqu'à la date choisie. Aucun retrait n'est possible avant. Vous pouvez avoir plusieurs coffres.</div></div>
-    <div class="card" style="display:flex;flex-direction:column;gap:6px;"><div style="font-size:13px;font-weight:700;">Heure serveur</div><div style="font-size:12px;color:var(--g600);line-height:1.7;">La date de déblocage est vérifiée exclusivement côté serveur Airtel. Modifier l'heure de votre téléphone n'a aucun effet sur le verrouillage.</div></div>
-    <div class="card" style="display:flex;flex-direction:column;gap:6px;"><div style="font-size:12px;color:var(--g400);font-weight:600;">Proposé par</div><div style="font-size:16px;font-weight:700;color:var(--red);">BOULOUDI MOUNGUENGUI</div><div style="font-size:13px;color:var(--g600);">Claine Pascal — 077 976 906</div><div style="font-size:12px;color:var(--g400);">Libreville, Gabon — 2026</div></div>
-    <div class="card"><div style="font-size:12px;color:var(--g600);margin-bottom:10px;">Prototype de démonstration — solde simulé à 50 000 CFA.</div><button class="btns" onclick="resetApp()" style="font-size:13px;padding:11px;">Réinitialiser (50 000 CFA)</button></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:10px;"><div style="font-size:14px;font-weight:700;">Comment ça marche ?</div><div style="font-size:13px;color:var(--g600);line-height:1.8;">Créez un coffre avec un nom et une date de déblocage. Versez de l'argent quand vous voulez, autant de fois que vous souhaitez. Tout est bloqué jusqu'à la date choisie — aucun retrait possible avant.</div></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:10px;"><div style="font-size:14px;font-weight:700;">Heure serveur</div><div style="font-size:13px;color:var(--g600);line-height:1.8;">La date de déblocage est vérifiée exclusivement côté serveur Airtel. Modifier l'heure de votre téléphone n'a aucun effet sur le verrouillage.</div></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:10px;"><div style="font-size:12px;color:var(--g400);font-weight:600;">Proposé par</div><div style="font-size:17px;font-weight:700;color:var(--red);">BOULOUDI MOUNGUENGUI</div><div style="font-size:14px;color:var(--g600);">Claine Pascal — 077 976 906</div><div style="font-size:12px;color:var(--g400);margin-top:2px;">Libreville, Gabon — 2026</div></div>
+    <div class="card"><div style="font-size:13px;color:var(--g600);margin-bottom:14px;">Prototype de démonstration — solde simulé à 50 000 CFA.</div><button class="btns" onclick="resetApp()" style="font-size:13px;padding:13px;">Réinitialiser (50 000 CFA)</button></div>
   </div></div>
   <nav class="bnav">
-    <button class="nbtn" onclick="tab('home')"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Coffres</button>
-    <button class="nbtn" onclick="tab('hist')"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Historique</button>
-    <button class="nbtn on" onclick="tab('about')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>À propos</button>
+    <button class="nbtn" onclick="goTab('home')"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Coffres</button>
+    <button class="nbtn" onclick="goTab('hist')"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Historique</button>
+    <button class="nbtn on" onclick="goTab('about')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>À propos</button>
   </nav>
 </div>
 
 </div><!-- #app -->
 <script>
-// ── STATE ──────────────────────────────────
-const SK='cfa_v5';
+// ── STATE ──────────────────────────────────────────────────────────
+const SK='cfa_v6';
 function load(){try{const r=localStorage.getItem(SK);if(r)return JSON.parse(r);}catch(e){}return{bal:50000,vaults:[]};}
 function save(){localStorage.setItem(SK,JSON.stringify(S));}
-let S=load(), stk=['pg-home'], curVaultId=null, pendingAmt=0;
+let S=load(), stk=['pg-home'], curVid=null, pendingAmt=0;
 
-// ── NAV ────────────────────────────────────
+// ── NAVIGATION ─────────────────────────────────────────────────────
 function go(id){
   const cur=stk[stk.length-1];
   document.getElementById(cur).className='pg off-l';
@@ -474,19 +559,19 @@ function back(){
   document.getElementById(cur).className='pg off-r';
   document.getElementById(stk[stk.length-1]).className='pg on';
 }
-function tab(t){
+function goTab(t){
   const m={home:'pg-home',hist:'pg-hist',about:'pg-about'};
   const target=m[t];
-  ['pg-home','pg-hist','pg-about','pg-new-vault','pg-detail','pg-add-deposit','pg-cf','pg-suc'].forEach(id=>{
+  ['pg-home','pg-hist','pg-about','pg-new-vault','pg-detail','pg-add-dep','pg-cf','pg-suc'].forEach(id=>{
     document.getElementById(id).className='pg off-r';
   });
   document.getElementById(target).className='pg on';
   stk=[target];
   if(t==='hist')renderHist();
-  if(t==='home')renderHome();
+  if(t==='home'){renderHome();window.scrollTo&&window.scrollTo(0,0);}
 }
 
-// ── CLOCK ──────────────────────────────────
+// ── CLOCK ──────────────────────────────────────────────────────────
 function tick(){
   const t=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   ['ck0','ck1','ck2','ck3','ck4'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=t;});
@@ -494,139 +579,117 @@ function tick(){
 setInterval(tick,1000);tick();
 setInterval(renderHome,60000);
 
-// ── FORMAT ─────────────────────────────────
+// ── FORMAT ─────────────────────────────────────────────────────────
 const fN=n=>Math.round(n).toLocaleString('fr-FR');
 const fD=d=>d.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
 const fDs=d=>d.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'});
 const dL=ts=>Math.max(0,Math.ceil((ts-Date.now())/86400000));
 const MONTHS=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 
-// ── DATE PICKER ────────────────────────────
-let dpYear=0, dpMonth=0, dpSelected=null, dpCallback=null, dpContext='';
+// ── DATE PICKER ────────────────────────────────────────────────────
+let dpY=0,dpM=0,dpSel=null,dpCtx='';
 
 function openDatePicker(ctx){
-  dpContext=ctx;
+  dpCtx=ctx;
   const today=new Date();
-  dpYear=today.getFullYear();
-  dpMonth=today.getMonth();
-  dpSelected=null;
-  renderCalendar();
+  dpY=today.getFullYear();dpM=today.getMonth();
+  dpSel=null;
+  renderCal();
   document.getElementById('sheet-date').classList.add('open');
 }
-function closeSheetDate(e){if(e.target===document.getElementById('sheet-date'))closeSheetDateCancel();}
-function closeSheetDateCancel(){document.getElementById('sheet-date').classList.remove('open');}
+function closeDateCancel(){document.getElementById('sheet-date').classList.remove('open');}
 function confirmDate(){
-  if(!dpSelected)return;
-  const d=dpSelected;
-  const label=fDs(d);
-  document.getElementById(dpContext+'-date-display').textContent=label;
-  document.getElementById(dpContext+'-date-display').classList.remove('empty-val');
+  if(!dpSel)return;
+  document.getElementById(dpCtx+'-date-disp').textContent=fDs(dpSel);
+  document.getElementById(dpCtx+'-date-disp').classList.remove('pmt');
   document.getElementById('sheet-date').classList.remove('open');
-  if(dpContext==='nv')nvChange();
+  nvCheck();
 }
-function dpPrevMonth(){dpMonth--;if(dpMonth<0){dpMonth=11;dpYear--;}renderCalendar();}
-function dpNextMonth(){dpMonth++;if(dpMonth>11){dpMonth=0;dpYear++;}renderCalendar();}
-function renderCalendar(){
-  document.getElementById('dp-month-lbl').textContent=MONTHS[dpMonth]+' '+dpYear;
+function dpPrev(){dpM--;if(dpM<0){dpM=11;dpY--;}renderCal();}
+function dpNext(){dpM++;if(dpM>11){dpM=0;dpY++;}renderCal();}
+function renderCal(){
+  document.getElementById('dp-lbl').textContent=MONTHS[dpM]+' '+dpY;
   const today=new Date();today.setHours(0,0,0,0);
-  const tomorrow=new Date(today);tomorrow.setDate(tomorrow.getDate()+1);
-  const firstDay=new Date(dpYear,dpMonth,1);
-  let startDow=firstDay.getDay();
-  startDow=(startDow+6)%7; // Monday=0
-  const daysInMonth=new Date(dpYear,dpMonth+1,0).getDate();
-  let html='';
-  for(let i=0;i<startDow;i++) html+='<div></div>';
-  for(let d=1;d<=daysInMonth;d++){
-    const date=new Date(dpYear,dpMonth,d);
+  const tom=new Date(today);tom.setDate(tom.getDate()+1);
+  let startDow=new Date(dpY,dpM,1).getDay();
+  startDow=(startDow+6)%7;
+  const dim=new Date(dpY,dpM+1,0).getDate();
+  let h='';
+  for(let i=0;i<startDow;i++)h+='<div></div>';
+  for(let d=1;d<=dim;d++){
+    const date=new Date(dpY,dpM,d);
     const isToday=date.toDateString()===today.toDateString();
-    const isPast=date<tomorrow;
-    const isSel=dpSelected&&date.toDateString()===dpSelected.toDateString();
-    html+=`<button class="dp-day ${isToday?'today':''} ${isSel?'selected':''}" ${isPast?'disabled':''} onclick="selectDay(${dpYear},${dpMonth},${d})">${d}</button>`;
+    const isPast=date<tom;
+    const isSel=dpSel&&date.toDateString()===dpSel.toDateString();
+    h+=`<button class="dp-day${isToday?' today':''}${isSel?' sel':''}" ${isPast?'disabled':''} onclick="dpPick(${dpY},${dpM},${d})">${d}</button>`;
   }
-  document.getElementById('dp-days').innerHTML=html;
+  document.getElementById('dp-days').innerHTML=h;
 }
-function selectDay(y,m,d){
-  dpSelected=new Date(y,m,d);
-  renderCalendar();
-}
+function dpPick(y,m,d){dpSel=new Date(y,m,d);renderCal();}
 
-// ── TIME PICKER ────────────────────────────
-let tpHour=8, tpMin=0, tpCallback=null, tpContext='';
-// Store selected values per context
+// ── TIME PICKER ─────────────────────────────────────────────────────
+let tpH=8,tpMin=0,tpCtx='';
 const tpVals={};
 
-function buildTimeScroll(){
-  const hoursEl=document.getElementById('tp-hours');
-  const minsEl=document.getElementById('tp-mins');
-  // Build hours 0-23
-  let hHtml='<div class="tp-item" style="height:60px"></div>';
-  for(let h=0;h<24;h++) hHtml+=`<div class="tp-item" data-val="${h}" onclick="tpSelectHour(${h})">${String(h).padStart(2,'0')}</div>`;
-  hHtml+='<div class="tp-item" style="height:60px"></div>';
-  hoursEl.innerHTML=hHtml;
-  // Build minutes 0-55 step 5
-  let mHtml='<div class="tp-item" style="height:60px"></div>';
-  for(let m=0;m<60;m+=5) mHtml+=`<div class="tp-item" data-val="${m}" onclick="tpSelectMin(${m})">${String(m).padStart(2,'0')}</div>`;
-  mHtml+='<div class="tp-item" style="height:60px"></div>';
-  minsEl.innerHTML=mHtml;
-}
-
-function tpScrollTo(type,val){
-  const inner=document.getElementById(type==='h'?'tp-hours':'tp-mins');
-  const items=[...inner.querySelectorAll('[data-val]')];
-  items.forEach(el=>{
-    const v=parseInt(el.dataset.val);
-    const active=(type==='h'&&v===tpHour)||(type==='m'&&v===tpMin);
-    el.classList.toggle('active',active);
-  });
-  // Scroll
-  const idx=items.findIndex(el=>parseInt(el.dataset.val)===(type==='h'?tpHour:tpMin));
-  if(idx>=0){
-    const scrollEl=document.getElementById(type==='h'?'tp-hours-scroll':'tp-mins-scroll');
-    scrollEl.scrollTop=(idx)*40+60-60; // center
-    scrollEl.scrollTop=idx*40;
+function buildDrum(id,count,cur){
+  const el=document.getElementById(id);
+  let h='<div class="tp-spacer"></div>';
+  for(let i=0;i<count;i++){
+    h+=`<div class="tp-item${i===cur?' active':''}" data-v="${i}">${String(i).padStart(2,'0')}</div>`;
   }
+  h+='<div class="tp-spacer"></div>';
+  el.innerHTML=h;
+  // Scroll to current without animation
+  el.style.scrollBehavior='auto';
+  el.scrollTop=cur*50;
+  setTimeout(()=>{el.style.scrollBehavior='smooth';},50);
+  // Snap on scroll end
+  let timer;
+  el.addEventListener('scroll',()=>{
+    clearTimeout(timer);
+    timer=setTimeout(()=>{
+      const idx=Math.round(el.scrollTop/50);
+      const clamped=Math.max(0,Math.min(idx,count-1));
+      el.scrollTop=clamped*50;
+      if(id==='drum-h')tpH=clamped;
+      else tpMin=clamped;
+      el.querySelectorAll('.tp-item').forEach((it,i)=>it.classList.toggle('active',i===clamped));
+    },100);
+  },{passive:true});
 }
-
-function tpSelectHour(h){tpHour=h;tpScrollTo('h',h);}
-function tpSelectMin(m){tpMin=m;tpScrollTo('m',m);}
 
 function openTimePicker(ctx){
-  tpContext=ctx;
-  tpHour=tpVals[ctx]?tpVals[ctx].h:8;
+  tpCtx=ctx;
+  tpH=tpVals[ctx]?tpVals[ctx].h:8;
   tpMin=tpVals[ctx]?tpVals[ctx].m:0;
-  buildTimeScroll();
-  setTimeout(()=>{tpScrollTo('h',tpHour);tpScrollTo('m',tpMin);},50);
+  buildDrum('drum-h',24,tpH);
+  buildDrum('drum-m',60,tpMin);
   document.getElementById('sheet-time').classList.add('open');
 }
-function closeSheetTime(e){if(e.target===document.getElementById('sheet-time'))closeSheetTimeCancel();}
-function closeSheetTimeCancel(){document.getElementById('sheet-time').classList.remove('open');}
+function closeTimeCancel(){document.getElementById('sheet-time').classList.remove('open');}
 function confirmTime(){
-  tpVals[tpContext]={h:tpHour,m:tpMin};
-  const label=String(tpHour).padStart(2,'0')+':'+String(tpMin).padStart(2,'0');
-  document.getElementById(tpContext+'-time-display').textContent=label;
-  document.getElementById(tpContext+'-time-display').classList.remove('empty-val');
+  tpVals[tpCtx]={h:tpH,m:tpMin};
+  const label=String(tpH).padStart(2,'0')+':'+String(tpMin).padStart(2,'0');
+  document.getElementById(tpCtx+'-time-disp').textContent=label;
+  document.getElementById(tpCtx+'-time-disp').classList.remove('pmt');
   document.getElementById('sheet-time').classList.remove('open');
-  if(tpContext==='nv')nvChange();
+  nvCheck();
 }
 
-// ── VAULT FORM ─────────────────────────────
-function getUnlockTs(ctx){
-  const dateDisp=document.getElementById(ctx+'-date-display').textContent;
-  if(!dateDisp||dateDisp==='Choisir une date')return null;
-  if(!dpSelected&&ctx==='nv')return null;
-  const d=ctx==='nv'?dpSelected:null;
-  if(!d)return null;
-  const h=tpVals[ctx]?tpVals[ctx].h:0;
-  const m=tpVals[ctx]?tpVals[ctx].m:0;
-  return new Date(d.getFullYear(),d.getMonth(),d.getDate(),h,m,0).getTime();
+// ── VAULT FORM ─────────────────────────────────────────────────────
+function getUnlockTs(){
+  if(!dpSel)return null;
+  const h=tpVals['nv']?tpVals['nv'].h:0;
+  const m=tpVals['nv']?tpVals['nv'].m:0;
+  return new Date(dpSel.getFullYear(),dpSel.getMonth(),dpSel.getDate(),h,m,0).getTime();
 }
 
-function nvChange(){
+function nvCheck(){
   const err=document.getElementById('nv-err');
   const prev=document.getElementById('nv-prev');
   const btn=document.getElementById('nv-btn');
   err.style.display='none';prev.style.display='none';btn.disabled=true;
-  const ts=getUnlockTs('nv');
+  const ts=getUnlockTs();
   if(!ts)return;
   if(ts<=Date.now()){err.textContent='La date doit être dans le futur (heure serveur).';err.style.display='block';return;}
   const days=Math.ceil((ts-Date.now())/86400000);
@@ -640,53 +703,75 @@ function nvChange(){
 
 function createVault(){
   const name=(document.getElementById('nv-name').value.trim()||'Mon coffre');
-  const ts=getUnlockTs('nv');
+  const ts=getUnlockTs();
   if(!ts||ts<=Date.now())return;
   const vault={id:'v'+Date.now(),name,unlockTs:ts,createdAt:Date.now(),deposits:[]};
   S.vaults.push(vault);save();renderHome();
   // Reset form
   document.getElementById('nv-name').value='';
-  document.getElementById('nv-date-display').textContent='Choisir une date';
-  document.getElementById('nv-date-display').classList.add('empty-val');
-  document.getElementById('nv-time-display').textContent='Choisir une heure';
-  document.getElementById('nv-time-display').classList.add('empty-val');
+  document.getElementById('nv-date-disp').textContent='Choisir une date';
+  document.getElementById('nv-date-disp').classList.add('pmt');
+  document.getElementById('nv-time-disp').textContent='Choisir une heure';
+  document.getElementById('nv-time-disp').classList.add('pmt');
   document.getElementById('nv-prev').style.display='none';
   document.getElementById('nv-btn').disabled=true;
-  dpSelected=null;delete tpVals['nv'];
-  curVaultId=vault.id;
+  dpSel=null;delete tpVals['nv'];
+  curVid=vault.id;
+  // Go to detail — stack so back returns to new-vault form, but also offer home
   openDetail(vault.id);
+  showToast('Coffre "'+name+'" créé !');
 }
 
-// ── RENDER HOME ────────────────────────────
+// ── RENDER HOME ─────────────────────────────────────────────────────
 function renderHome(){
-  const allTotal=S.vaults.reduce((s,v)=>s+v.deposits.reduce((a,d)=>a+d.amount,0),0);
+  const allTot=S.vaults.reduce((s,v)=>s+v.deposits.reduce((a,d)=>a+d.amount,0),0);
   document.getElementById('hbal').textContent=fN(S.bal);
-  document.getElementById('hvlt').textContent=fN(allTotal);
+  document.getElementById('hvlt').textContent=fN(allTot);
   const list=document.getElementById('vaultlist');
-  if(!S.vaults.length){list.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><p>Aucun coffre pour le moment.<br>Appuyez sur <strong>+</strong> pour créer votre premier coffre.</p></div>';return;}
+  if(!S.vaults.length){
+    list.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><p>Aucun coffre pour le moment.<br>Appuyez sur <strong>+</strong> pour créer votre premier coffre.</p></div>';
+    return;
+  }
   list.innerHTML=S.vaults.map(v=>{
     const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
     const days=dL(v.unlockTs);const done=days===0;
     const ul=new Date(v.unlockTs);
     const totalD=Math.max(1,Math.ceil((v.unlockTs-v.createdAt)/86400000));
     const pct=Math.max(3,Math.min(97,Math.round(((totalD-days)/totalD)*100)));
-    return`<div class="vcard"><div class="vcard-head"><div><div class="vcard-name">${v.name}</div><div class="vcard-date">Déblocage le ${fDs(ul)}</div></div><div><div class="vcard-amtlbl">Total</div><div class="vcard-amt">CFA ${fN(tot)}</div></div></div><div class="vcard-body"><div class="vcard-prog"><div class="vcard-progf ${done?'done':''}" style="width:${pct}%"></div></div><div class="vcard-row"><span class="vl">Versements</span><span class="vv">${v.deposits.length} versement${v.deposits.length!==1?'s':''}</span></div><div class="vcard-row"><span class="vl">Statut</span><span class="${done?'vg':'vr'}">${done?'✓ Débloqué':days+' jour'+(days>1?'s':'')+' restants'}</span></div></div><div class="vcard-actions"><button class="vbtn-add" onclick="openDetail('${v.id}')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Verser</button><button class="vbtn-detail" onclick="openDetail('${v.id}')">Détails</button></div></div>`;
+    return`<div class="vcard">
+      <div class="vcard-head">
+        <div><div class="vcard-name">${v.name}</div><div class="vcard-date">Déblocage le ${fDs(ul)}</div></div>
+        <div><div class="vcard-amtlbl">Total</div><div class="vcard-amt">CFA ${fN(tot)}</div></div>
+      </div>
+      <div class="vcard-body">
+        <div class="vcard-prog"><div class="vcard-progf ${done?'done':''}" style="width:${pct}%"></div></div>
+        <div class="vcard-row"><span class="vl">Versements</span><span class="vv">${v.deposits.length} versement${v.deposits.length!==1?'s':''}</span></div>
+        <div class="vcard-row"><span class="vl">Statut</span><span class="${done?'vg':'vr'}">${done?'✓ Débloqué':days+' jour'+(days>1?'s':'')+' restants'}</span></div>
+      </div>
+      <div class="vcard-actions">
+        <button class="vbtn-add" onclick="openDetail('${v.id}')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Verser</button>
+        <button class="vbtn-detail" onclick="openDetail('${v.id}')">Détails</button>
+      </div>
+    </div>`;
   }).join('');
 }
 
-// ── RENDER HISTORY ─────────────────────────
+// ── RENDER HISTORY ──────────────────────────────────────────────────
 function renderHist(){
   const all=[];
   S.vaults.forEach(v=>v.deposits.forEach(d=>all.push({...d,vaultName:v.name,unlockTs:v.unlockTs})));
   all.sort((a,b)=>b.date-a.date);
   const list=document.getElementById('histlist');
   if(!all.length){list.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg><p>Aucun historique.</p></div>';return;}
-  list.innerHTML=all.map(d=>{const done=dL(d.unlockTs)===0;return`<div class="hitem"><div class="hdot ${done?'done':''}"></div><div class="hinfo"><div class="hname">Coffre : ${d.vaultName}</div><div class="hdate">Versé le ${fDs(new Date(d.date))}</div></div><div class="hright"><div class="hamt">CFA ${fN(d.amount)}</div><div class="hstat">${done?'✓ Débloqué':'Verr. jusqu\'au '+fDs(new Date(d.unlockTs))}</div></div></div>`;}).join('');
+  list.innerHTML=all.map(d=>{
+    const done=dL(d.unlockTs)===0;
+    return`<div class="hitem"><div class="hdot ${done?'done':''}"></div><div class="hinfo"><div class="hname">Coffre : ${d.vaultName}</div><div class="hdate">Versé le ${fDs(new Date(d.date))}</div></div><div class="hright"><div class="hamt">CFA ${fN(d.amount)}</div><div class="hstat">${done?'✓ Débloqué':'Verr. jusqu\'au '+fDs(new Date(d.unlockTs))}</div></div></div>`;
+  }).join('');
 }
 
-// ── DETAIL ─────────────────────────────────
+// ── DETAIL ──────────────────────────────────────────────────────────
 function openDetail(vid){
-  curVaultId=vid;
+  curVid=vid;
   const v=S.vaults.find(x=>x.id===vid);if(!v)return;
   const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
   const days=dL(v.unlockTs);const done=days===0;
@@ -702,15 +787,28 @@ function openDetail(vid){
   document.getElementById('det-locked-msg').style.display=done?'none':'flex';
   document.getElementById('det-open-msg').style.display=done?'flex':'none';
   const dlist=document.getElementById('det-deposits');
-  if(!v.deposits.length){dlist.innerHTML='<div style="font-size:12px;color:var(--g400);text-align:center;padding:16px 0;">Aucun versement encore. Appuyez sur le bouton ci-dessus pour verser.</div>';}
-  else{dlist.innerHTML=v.deposits.map((d,i)=>`<div class="dep-chip"><div class="dep-chip-left"><div class="dep-chip-dot"></div><div class="dep-chip-info"><div class="dcname">Versement ${i+1}</div><div class="dcdate">${fDs(new Date(d.date))}</div></div></div><div class="dep-chip-amt">CFA ${fN(d.amount)}</div></div>`).join('');}
+  if(!v.deposits.length){
+    dlist.innerHTML='<div style="font-size:13px;color:var(--g400);text-align:center;padding:20px 0;line-height:1.7;">Aucun versement encore.<br>Appuyez sur le bouton ci-dessus pour alimenter votre coffre.</div>';
+  } else {
+    dlist.innerHTML=v.deposits.map((d,i)=>`
+      <div class="dep-chip">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="dep-dot"></div>
+          <div class="dep-chip-info">
+            <div class="dcname">Versement ${i+1}</div>
+            <div class="dcdate">${fDs(new Date(d.date))}</div>
+          </div>
+        </div>
+        <div class="dep-chip-amt">CFA ${fN(d.amount)}</div>
+      </div>`).join('');
+  }
   go('pg-detail');
 }
 
-// ── ADD DEPOSIT ────────────────────────────
+// ── ADD DEPOSIT ─────────────────────────────────────────────────────
 function openAddDeposit(){
-  const v=S.vaults.find(x=>x.id===curVaultId);if(!v)return;
-  document.getElementById('add-dep-vault-name').textContent='Coffre : '+v.name;
+  const v=S.vaults.find(x=>x.id===curVid);if(!v)return;
+  document.getElementById('add-dep-sub').textContent='Coffre : '+v.name;
   document.getElementById('ad-bal').textContent=fN(S.bal);
   document.getElementById('ad-amt').value='';
   document.getElementById('ad-prev').style.display='none';
@@ -718,12 +816,12 @@ function openAddDeposit(){
   document.getElementById('ad-btn').disabled=true;
   document.getElementById('adp-vault').textContent=v.name;
   document.getElementById('adp-date').textContent=fD(new Date(v.unlockTs));
-  go('pg-add-deposit');
+  go('pg-add-dep');
 }
 
 function adChange(){
   const amt=parseFloat(document.getElementById('ad-amt').value)||0;
-  const v=S.vaults.find(x=>x.id===curVaultId);
+  const v=S.vaults.find(x=>x.id===curVid);
   const err=document.getElementById('ad-err');
   const prev=document.getElementById('ad-prev');
   const btn=document.getElementById('ad-btn');
@@ -739,7 +837,7 @@ function adChange(){
 
 function goAdConfirm(){
   const amt=parseFloat(document.getElementById('ad-amt').value)||0;
-  const v=S.vaults.find(x=>x.id===curVaultId);
+  const v=S.vaults.find(x=>x.id===curVid);
   if(!amt||!v||amt>S.bal)return;
   pendingAmt=amt;
   const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
@@ -753,30 +851,36 @@ function goAdConfirm(){
 }
 
 function execDeposit(){
-  const v=S.vaults.find(x=>x.id===curVaultId);
+  const v=S.vaults.find(x=>x.id===curVid);
   if(!v||!pendingAmt)return;
   S.bal-=pendingAmt;
   v.deposits.push({amount:pendingAmt,date:Date.now()});
   save();
   const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
-  document.getElementById('suc-msg').textContent='CFA '+fN(pendingAmt)+' versés dans le coffre "'+v.name+'". Total : CFA '+fN(tot)+' — bloqué jusqu\'au '+fDs(new Date(v.unlockTs))+'.';
+  document.getElementById('suc-msg').textContent=
+    'CFA '+fN(pendingAmt)+' versés dans "'+v.name+'".\nTotal : CFA '+fN(tot)+' — bloqué jusqu\'au '+fDs(new Date(v.unlockTs))+'.';
   pendingAmt=0;renderHome();renderHist();
-  ['pg-home','pg-hist','pg-about','pg-new-vault','pg-detail','pg-add-deposit','pg-cf'].forEach(id=>document.getElementById(id).className='pg off-l');
+  ['pg-home','pg-hist','pg-about','pg-new-vault','pg-detail','pg-add-dep','pg-cf'].forEach(id=>document.getElementById(id).className='pg off-l');
   document.getElementById('pg-suc').className='pg on';
   stk=['pg-suc'];
 }
 
-function goDetailAfterSuccess(){openDetail(curVaultId);}
+function sucViewVault(){openDetail(curVid);}
 
-// ── RESET ──────────────────────────────────
-function resetApp(){
-  if(!confirm('Réinitialiser ? Tous les coffres seront supprimés et le solde remis à 50 000 CFA.'))return;
-  localStorage.removeItem(SK);S=load();renderHome();renderHist();
-  const t=document.getElementById('toast');t.textContent='Application réinitialisée';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);
-  tab('home');
+// ── UTILS ───────────────────────────────────────────────────────────
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-// ── INIT ───────────────────────────────────
+function resetApp(){
+  if(!confirm('Réinitialiser ? Tous les coffres supprimés, solde remis à 50 000 CFA.'))return;
+  localStorage.removeItem(SK);S=load();renderHome();renderHist();
+  showToast('Application réinitialisée');goTab('home');
+}
+
+// ── INIT ────────────────────────────────────────────────────────────
 renderHome();
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
