@@ -436,11 +436,11 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
       Ajouter de l'argent dans ce coffre
     </button>
     <div class="wbox" id="det-locked-msg" style="display:none;"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><span>Ce coffre est scellé. Aucun retrait n'est possible avant la date de déblocage. Vous pouvez toujours y ajouter de l'argent.</span></div>
-    <div class="ibox" id="det-open-msg" style="display:none;"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span>Ce coffre est débloqué ! Vous pouvez retirer votre argent.</span></div>
     <button class="btn-withdraw" id="det-withdraw-btn" onclick="withdrawVault()" style="display:none;">
       <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
       Retirer vers mon solde Airtel Money
     </button>
+    <div class="ibox" id="det-open-msg" style="display:none;"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span>Votre coffre est débloqué. Appuyez sur le bouton vert ci-dessus pour récupérer votre argent sur votre solde Airtel Money.</span></div>
     <div class="seclbl">Versements effectués</div>
     <div id="det-deposits"></div>
   </div></div>
@@ -601,6 +601,7 @@ const fN=n=>Math.round(n).toLocaleString('fr-FR');
 const fD=d=>d.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
 const fDs=d=>d.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'});
 const dL=ts=>Math.max(0,Math.ceil((ts-Date.now())/86400000));
+const isDone=ts=>ts<=Date.now();
 const MONTHS=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 
 // ── DATE PICKER ────────────────────────────────────────────────────
@@ -751,7 +752,7 @@ function renderHome(){
   }
   list.innerHTML=S.vaults.map(v=>{
     const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
-    const days=dL(v.unlockTs);const done=days===0;
+    const days=dL(v.unlockTs);const done=isDone(v.unlockTs);
     const ul=new Date(v.unlockTs);
     const totalD=Math.max(1,Math.ceil((v.unlockTs-v.createdAt)/86400000));
     const pct=Math.max(3,Math.min(97,Math.round(((totalD-days)/totalD)*100)));
@@ -803,20 +804,24 @@ function openDetail(vid){
   curVid=vid;
   const v=S.vaults.find(x=>x.id===vid);if(!v)return;
   const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
-  const days=dL(v.unlockTs);const done=days===0;
+  const days=dL(v.unlockTs);
+  const done=isDone(v.unlockTs);
   const ul=new Date(v.unlockTs);
   const totalD=Math.max(1,Math.ceil((v.unlockTs-v.createdAt)/86400000));
-  const pct=Math.max(3,Math.min(97,Math.round(((totalD-days)/totalD)*100)));
+  const elapsed=totalD-days;
+  const pct=done?100:Math.max(3,Math.min(97,Math.round((elapsed/totalD)*100)));
   document.getElementById('det-title').textContent=v.name;
-  document.getElementById('det-sub').textContent='Déblocage le '+fD(ul);
+  document.getElementById('det-sub').textContent=done?'✓ Coffre débloqué':'Déblocage le '+fD(ul);
   document.getElementById('det-total').textContent=fN(tot);
   document.getElementById('det-badge').textContent=done?'✓ Débloqué':days+' j restants';
   document.getElementById('det-prog').style.width=pct+'%';
   document.getElementById('det-bal').textContent=fN(S.bal);
   document.getElementById('det-locked-msg').style.display=done?'none':'flex';
-  document.getElementById('det-open-msg').style.display=done?'flex':'none';
-  document.getElementById('det-withdraw-btn').style.display=done&&tot>0?'flex':'none';
-  document.getElementById('det-add-btn').style.display='flex';
+  document.getElementById('det-open-msg').style.display=done&&tot>0?'flex':'none';
+  document.getElementById('det-add-btn').style.display=done?'none':'flex';
+  // Withdraw button — show prominently when unlocked
+  const wb=document.getElementById('det-withdraw-btn');
+  wb.style.display=done&&tot>0?'flex':'none';
   const dlist=document.getElementById('det-deposits');
   if(!v.deposits.length){
     dlist.innerHTML='<div style="font-size:13px;color:var(--g400);text-align:center;padding:20px 0;line-height:1.7;">Aucun versement encore.<br>Appuyez sur le bouton ci-dessus pour alimenter votre coffre.</div>';
@@ -901,7 +906,8 @@ function withdrawVault(){
   if(!v)return;
   const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
   if(tot<=0)return;
-  if(!confirm('Retirer CFA '+fN(tot)+' vers votre solde Airtel Money ?'))return;
+  const msg='Retirer CFA '+fN(tot)+' vers votre solde Airtel Money ?\n\nVotre solde passera de CFA '+fN(S.bal)+' à CFA '+fN(S.bal+tot)+'.';
+  if(!confirm(msg))return;
   S.bal+=tot;
   // Mark vault as withdrawn — clear deposits, add withdrawn flag
   v.withdrawn=true;
