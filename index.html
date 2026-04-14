@@ -766,6 +766,11 @@ function renderHome(){
           <div class="vcard-prog"><div class="vcard-progf done" style="width:100%"></div></div>
           <div class="vcard-row"><span class="vl">Statut</span><span class="vg">✓ Retiré — terminé</span></div>
         </div>
+        <div class="vcard-actions">
+          <button class="vbtn-detail" onclick="deleteVault('${v.id}')" style="flex:1;color:#E3001B;border-color:#E3001B;">
+            Supprimer ce coffre
+          </button>
+        </div>
       </div>`;
     }
     return`<div class="vcard">
@@ -909,7 +914,6 @@ function withdrawVault(){
   const msg='Retirer CFA '+fN(tot)+' vers votre solde Airtel Money ?\n\nVotre solde passera de CFA '+fN(S.bal)+' à CFA '+fN(S.bal+tot)+'.';
   if(!confirm(msg))return;
   S.bal+=tot;
-  // Mark vault as withdrawn — clear deposits, add withdrawn flag
   v.withdrawn=true;
   v.withdrawnAt=Date.now();
   v.withdrawnAmount=tot;
@@ -917,7 +921,18 @@ function withdrawVault(){
   save();
   renderHome();
   showToast('CFA '+fN(tot)+' retournés sur votre solde !');
+  // Go to home and show delete option
   goTab('home');
+}
+
+function deleteVault(vid){
+  const v=S.vaults.find(x=>x.id===vid);
+  if(!v)return;
+  if(!confirm('Supprimer le coffre "'+v.name+'" ?\nCette action est irréversible.'))return;
+  S.vaults=S.vaults.filter(x=>x.id!==vid);
+  save();
+  renderHome();
+  showToast('Coffre "'+v.name+'" supprimé.');
 }
 
 function sucViewVault(){openDetail(curVid);}
