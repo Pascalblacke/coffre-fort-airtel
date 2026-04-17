@@ -462,7 +462,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
     <div class="igrp">
       <div class="irow">
         <div class="iico"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div>
-        <div class="iwrap"><label>Montant à verser</label><input type="number" id="ad-amt" placeholder="Ex : 5 000" inputmode="numeric" min="100" oninput="adChange()"></div>
+        <div class="iwrap"><label>Montant à verser</label><input type="number" id="ad-amt" placeholder="Ex : 5 000" inputmode="numeric" min="500" step="1" oninput="adChange()"></div>
         <div class="isuf">CFA</div>
       </div>
     </div>
@@ -559,7 +559,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
 <script>
 // ── STATE ──────────────────────────────────────────────────────────
 const SK='cfa_v6';
-function load(){try{const r=localStorage.getItem(SK);if(r)return JSON.parse(r);}catch(e){}return{bal:50000,vaults:[]};}
+function load(){try{const r=localStorage.getItem(SK);if(r)return JSON.parse(r);}catch(e){}return{bal:50000,vaults:[]};  // balance always stored as integer}
 function save(){localStorage.setItem(SK,JSON.stringify(S));}
 let S=load(), stk=['pg-home'], curVid=null, pendingAmt=0;
 
@@ -597,7 +597,7 @@ setInterval(tick,1000);tick();
 setInterval(renderHome,60000);
 
 // ── FORMAT ─────────────────────────────────────────────────────────
-const fN=n=>Math.round(n).toLocaleString('fr-FR');
+const fN=n=>Math.floor(n).toLocaleString('fr-FR');
 const fD=d=>d.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
 const fDs=d=>d.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'});
 const dL=ts=>Math.max(0,Math.ceil((ts-Date.now())/86400000));
@@ -861,23 +861,26 @@ function openAddDeposit(){
 }
 
 function adChange(){
-  const amt=parseFloat(document.getElementById('ad-amt').value)||0;
+  // Parse as integer to avoid float rounding issues
+  const raw=document.getElementById('ad-amt').value;
+  const amt=raw===''?0:Math.floor(parseFloat(raw));
   const v=S.vaults.find(x=>x.id===curVid);
   const err=document.getElementById('ad-err');
   const prev=document.getElementById('ad-prev');
   const btn=document.getElementById('ad-btn');
   err.style.display='none';prev.style.display='none';btn.disabled=true;
   if(!amt||!v)return;
-  if(amt<100){err.textContent='Montant minimum : 100 CFA.';err.style.display='block';return;}
+  if(amt<500){err.textContent='Montant minimum : 500 CFA.';err.style.display='block';return;}
   if(amt>S.bal){err.textContent='Solde insuffisant. Disponible : CFA '+fN(S.bal)+'.';err.style.display='block';return;}
+  const remaining=S.bal-amt;
   prev.style.display='block';
   document.getElementById('adp-amt').textContent='CFA '+fN(amt);
-  document.getElementById('adp-after').textContent='CFA '+fN(S.bal-amt);
+  document.getElementById('adp-after').textContent='CFA '+fN(remaining);
   btn.disabled=false;
 }
 
 function goAdConfirm(){
-  const amt=parseFloat(document.getElementById('ad-amt').value)||0;
+  const amt=Math.floor(parseFloat(document.getElementById('ad-amt').value)||0);
   const v=S.vaults.find(x=>x.id===curVid);
   if(!amt||!v||amt>S.bal)return;
   pendingAmt=amt;
@@ -894,7 +897,7 @@ function goAdConfirm(){
 function execDeposit(){
   const v=S.vaults.find(x=>x.id===curVid);
   if(!v||!pendingAmt)return;
-  S.bal-=pendingAmt;
+  S.bal=S.bal-pendingAmt; // exact integer subtraction
   v.deposits.push({amount:pendingAmt,date:Date.now()});
   save();
   const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
@@ -913,7 +916,7 @@ function withdrawVault(){
   if(tot<=0)return;
   const msg='Retirer CFA '+fN(tot)+' vers votre solde Airtel Money ?\n\nVotre solde passera de CFA '+fN(S.bal)+' à CFA '+fN(S.bal+tot)+'.';
   if(!confirm(msg))return;
-  S.bal+=tot;
+  S.bal=S.bal+tot; // exact integer addition
   v.withdrawn=true;
   v.withdrawnAt=Date.now();
   v.withdrawnAmount=tot;
