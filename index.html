@@ -14,256 +14,243 @@
 <style>
 :root{
   --red:#E3001B;--rdark:#B00014;--rlight:#FFF0F0;--rmid:#FFCDD2;
-  --grn:#16a34a;--grnl:#f0fdf4;
-  --g50:#f8f8f8;--g100:#f0f0f0;--g200:#e3e3e3;--g400:#9e9e9e;--g600:#555;--g900:#111;
-  --wh:#fff;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  --grn:#16a34a;--grnl:#f0fdf4;--grnd:#14532d;
+  --g50:#f8f8f8;--g100:#f0f0f0;--g200:#e3e3e3;--g400:#9e9e9e;
+  --g600:#555;--g900:#111;--wh:#fff;
+  --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
   --nav:68px;--sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g50);color:var(--g900);-webkit-font-smoothing:antialiased;}
 #app{width:100%;max-width:430px;height:100%;margin:0 auto;position:relative;overflow:hidden;background:var(--g50);}
-
-/* ── PAGES ── */
 .pg{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--g50);}
 .pg.on{transform:translateX(0);opacity:1;pointer-events:all;transition:transform .28s cubic-bezier(.4,0,.2,1),opacity .22s;}
 .pg.off-r{transform:translateX(100%);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.4,0,.2,1),opacity .22s;}
 .pg.off-l{transform:translateX(-28%);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.4,0,.2,1),opacity .22s;}
-.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-bottom:calc(var(--nav) + var(--sb) + 24px);}
-.pad{padding:20px 16px;display:flex;flex-direction:column;gap:16px;}
-
-/* ── TOP BAR ── */
-.tbar{background:var(--red);color:#fff;padding:calc(var(--st)+18px) 20px 24px;flex-shrink:0;}
-.tbar-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
-.tbar h1{font-size:24px;font-weight:700;letter-spacing:-.3px;margin-bottom:5px;}
-.tbar p{font-size:12px;opacity:.75;}
-.logo{font-size:13px;font-weight:700;opacity:.85;letter-spacing:.02em;}
-.ibtn{width:38px;height:38px;background:rgba(255,255,255,.18);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s;}
-.ibtn:active{background:rgba(255,255,255,.3);}
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-bottom:calc(var(--nav)+var(--sb)+24px);}
+.pad{padding:18px 16px;display:flex;flex-direction:column;gap:14px;}
+/* TOP BAR */
+.tbar{color:#fff;padding:calc(var(--st)+16px) 20px 22px;flex-shrink:0;}
+.tbar.red{background:var(--red);}
+.tbar.green{background:var(--grn);}
+.tbar.dark{background:var(--g900);}
+.tbar-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.tbar h1{font-size:22px;font-weight:700;letter-spacing:-.3px;margin-bottom:4px;}
+.tbar p{font-size:12px;opacity:.78;}
+.logo{font-size:13px;font-weight:700;opacity:.85;}
+.ibtn{width:38px;height:38px;background:rgba(255,255,255,.18);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
 .ibtn svg{width:20px;height:20px;fill:#fff;}
-
-/* ── BOTTOM NAV ── */
+.ibtn:active{background:rgba(255,255,255,.3);}
+/* BOTTOM NAV */
 .bnav{position:absolute;bottom:0;left:0;right:0;height:calc(var(--nav)+var(--sb));background:var(--wh);border-top:1px solid var(--g200);display:flex;align-items:flex-start;padding-top:10px;z-index:50;}
-.nbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:600;color:var(--g400);background:none;border:none;font-family:var(--font);cursor:pointer;padding:0;}
+.nbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:600;color:var(--g400);background:none;border:none;font-family:var(--font);cursor:pointer;}
 .nbtn.on{color:var(--red);}
 .nbtn svg{width:22px;height:22px;fill:currentColor;}
-
-/* ── CARDS ── */
-.card{background:var(--wh);border:1px solid var(--g200);border-radius:18px;padding:20px;}
-.card-red{background:var(--red);border-radius:18px;padding:20px;color:#fff;}
-
-/* ── BALANCE ── */
+/* CARDS */
+.card{background:var(--wh);border:1px solid var(--g200);border-radius:18px;padding:18px;}
+.card-red{background:var(--red);border-radius:18px;padding:18px;color:#fff;}
+.card-green{background:var(--grn);border-radius:18px;padding:18px;color:#fff;}
+/* BALANCE */
 .balrow{display:flex;align-items:stretch;}
-.balhalf{flex:1;text-align:center;padding:10px 8px;}
-.baldiv{width:1px;background:var(--g200);margin:4px 0;}
-.ballbl{font-size:11px;color:var(--g400);margin-bottom:8px;font-weight:500;}
+.balhalf{flex:1;text-align:center;padding:8px 6px;}
+.baldiv{width:1px;background:var(--g200);margin:2px 0;}
+.ballbl{font-size:11px;color:var(--g400);margin-bottom:7px;font-weight:500;}
 .balamt{font-size:22px;font-weight:700;}
 .balamt.red{color:var(--red);}
-.balcfa{font-size:12px;color:var(--g400);margin-right:3px;}
-
-/* ── SERVER BAR ── */
-.sbar{background:var(--wh);border:1px solid var(--g200);border-radius:14px;padding:13px 18px;display:flex;align-items:center;gap:10px;}
+.balcfa{font-size:11px;color:var(--g400);margin-right:2px;}
+/* SERVER BAR */
+.sbar{background:var(--wh);border:1px solid var(--g200);border-radius:12px;padding:11px 16px;display:flex;align-items:center;gap:10px;}
 .sdot{width:8px;height:8px;border-radius:50%;background:var(--grn);flex-shrink:0;animation:bl 2s infinite;}
 @keyframes bl{0%,100%{opacity:1;}50%{opacity:.2;}}
 .slbl{font-size:12px;color:var(--g400);flex:1;}
 .stime{font-size:12px;font-weight:500;font-family:var(--mono);}
-
-/* ── SECTION LABEL ── */
-.seclbl{font-size:11px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.08em;padding:0 2px;}
-
-/* ── VAULT CARDS ── */
+/* TYPE CHOICE */
+.type-card{background:var(--wh);border:2px solid var(--g200);border-radius:18px;padding:20px;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:14px;}
+.type-card:active{transform:scale(.98);}
+.type-card.sel-date{border-color:var(--red);background:var(--rlight);}
+.type-card.sel-goal{border-color:var(--grn);background:var(--grnl);}
+.type-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.type-icon.date{background:var(--rlight);}
+.type-icon.goal{background:var(--grnl);}
+.type-info h3{font-size:15px;font-weight:700;margin-bottom:4px;}
+.type-info p{font-size:12px;color:var(--g600);line-height:1.5;}
+.type-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--g200);margin-left:auto;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.type-check.cd{background:var(--red);border-color:var(--red);}
+.type-check.cg{background:var(--grn);border-color:var(--grn);}
+.type-check svg{width:12px;height:12px;fill:#fff;}
+/* QUICK BUTTONS */
+.quick-row{display:flex;gap:8px;flex-wrap:wrap;}
+.qbtn{flex:1;min-width:60px;padding:9px 6px;background:var(--wh);border:1.5px solid var(--g200);border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);text-align:center;color:var(--g900);transition:all .15s;}
+.qbtn.qs-date{border-color:var(--red);background:var(--rlight);color:var(--red);}
+.qbtn.qs-goal{border-color:var(--grn);background:var(--grnl);color:var(--grn);}
+.qbtn:active{opacity:.7;}
+/* SECTION LABEL */
+.seclbl{font-size:11px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.08em;}
+/* VAULT CARDS */
 .vcard{background:var(--wh);border:1px solid var(--g200);border-radius:18px;overflow:hidden;margin-bottom:14px;}
-.vcard-head{background:var(--red);padding:20px;display:flex;align-items:flex-start;justify-content:space-between;}
-.vcard-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px;}
-.vcard-date{font-size:11px;color:rgba(255,255,255,.8);}
-.vcard-amt{font-size:22px;font-weight:700;color:#fff;text-align:right;}
-.vcard-amtlbl{font-size:10px;color:rgba(255,255,255,.7);text-align:right;margin-bottom:4px;}
-.vcard-body{padding:18px 20px;}
-.vcard-prog{height:5px;background:var(--g100);border-radius:100px;overflow:hidden;margin-bottom:14px;}
-.vcard-progf{height:100%;background:var(--red);border-radius:100px;transition:width .4s;}
-.vcard-progf.done{background:var(--grn);}
-.vcard-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:10px;}
-.vcard-row:last-child{margin-bottom:0;}
-.vcard-row .vl{color:var(--g400);}
-.vcard-row .vv{font-weight:600;}
-.vcard-row .vr{font-weight:600;color:var(--red);}
-.vcard-row .vg{font-weight:600;color:var(--grn);}
-.vcard-actions{display:flex;gap:10px;padding:0 20px 20px;}
-.vbtn-add{flex:1;background:var(--red);color:#fff;border:none;border-radius:12px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity .15s;}
-.vbtn-add svg{width:15px;height:15px;fill:#fff;}
-.vbtn-add:active{opacity:.85;}
-.vbtn-detail{flex:1;background:transparent;color:var(--red);border:1.5px solid var(--red);border-radius:12px;padding:13px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:opacity .15s;}
-.vbtn-detail:active{opacity:.7;}
-
-/* ── EMPTY ── */
-.empty{text-align:center;padding:50px 20px;}
-.empty svg{width:48px;height:48px;fill:var(--g200);margin:0 auto 16px;display:block;}
+.vh-red{background:var(--red);padding:18px 20px;display:flex;align-items:flex-start;justify-content:space-between;}
+.vh-grn{background:var(--grn);padding:18px 20px;display:flex;align-items:flex-start;justify-content:space-between;}
+.vh-done{opacity:.65;}
+.vcard-name{font-size:17px;font-weight:700;color:#fff;margin-bottom:3px;}
+.vcard-type{font-size:10px;color:rgba(255,255,255,.75);font-weight:600;letter-spacing:.05em;}
+.vcard-amtlbl{font-size:10px;color:rgba(255,255,255,.7);text-align:right;margin-bottom:3px;}
+.vcard-amt{font-size:20px;font-weight:700;color:#fff;text-align:right;}
+.vcard-body{padding:15px 20px;}
+.prog-bar{height:6px;background:var(--g100);border-radius:100px;overflow:hidden;margin-bottom:11px;}
+.prog-red{height:100%;background:var(--red);border-radius:100px;transition:width .4s;}
+.prog-grn{height:100%;background:var(--grn);border-radius:100px;transition:width .4s;}
+.vrow{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:8px;}
+.vrow:last-child{margin-bottom:0;}
+.vl{color:var(--g400);}
+.vr{font-weight:600;color:var(--red);}
+.vg{font-weight:600;color:var(--grn);}
+.vv{font-weight:600;}
+.vcard-acts{display:flex;gap:10px;padding:0 20px 18px;}
+.vbtn{flex:1;border-radius:12px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:5px;transition:opacity .15s;}
+.vbtn svg{width:14px;height:14px;fill:#fff;}
+.vbtn.br{background:var(--red);color:#fff;border:none;}
+.vbtn.bg{background:var(--grn);color:#fff;border:none;}
+.vbtn.or{background:transparent;color:var(--red);border:1.5px solid var(--red);}
+.vbtn.og{background:transparent;color:var(--grn);border:1.5px solid var(--grn);}
+.vbtn:active{opacity:.8;}
+/* GOAL PROGRESS */
+.goal-box{background:var(--grnl);border:1px solid #bbf7d0;border-radius:14px;padding:16px;}
+.gp-amounts{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:9px;}
+.gp-cur{font-size:22px;font-weight:700;color:var(--grn);}
+.gp-tgt{font-size:13px;color:var(--g600);}
+.gp-bg{height:12px;background:var(--g200);border-radius:100px;overflow:hidden;margin-bottom:9px;}
+.gp-fill{height:100%;background:linear-gradient(90deg,var(--grn),#4ade80);border-radius:100px;transition:width .5s;}
+.gp-pct{font-size:12px;font-weight:600;color:var(--grnd);}
+.gp-rem{font-size:12px;color:var(--g600);margin-top:3px;}
+/* COUNTDOWN */
+.cd-box{background:var(--rlight);border:1px solid var(--rmid);border-radius:14px;padding:16px;text-align:center;}
+.cd-lbl{font-size:11px;color:var(--rdark);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+.cd-nums{display:flex;justify-content:center;gap:8px;}
+.cd-unit{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.cd-n{background:var(--red);color:#fff;border-radius:8px;font-size:20px;font-weight:700;width:46px;height:42px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);}
+.cd-u{font-size:9px;color:var(--rdark);font-weight:600;}
+.cd-sep{font-size:20px;font-weight:700;color:var(--red);padding-top:8px;}
+/* EMPTY */
+.empty{text-align:center;padding:48px 20px;}
+.empty svg{width:48px;height:48px;fill:var(--g200);margin:0 auto 14px;display:block;}
 .empty p{font-size:13px;color:var(--g400);line-height:1.8;}
-
-/* ── INPUT GROUP ── */
+/* INPUT GROUP */
 .igrp{background:var(--wh);border:1px solid var(--g200);border-radius:16px;overflow:hidden;}
-.irow{display:flex;align-items:center;padding:16px 18px;gap:14px;border-bottom:1px solid var(--g100);}
+.irow{display:flex;align-items:center;padding:14px 16px;gap:12px;border-bottom:1px solid var(--g100);}
 .irow:last-child{border-bottom:none;}
-.iico{width:36px;height:36px;background:var(--rlight);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.iico svg{width:18px;height:18px;fill:var(--red);}
-.iwrap{flex:1;}
-.iwrap label{display:block;font-size:11px;color:var(--g400);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em;}
-.iwrap input[type=text],.iwrap input[type=number]{width:100%;border:none;outline:none;font-size:16px;font-weight:600;background:transparent;color:var(--g900);font-family:var(--font);}
-.iwrap input::placeholder{color:var(--g200);font-weight:400;font-size:15px;}
-.isuf{font-size:14px;font-weight:700;color:var(--red);}
-
-/* ── CUSTOM DATE/TIME PICKER TRIGGER ── */
-.picker-trigger{width:100%;border:none;outline:none;font-size:16px;font-weight:600;background:transparent;color:var(--g900);font-family:var(--font);cursor:pointer;text-align:left;padding:0;}
-.picker-trigger.pmt{color:var(--g400);font-weight:400;font-size:15px;}
 .irow-tap{cursor:pointer;}
 .irow-tap:active{background:var(--g50);}
-
-/* ── BOTTOM SHEET ── */
+.iico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.iico.r{background:var(--rlight);}
+.iico.g{background:var(--grnl);}
+.iico.r svg{fill:var(--red);width:17px;height:17px;}
+.iico.g svg{fill:var(--grn);width:17px;height:17px;}
+.iwrap{flex:1;}
+.iwrap label{display:block;font-size:11px;color:var(--g400);font-weight:600;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em;}
+.iwrap input{width:100%;border:none;outline:none;font-size:16px;font-weight:600;background:transparent;color:var(--g900);font-family:var(--font);}
+.iwrap input::placeholder{color:var(--g200);font-weight:400;font-size:15px;}
+.isuf-r{font-size:13px;font-weight:700;color:var(--red);}
+.isuf-g{font-size:13px;font-weight:700;color:var(--grn);}
+.ptrig{width:100%;border:none;outline:none;font-size:16px;font-weight:600;background:transparent;color:var(--g900);font-family:var(--font);cursor:pointer;text-align:left;padding:0;}
+.ptrig.pmt{color:var(--g400);font-weight:400;font-size:15px;}
+/* SHEETS */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center;}
 .overlay.open{display:flex;animation:fadeIn .2s;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 .sheet{background:var(--wh);border-radius:24px 24px 0 0;width:100%;max-width:430px;padding:0 0 calc(20px + var(--sb));animation:slideUp .3s cubic-bezier(.4,0,.2,1);}
 @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
-.sheet-handle{width:40px;height:4px;background:var(--g200);border-radius:100px;margin:14px auto 0;}
-.sheet-title{font-size:16px;font-weight:700;text-align:center;padding:16px 20px 12px;}
-.sheet-div{height:1px;background:var(--g100);}
-.sheet-acts{display:flex;gap:10px;padding:16px 20px 0;}
-.sheet-cancel{flex:1;background:var(--g100);border:none;border-radius:14px;padding:14px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);color:var(--g600);}
-.sheet-ok{flex:2;background:var(--red);border:none;border-radius:14px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);color:#fff;}
-
-/* ── DATE PICKER ── */
-.dp-wrap{padding:18px 20px;}
-.dp-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
-.dp-nav-btn{width:38px;height:38px;background:var(--g100);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.dp-nav-btn svg{width:20px;height:20px;fill:var(--g600);}
-.dp-month-lbl{font-size:16px;font-weight:700;}
-.dp-wdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:8px;}
-.dp-wday{font-size:11px;font-weight:600;color:var(--g400);text-align:center;padding:4px 0;}
-.dp-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
-.dp-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:14px;font-weight:500;cursor:pointer;border:none;background:transparent;font-family:var(--font);color:var(--g900);}
-.dp-day:disabled{color:var(--g200);cursor:not-allowed;}
-.dp-day.today{border:2px solid var(--red);color:var(--red);}
-.dp-day.sel{background:var(--red);color:#fff;font-weight:700;}
-.dp-day:not(:disabled):not(.sel):active{background:var(--rlight);}
-
-/* ── TIME PICKER (SCROLL DRUM) ── */
-.tp-wrap{padding:20px;}
-.tp-row{display:flex;align-items:center;justify-content:center;gap:0;}
-.tp-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;}
-.tp-lbl{font-size:11px;color:var(--g400);font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
-.tp-drum-wrap{position:relative;width:100%;}
-.tp-drum{
-  height:210px;
-  overflow-y:scroll;
-  -webkit-overflow-scrolling:touch;
-  scroll-snap-type:y mandatory;
-  scrollbar-width:none;
-}
-.tp-drum::-webkit-scrollbar{display:none;}
-.tp-spacer{height:80px;display:block;flex-shrink:0;}
-.tp-item{
-  height:50px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:24px;font-weight:600;
-  color:var(--g200);
-  scroll-snap-align:center;
-  user-select:none;flex-shrink:0;
-  cursor:pointer;
-}
-.tp-item.active{color:var(--g900);font-size:30px;font-weight:700;}
-.tp-highlight{
-  position:absolute;top:50%;transform:translateY(-50%);
-  left:10px;right:10px;height:50px;
-  border-top:2px solid var(--red);
-  border-bottom:2px solid var(--red);
-  pointer-events:none;z-index:2;border-radius:3px;
-}
-.tp-fade-top{
-  position:absolute;top:0;left:0;right:0;height:80px;
-  background:linear-gradient(to bottom,rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
-  pointer-events:none;z-index:1;
-}
-.tp-fade-bot{
-  position:absolute;bottom:0;left:0;right:0;height:80px;
-  background:linear-gradient(to top,rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
-  pointer-events:none;z-index:1;
-}
-.tp-sep{font-size:32px;font-weight:700;color:var(--g400);padding-top:100px;padding-left:2px;padding-right:2px;flex-shrink:0;}
-
-/* ── PREVIEW ── */
-.prevbox{background:var(--wh);border:1px solid var(--g200);border-radius:16px;overflow:hidden;display:none;}
-.prevrow{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;font-size:13px;border-bottom:1px solid var(--g100);}
-.prevrow:last-child{border-bottom:none;}
-.prevrow .pl{color:var(--g400);}
-.prevrow .pr{font-weight:600;color:var(--red);}
-.prevrow .pv{font-weight:600;}
-
-/* ── WARN / INFO ── */
-.wbox,.ibox{border-radius:14px;padding:16px 18px;font-size:12px;line-height:1.8;display:flex;gap:12px;align-items:flex-start;}
-.wbox{background:var(--rlight);border:1px solid var(--rmid);color:var(--rdark);}
-.ibox{background:var(--grnl);border:1px solid #bbf7d0;color:#14532d;}
-.wbox svg,.ibox svg{width:17px;height:17px;fill:currentColor;flex-shrink:0;margin-top:2px;}
-.ebox{background:#fff8f8;border:1px solid var(--rmid);border-radius:14px;padding:14px 18px;font-size:13px;color:var(--rdark);font-weight:500;display:none;}
-
-/* ── BUTTONS ── */
-.btnp{background:var(--red);color:#fff;border:none;border-radius:16px;padding:17px;font-size:15px;font-weight:700;width:100%;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s,transform .1s;}
-.btnp:active{opacity:.85;transform:scale(.98);}
-.btnp:disabled{opacity:.35;cursor:not-allowed;transform:none;}
-.btnp svg{width:18px;height:18px;fill:#fff;}
-.btns{background:transparent;color:var(--red);border:1.5px solid var(--red);border-radius:16px;padding:15px;font-size:14px;font-weight:600;width:100%;cursor:pointer;font-family:var(--font);transition:opacity .15s;}
-.btns:active{opacity:.7;}
-
-/* ── CONFIRM ── */
-.cfhero{text-align:center;padding:28px 16px 20px;}
-.cficon{width:70px;height:70px;background:var(--rlight);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
-.cficon svg{width:34px;height:34px;fill:var(--red);}
-.cflbl{font-size:12px;color:var(--g400);margin-bottom:6px;}
-.cfnum{font-size:36px;font-weight:700;}
-.cfcfa{font-size:17px;color:var(--g400);margin-right:5px;}
+.shandle{width:40px;height:4px;background:var(--g200);border-radius:100px;margin:14px auto 0;}
+.stitle{font-size:16px;font-weight:700;text-align:center;padding:14px 20px 10px;}
+.sdiv{height:1px;background:var(--g100);}
+.sacts{display:flex;gap:10px;padding:14px 20px 0;}
+.scancel{flex:1;background:var(--g100);border:none;border-radius:14px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);color:var(--g600);}
+.sok-r{flex:2;background:var(--red);border:none;border-radius:14px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);color:#fff;}
+/* DATE PICKER */
+.dpw{padding:16px 18px;}
+.dpnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.dpnb{width:36px;height:36px;background:var(--g100);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.dpnb svg{width:18px;height:18px;fill:var(--g600);}
+.dpml{font-size:15px;font-weight:700;}
+.dpwd{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px;}
+.dpwl{font-size:11px;font-weight:600;color:var(--g400);text-align:center;padding:3px 0;}
+.dpdays{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+.dpd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:14px;font-weight:500;cursor:pointer;border:none;background:transparent;font-family:var(--font);color:var(--g900);}
+.dpd:disabled{color:var(--g200);cursor:not-allowed;}
+.dpd.today{border:2px solid var(--red);color:var(--red);}
+.dpd.sel{background:var(--red);color:#fff;font-weight:700;}
+/* TIME PICKER */
+.tpw{padding:18px 20px 8px;}
+.tprow{display:flex;align-items:center;justify-content:center;}
+.tpcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.tplbl{font-size:11px;color:var(--g400);font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+.tpdw{position:relative;width:100%;}
+.tpd{height:200px;overflow-y:scroll;-webkit-overflow-scrolling:touch;scroll-snap-type:y mandatory;scrollbar-width:none;}
+.tpd::-webkit-scrollbar{display:none;}
+.tpsp{height:75px;display:block;}
+.tpi{height:50px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600;color:var(--g200);scroll-snap-align:center;user-select:none;}
+.tpi.on{color:var(--g900);font-size:28px;font-weight:700;}
+.tphl{position:absolute;top:50%;transform:translateY(-50%);left:8px;right:8px;height:50px;border-top:2px solid var(--red);border-bottom:2px solid var(--red);pointer-events:none;z-index:2;border-radius:3px;}
+.tpft{position:absolute;top:0;left:0;right:0;height:75px;background:linear-gradient(to bottom,rgba(255,255,255,1),rgba(255,255,255,0));pointer-events:none;z-index:1;}
+.tpfb{position:absolute;bottom:0;left:0;right:0;height:75px;background:linear-gradient(to top,rgba(255,255,255,1),rgba(255,255,255,0));pointer-events:none;z-index:1;}
+.tpsep{font-size:30px;font-weight:700;color:var(--g400);padding-top:88px;padding-left:2px;padding-right:2px;flex-shrink:0;}
+/* PREV / WARN */
+.pvbox{background:var(--wh);border:1px solid var(--g200);border-radius:16px;overflow:hidden;display:none;}
+.pvrow{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;font-size:13px;border-bottom:1px solid var(--g100);}
+.pvrow:last-child{border-bottom:none;}
+.pla{color:var(--g400);}
+.pr{font-weight:600;color:var(--red);}
+.pg{font-weight:600;color:var(--grn);}
+.pv{font-weight:600;}
+.wbox{border-radius:14px;padding:14px 16px;font-size:12px;line-height:1.8;display:flex;gap:11px;align-items:flex-start;background:var(--rlight);border:1px solid var(--rmid);color:var(--rdark);}
+.wbox svg{width:16px;height:16px;fill:currentColor;flex-shrink:0;margin-top:2px;}
+.ibox{border-radius:14px;padding:14px 16px;font-size:12px;line-height:1.8;display:flex;gap:11px;align-items:flex-start;background:var(--grnl);border:1px solid #bbf7d0;color:var(--grnd);}
+.ibox svg{width:16px;height:16px;fill:currentColor;flex-shrink:0;margin-top:2px;}
+.ebox{background:#fff8f8;border:1px solid var(--rmid);border-radius:14px;padding:13px 16px;font-size:12px;color:var(--rdark);font-weight:500;display:none;}
+/* BUTTONS */
+.btn-r{background:var(--red);color:#fff;border:none;border-radius:16px;padding:17px;font-size:15px;font-weight:700;width:100%;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s,transform .1s;}
+.btn-g{background:var(--grn);color:#fff;border:none;border-radius:16px;padding:17px;font-size:15px;font-weight:700;width:100%;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s,transform .1s;}
+.btn-r:active,.btn-g:active{opacity:.85;transform:scale(.98);}
+.btn-r:disabled,.btn-g:disabled{opacity:.35;cursor:not-allowed;transform:none;}
+.btn-r svg,.btn-g svg{width:18px;height:18px;fill:#fff;}
+.btn-or{background:transparent;color:var(--red);border:1.5px solid var(--red);border-radius:16px;padding:15px;font-size:14px;font-weight:600;width:100%;cursor:pointer;font-family:var(--font);}
+/* CONFIRM */
+.cfhero{text-align:center;padding:24px 16px 18px;}
+.cficon{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:32px;}
+.cficon.r{background:var(--rlight);}
+.cficon.g{background:var(--grnl);}
+.cflbl{font-size:12px;color:var(--g400);margin-bottom:5px;}
+.cfnum{font-size:34px;font-weight:700;}
+.cfcfa{font-size:16px;color:var(--g400);margin-right:4px;}
 .cflist{background:var(--wh);border:1px solid var(--g200);border-radius:16px;overflow:hidden;}
-.cfrow{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--g100);font-size:13px;}
+.cfrow{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-bottom:1px solid var(--g100);font-size:13px;}
 .cfrow:last-child{border-bottom:none;}
-.cfrow .cl{color:var(--g400);}
-.cfrow .cv{font-weight:600;}
-.cfrow .cr{font-weight:600;color:var(--red);}
-
-/* ── DETAIL ── */
-.dep-chip{background:var(--wh);border:1px solid var(--g200);border-radius:14px;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.dep-dot{width:9px;height:9px;border-radius:50%;background:var(--red);flex-shrink:0;margin-right:12px;}
-.dep-chip-info .dcname{font-size:13px;font-weight:600;margin-bottom:2px;}
-.dep-chip-info .dcdate{font-size:11px;color:var(--g400);}
-.dep-chip-amt{font-size:15px;font-weight:700;}
-
-/* ── SUCCESS ── */
-.sucwrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 20px;gap:16px;text-align:center;}
-.sucico{width:80px;height:80px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:pop .4s cubic-bezier(.34,1.56,.64,1);}
+.cl{color:var(--g400);}
+.cv{font-weight:600;}
+.cr{font-weight:600;color:var(--red);}
+.cg{font-weight:600;color:var(--grn);}
+/* DEPOSIT CHIPS */
+.dchip{background:var(--wh);border:1px solid var(--g200);border-radius:12px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.ddot-r{width:9px;height:9px;border-radius:50%;background:var(--red);flex-shrink:0;margin-right:12px;}
+.ddot-g{width:9px;height:9px;border-radius:50%;background:var(--grn);flex-shrink:0;margin-right:12px;}
+.dcname{font-size:13px;font-weight:600;margin-bottom:2px;}
+.dcdate{font-size:11px;color:var(--g400);}
+.dcamt{font-size:15px;font-weight:700;}
+/* SUCCESS */
+.sucwrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;gap:14px;text-align:center;}
+.sucico{width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px;animation:pop .4s cubic-bezier(.34,1.56,.64,1);}
+.sucico.r{background:var(--red);}
+.sucico.g{background:var(--grn);}
 @keyframes pop{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
-.sucico svg{width:40px;height:40px;fill:#fff;}
-.suctitle{font-size:24px;font-weight:700;}
+.suctitle{font-size:22px;font-weight:700;}
 .sucsub{font-size:13px;color:var(--g400);line-height:1.8;max-width:300px;}
 .sucbtns{width:100%;display:flex;flex-direction:column;gap:12px;margin-top:8px;}
-
-/* ── HISTORY ── */
-.hitem{background:var(--wh);border:1px solid var(--g200);border-radius:16px;padding:15px 18px;display:flex;align-items:center;gap:14px;margin-bottom:12px;}
-.hdot{width:9px;height:9px;border-radius:50%;background:var(--red);flex-shrink:0;}
-.hdot.done{background:var(--grn);}
-.hinfo{flex:1;}
-.hname{font-size:13px;font-weight:600;margin-bottom:3px;}
-.hdate{font-size:11px;color:var(--g400);}
-.hright{text-align:right;}
-.hamt{font-size:14px;font-weight:700;}
-.hstat{font-size:11px;color:var(--g400);margin-top:3px;}
-
-/* ── WITHDRAW BUTTON ── */
-.btn-withdraw{background:var(--grn);color:#fff;border:none;border-radius:16px;padding:17px;font-size:15px;font-weight:700;width:100%;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s,transform .1s;}
-.btn-withdraw:active{opacity:.85;transform:scale(.98);}
-.btn-withdraw svg{width:18px;height:18px;fill:#fff;}
-.vcard.done-vault .vcard-head{background:var(--grn);}
-.vcard.done-vault .vcard-progf{background:var(--grn);}
-/* ── MODE BADGE ── */
-.mbadge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.2);border-radius:20px;font-size:11px;font-weight:600;padding:4px 12px;color:#fff;}
-
-/* ── TOAST ── */
-.toast{position:absolute;top:calc(var(--st)+14px);left:50%;transform:translateX(-50%) translateY(-80px);background:var(--g900);color:#fff;padding:11px 22px;border-radius:100px;font-size:13px;font-weight:500;z-index:999;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;max-width:90%;}
+/* HISTORY */
+.hitem{background:var(--wh);border:1px solid var(--g200);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.hdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.hdot.r{background:var(--red);}
+.hdot.g{background:var(--grn);}
+/* TOAST */
+.toast{position:absolute;top:calc(var(--st)+12px);left:50%;transform:translateX(-50%) translateY(-80px);background:var(--g900);color:#fff;padding:11px 22px;border-radius:100px;font-size:13px;font-weight:500;z-index:999;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;max-width:90%;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 </style>
 </head>
@@ -271,92 +258,29 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
 <div id="app">
 <div class="toast" id="toast"></div>
 
-<!-- ══════ SHEET: DATE ══════ -->
-<div class="overlay" id="sheet-date" onclick="if(event.target===this)closeDateCancel()">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title" id="sh-date-title">Choisir une date</div>
-    <div class="sheet-div"></div>
-    <div class="dp-wrap">
-      <div class="dp-nav">
-        <button class="dp-nav-btn" onclick="dpPrev()"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
-        <div class="dp-month-lbl" id="dp-lbl">—</div>
-        <button class="dp-nav-btn" onclick="dpNext()"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
-      </div>
-      <div class="dp-wdays"><div class="dp-wday">Lun</div><div class="dp-wday">Mar</div><div class="dp-wday">Mer</div><div class="dp-wday">Jeu</div><div class="dp-wday">Ven</div><div class="dp-wday">Sam</div><div class="dp-wday">Dim</div></div>
-      <div class="dp-days" id="dp-days"></div>
-    </div>
-    <div class="sheet-div"></div>
-    <div class="sheet-acts">
-      <button class="sheet-cancel" onclick="closeDateCancel()">Annuler</button>
-      <button class="sheet-ok" onclick="confirmDate()">Confirmer</button>
-    </div>
-  </div>
+<!-- DATE PICKER -->
+<div class="overlay" id="sh-date" onclick="if(event.target===this)closeDateCancel()">
+  <div class="sheet"><div class="shandle"></div><div class="stitle">Choisir une date</div><div class="sdiv"></div>
+  <div class="dpw"><div class="dpnav"><button class="dpnb" onclick="dpPrev()"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button><div class="dpml" id="dp-lbl">—</div><button class="dpnb" onclick="dpNext()"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button></div><div class="dpwd"><div class="dpwl">Lun</div><div class="dpwl">Mar</div><div class="dpwl">Mer</div><div class="dpwl">Jeu</div><div class="dpwl">Ven</div><div class="dpwl">Sam</div><div class="dpwl">Dim</div></div><div class="dpdays" id="dp-days"></div></div>
+  <div class="sdiv"></div><div class="sacts"><button class="scancel" onclick="closeDateCancel()">Annuler</button><button class="sok-r" onclick="confirmDate()">Confirmer</button></div></div>
 </div>
 
-<!-- ══════ SHEET: TIME ══════ -->
-<div class="overlay" id="sheet-time" onclick="if(event.target===this)closeTimeCancel()">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title">Heure de déblocage</div>
-    <div class="sheet-div"></div>
-    <div class="tp-wrap">
-      <div class="tp-row">
-        <div class="tp-col">
-          <div class="tp-lbl">Heures</div>
-          <div class="tp-drum-wrap">
-            <div class="tp-fade-top"></div>
-            <div class="tp-fade-bot"></div>
-            <div class="tp-highlight"></div>
-            <div class="tp-drum" id="drum-h"></div>
-          </div>
-        </div>
-        <div class="tp-sep">:</div>
-        <div class="tp-col">
-          <div class="tp-lbl">Minutes</div>
-          <div class="tp-drum-wrap">
-            <div class="tp-fade-top"></div>
-            <div class="tp-fade-bot"></div>
-            <div class="tp-highlight"></div>
-            <div class="tp-drum" id="drum-m"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="sheet-div"></div>
-    <div class="sheet-acts">
-      <button class="sheet-cancel" onclick="closeTimeCancel()">Annuler</button>
-      <button class="sheet-ok" onclick="confirmTime()">Confirmer</button>
-    </div>
-  </div>
+<!-- TIME PICKER -->
+<div class="overlay" id="sh-time" onclick="if(event.target===this)closeTimeCancel()">
+  <div class="sheet"><div class="shandle"></div><div class="stitle">Heure de déblocage</div><div class="sdiv"></div>
+  <div class="tpw"><div class="tprow"><div class="tpcol"><div class="tplbl">Heures</div><div class="tpdw"><div class="tpft"></div><div class="tpfb"></div><div class="tphl"></div><div class="tpd" id="drum-h"></div></div></div><div class="tpsep">:</div><div class="tpcol"><div class="tplbl">Minutes</div><div class="tpdw"><div class="tpft"></div><div class="tpfb"></div><div class="tphl"></div><div class="tpd" id="drum-m"></div></div></div></div></div>
+  <div class="sdiv"></div><div class="sacts"><button class="scancel" onclick="closeTimeCancel()">Annuler</button><button class="sok-r" onclick="confirmTime()">Confirmer</button></div></div>
 </div>
 
-<!-- ══════ PAGE: ACCUEIL ══════ -->
+<!-- PAGE ACCUEIL -->
 <div class="pg on" id="pg-home">
-  <div class="tbar">
-    <div class="tbar-row">
-      <span class="logo">airtel money</span>
-      <button class="ibtn" onclick="go('pg-new-vault')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
-    </div>
-    <h1>Coffre-Fort</h1>
-    <p>Épargne volontaire sécurisée</p>
-  </div>
+  <div class="tbar dark"><div class="tbar-row"><span class="logo">airtel money</span><button class="ibtn" onclick="go('pg-choose-type')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button></div><h1>Coffre-Fort</h1><p>Épargne volontaire sécurisée</p></div>
   <div class="scroll"><div class="pad">
     <div class="sbar"><div class="sdot"></div><div class="slbl">Heure serveur Airtel</div><div class="stime" id="ck0">--:--:--</div></div>
-    <div class="card">
-      <div class="balrow">
-        <div class="balhalf"><div class="ballbl">Solde disponible</div><div class="balamt"><span class="balcfa">CFA</span><span id="hbal">50 000</span></div></div>
-        <div class="baldiv"></div>
-        <div class="balhalf"><div class="ballbl">Total dans coffres</div><div class="balamt red"><span class="balcfa">CFA</span><span id="hvlt">0</span></div></div>
-      </div>
-    </div>
+    <div class="card"><div class="balrow"><div class="balhalf"><div class="ballbl">Solde disponible</div><div class="balamt"><span class="balcfa">CFA</span><span id="hbal">50 000</span></div></div><div class="baldiv"></div><div class="balhalf"><div class="ballbl">Total dans coffres</div><div class="balamt red"><span class="balcfa">CFA</span><span id="hvlt">0</span></div></div></div></div>
+    <div style="display:flex;gap:10px;" id="sum-badges"></div>
     <div class="seclbl">Mes coffres</div>
-    <div id="vaultlist">
-      <div class="empty">
-        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-        <p>Aucun coffre pour le moment.<br>Appuyez sur <strong>+</strong> pour créer votre premier coffre.</p>
-      </div>
-    </div>
+    <div id="vaultlist"><div class="empty"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><p>Aucun coffre pour le moment.<br>Appuyez sur <strong>+</strong> pour créer votre premier coffre.</p></div></div>
   </div></div>
   <nav class="bnav">
     <button class="nbtn on" onclick="goTab('home')"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Coffres</button>
@@ -365,166 +289,122 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
   </nav>
 </div>
 
-<!-- ══════ PAGE: CRÉER COFFRE ══════ -->
-<div class="pg off-r" id="pg-new-vault">
-  <div class="tbar">
-    <div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:38px"></div></div>
-    <h1>Nouveau coffre</h1>
-    <p>Nommez votre coffre et fixez la date de déblocage</p>
-  </div>
+<!-- PAGE CHOIX TYPE -->
+<div class="pg off-r" id="pg-choose-type">
+  <div class="tbar dark"><div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:38px"></div></div><h1>Créer un coffre</h1><p>Choisissez le type d'épargne</p></div>
   <div class="scroll"><div class="pad">
-    <div class="sbar"><div class="sdot"></div><div class="slbl">Heure serveur (non modifiable)</div><div class="stime" id="ck1">--:--:--</div></div>
-    <div class="wbox"><svg viewBox="0 0 24 24"><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/></svg><span>L'argent versé dans ce coffre sera bloqué jusqu'à la date choisie. Vous pouvez ajouter des versements à tout moment, mais aucun retrait n'est possible avant l'échéance.</span></div>
-    <div class="igrp">
-      <div class="irow">
-        <div class="iico"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></div>
-        <div class="iwrap"><label>Nom du coffre</label><input type="text" id="nv-name" placeholder="Ex : École, Vacances, Loyer..." oninput="nvCheck()"></div>
-      </div>
-      <div class="irow irow-tap" onclick="openDatePicker('nv')">
-        <div class="iico"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
-        <div class="iwrap"><label>Date de déblocage</label><div class="picker-trigger pmt" id="nv-date-disp">Choisir une date</div></div>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#9e9e9e"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-      </div>
-      <div class="irow irow-tap" onclick="openTimePicker('nv')">
-        <div class="iico"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
-        <div class="iwrap"><label>Heure de déblocage</label><div class="picker-trigger pmt" id="nv-time-disp">Choisir une heure</div></div>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#9e9e9e"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-      </div>
-    </div>
-    <div class="ebox" id="nv-err"></div>
-    <div class="prevbox" id="nv-prev">
-      <div class="prevrow"><span class="pl">Coffre</span><span class="pv" id="nvp-name">—</span></div>
-      <div class="prevrow"><span class="pl">Déblocage le</span><span class="pv" id="nvp-date">—</span></div>
-      <div class="prevrow"><span class="pl">Durée</span><span class="pr" id="nvp-days">—</span></div>
-    </div>
-    <button class="btnp" id="nv-btn" onclick="createVault()" disabled>
-      <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-      Créer le coffre
-    </button>
+    <div id="tc-date" class="type-card" onclick="selectType('date')"><div class="type-icon date">📅</div><div class="type-info"><h3>Coffre à durée</h3><p>Bloquez vos fonds jusqu'à une date précise. Idéal pour un projet futur, la rentrée, le loyer.</p></div><div class="type-check" id="chk-date"></div></div>
+    <div id="tc-goal" class="type-card" onclick="selectType('goal')"><div class="type-icon goal">🎯</div><div class="type-info"><h3>Coffre à objectif</h3><p>Épargnez jusqu'à atteindre un montant cible. Le coffre se débloque automatiquement dès l'objectif atteint.</p></div><div class="type-check" id="chk-goal"></div></div>
+    <div class="card" style="padding:14px 16px;background:var(--g50);border:1px dashed var(--g200);"><div style="font-size:11px;color:var(--g400);margin-bottom:3px;font-weight:600;">NOTE</div><div style="font-size:12px;color:var(--g600);line-height:1.7;">Des frais de service de <strong>100 CFA</strong> sont prélevés à la création de chaque coffre.</div></div>
+    <button class="btn-r" id="btn-next" onclick="goToForm()" disabled><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Continuer</button>
   </div></div>
 </div>
 
-<!-- ══════ PAGE: DÉTAIL COFFRE ══════ -->
-<div class="pg off-r" id="pg-detail">
-  <div class="tbar">
-    <div class="tbar-row">
-      <button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
-      <span class="logo">airtel money</span>
-      <!-- Home shortcut button -->
-      <button class="ibtn" onclick="goTab('home')" title="Accueil">
-        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      </button>
+<!-- PAGE FORMULAIRE DATE -->
+<div class="pg off-r" id="pg-form-date">
+  <div class="tbar red"><div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:38px"></div></div><h1>📅 Coffre à durée</h1><p>Bloqué jusqu'à la date choisie</p></div>
+  <div class="scroll"><div class="pad">
+    <div class="sbar"><div class="sdot"></div><div class="slbl">Heure serveur</div><div class="stime" id="ck1">--:--:--</div></div>
+    <div class="card" style="padding:13px 16px;"><div style="font-size:11px;color:var(--g400);margin-bottom:4px;">Solde disponible</div><div style="font-size:22px;font-weight:700;"><span style="font-size:12px;color:var(--g400);margin-right:3px;">CFA</span><span id="fd-bal">50 000</span></div></div>
+    <div class="igrp">
+      <div class="irow"><div class="iico r"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></div><div class="iwrap"><label>Nom du coffre</label><input type="text" id="fd-name" placeholder="Ex : Vacances, Loyer, École..." oninput="fdCheck()"></div></div>
+      <div class="irow"><div class="iico r"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div><div class="iwrap"><label>Montant initial (optionnel)</label><input type="number" id="fd-amt" placeholder="Ex : 5 000" inputmode="numeric" min="0" step="1" oninput="fdCheck()"></div><div class="isuf-r">CFA</div></div>
+      <div class="irow irow-tap" onclick="openDatePicker('fd')"><div class="iico r"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div><div class="iwrap"><label>Date de déblocage</label><div class="ptrig pmt" id="fd-date-disp">Choisir une date</div></div><svg width="18" height="18" viewBox="0 0 24 24" fill="#9e9e9e"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></div>
+      <div class="irow irow-tap" onclick="openTimePicker('fd')"><div class="iico r"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div><div class="iwrap"><label>Heure de déblocage</label><div class="ptrig pmt" id="fd-time-disp">Choisir une heure</div></div><svg width="18" height="18" viewBox="0 0 24 24" fill="#9e9e9e"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></div>
     </div>
-    <h1 id="det-title">Mon coffre</h1>
-    <p id="det-sub">—</p>
+    <div style="font-size:11px;color:var(--g400);font-weight:600;margin-bottom:4px;">DURÉE RAPIDE</div>
+    <div class="quick-row" id="qdur"><button class="qbtn" onclick="setQDur(1,this)">1 mois</button><button class="qbtn" onclick="setQDur(3,this)">3 mois</button><button class="qbtn" onclick="setQDur(6,this)">6 mois</button><button class="qbtn" onclick="setQDur(12,this)">1 an</button></div>
+    <div class="ebox" id="fd-err"></div>
+    <div class="pvbox" id="fd-prev"><div class="pvrow"><span class="pla">Coffre</span><span class="pv" id="fdp-name">—</span></div><div class="pvrow"><span class="pla">Disponible le</span><span class="pv" id="fdp-date">—</span></div><div class="pvrow"><span class="pla">Durée</span><span class="pr" id="fdp-days">—</span></div><div class="pvrow"><span class="pla">Montant initial</span><span class="pr" id="fdp-amt">—</span></div><div class="pvrow"><span class="pla">Frais de service</span><span class="pr">100 CFA</span></div></div>
+    <button class="btn-r" id="fd-btn" onclick="createVault('date')" disabled><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Créer le coffre (−100 CFA de frais)</button>
+  </div></div>
+</div>
+
+<!-- PAGE FORMULAIRE OBJECTIF -->
+<div class="pg off-r" id="pg-form-goal">
+  <div class="tbar green"><div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:38px"></div></div><h1>🎯 Coffre à objectif</h1><p>Déblocage automatique à l'objectif atteint</p></div>
+  <div class="scroll"><div class="pad">
+    <div class="sbar"><div class="sdot"></div><div class="slbl">Heure serveur</div><div class="stime" id="ck5">--:--:--</div></div>
+    <div class="card" style="padding:13px 16px;"><div style="font-size:11px;color:var(--g400);margin-bottom:4px;">Solde disponible</div><div style="font-size:22px;font-weight:700;"><span style="font-size:12px;color:var(--g400);margin-right:3px;">CFA</span><span id="fg-bal">50 000</span></div></div>
+    <div class="igrp">
+      <div class="irow"><div class="iico g"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></div><div class="iwrap"><label>Nom du coffre</label><input type="text" id="fg-name" placeholder="Ex : Moto, Téléphone, Voyage..." oninput="fgCheck()"></div></div>
+      <div class="irow"><div class="iico g"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div><div class="iwrap"><label>Montant cible (objectif)</label><input type="number" id="fg-target" placeholder="Ex : 200 000" inputmode="numeric" min="1000" step="1" oninput="fgCheck()"></div><div class="isuf-g">CFA</div></div>
+      <div class="irow"><div class="iico g"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div><div class="iwrap"><label>Versement initial (optionnel)</label><input type="number" id="fg-amt" placeholder="Ex : 10 000" inputmode="numeric" min="0" step="1" oninput="fgCheck()"></div><div class="isuf-g">CFA</div></div>
+    </div>
+    <div class="ebox" id="fg-err"></div>
+    <div id="fg-preview" style="display:none;">
+      <div class="goal-box"><div class="gp-amounts"><div><div style="font-size:10px;color:var(--grnd);margin-bottom:3px;">Versement initial</div><div class="gp-cur" id="fgp-cur">CFA 0</div></div><div style="text-align:right;"><div style="font-size:10px;color:var(--g400);margin-bottom:3px;">Objectif</div><div class="gp-tgt" id="fgp-tgt">—</div></div></div><div class="gp-bg"><div class="gp-fill" id="fgp-bar" style="width:0%"></div></div><div class="gp-pct" id="fgp-pct">0% atteint</div><div class="gp-rem" id="fgp-rem">—</div></div>
+    </div>
+    <div class="card" style="padding:11px 14px;background:var(--g50);border:1px dashed var(--g200);"><span style="font-size:12px;color:var(--g600);">💡 Frais de service : 100 CFA à la création</span></div>
+    <button class="btn-g" id="fg-btn" onclick="createVault('goal')" disabled><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14l-4-4 1.41-1.41L10 13.17l6.59-6.59L18 8l-8 8z"/></svg>Créer le coffre (−100 CFA de frais)</button>
+  </div></div>
+</div>
+
+<!-- PAGE DÉTAIL -->
+<div class="pg off-r" id="pg-detail">
+  <div class="tbar red" id="det-tbar">
+    <div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><button class="ibtn" onclick="goTab('home')"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></button></div>
+    <h1 id="det-title">Mon coffre</h1><p id="det-sub">—</p>
   </div>
   <div class="scroll"><div class="pad">
     <div class="sbar"><div class="sdot"></div><div class="slbl">Heure serveur</div><div class="stime" id="ck3">--:--:--</div></div>
-    <div class="card-red">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
-        <div><div style="font-size:12px;opacity:.8;margin-bottom:6px;">Total dans ce coffre</div><div style="font-size:28px;font-weight:700;"><span style="font-size:14px;opacity:.8;margin-right:3px;">CFA</span><span id="det-total">0</span></div></div>
-        <div id="det-badge" class="mbadge">—</div>
-      </div>
-      <div style="height:5px;background:rgba(255,255,255,.25);border-radius:100px;overflow:hidden;"><div id="det-prog" style="height:100%;background:#fff;border-radius:100px;width:3%;transition:width .4s;"></div></div>
-    </div>
-    <div class="card" style="padding:16px 20px;">
-      <div style="font-size:11px;color:var(--g400);margin-bottom:6px;font-weight:500;">Votre solde Airtel Money disponible</div>
-      <div style="font-size:22px;font-weight:700;"><span style="font-size:13px;color:var(--g400);margin-right:3px;">CFA</span><span id="det-bal">50 000</span></div>
-    </div>
-    <button class="btnp" id="det-add-btn" onclick="openAddDeposit()">
-      <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      Ajouter de l'argent dans ce coffre
-    </button>
-    <div class="wbox" id="det-locked-msg" style="display:none;"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><span>Ce coffre est scellé. Aucun retrait n'est possible avant la date de déblocage. Vous pouvez toujours y ajouter de l'argent.</span></div>
-    <button class="btn-withdraw" id="det-withdraw-btn" onclick="withdrawVault()" style="display:none;">
-      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-      Retirer vers mon solde Airtel Money
-    </button>
-    <div class="ibox" id="det-open-msg" style="display:none;"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span>Votre coffre est débloqué. Appuyez sur le bouton vert ci-dessus pour récupérer votre argent sur votre solde Airtel Money.</span></div>
+    <div id="det-main"></div>
+    <div class="card" style="padding:13px 16px;"><div style="font-size:11px;color:var(--g400);margin-bottom:4px;">Solde Airtel Money disponible</div><div style="font-size:20px;font-weight:700;"><span style="font-size:12px;color:var(--g400);margin-right:3px;">CFA</span><span id="det-bal">50 000</span></div></div>
+    <button id="det-add-btn" onclick="openAddDeposit()" class="btn-r"></button>
+    <div id="det-msg"></div>
+    <button id="det-wd-btn" onclick="withdrawVault()" style="display:none;" class="btn-g"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Retirer vers mon solde Airtel Money</button>
     <div class="seclbl">Versements effectués</div>
-    <div id="det-deposits"></div>
+    <div id="det-deps"></div>
   </div></div>
 </div>
 
-<!-- ══════ PAGE: AJOUTER VERSEMENT ══════ -->
+<!-- PAGE AJOUTER VERSEMENT -->
 <div class="pg off-r" id="pg-add-dep">
-  <div class="tbar">
-    <div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:38px"></div></div>
-    <h1>Nouveau versement</h1>
-    <p id="add-dep-sub">Coffre : —</p>
-  </div>
+  <div class="tbar red" id="ad-tbar"><div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:38px"></div></div><h1>Ajouter un versement</h1><p id="ad-sub">—</p></div>
   <div class="scroll"><div class="pad">
-    <div class="sbar"><div class="sdot"></div><div class="slbl">Heure serveur (non modifiable)</div><div class="stime" id="ck2">--:--:--</div></div>
-    <div class="card" style="padding:16px 20px;">
-      <div style="font-size:11px;color:var(--g400);margin-bottom:6px;font-weight:500;">Solde disponible</div>
-      <div style="font-size:22px;font-weight:700;"><span style="font-size:13px;color:var(--g400);margin-right:3px;">CFA</span><span id="ad-bal">50 000</span></div>
-    </div>
-    <div class="igrp">
-      <div class="irow">
-        <div class="iico"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div>
-        <div class="iwrap"><label>Montant à verser</label><input type="number" id="ad-amt" placeholder="Ex : 5 000" inputmode="numeric" min="500" step="1" oninput="adChange()"></div>
-        <div class="isuf">CFA</div>
-      </div>
-    </div>
-    <div class="prevbox" id="ad-prev">
-      <div class="prevrow"><span class="pl">Versement dans</span><span class="pv" id="adp-vault">—</span></div>
-      <div class="prevrow"><span class="pl">Montant</span><span class="pr" id="adp-amt">—</span></div>
-      <div class="prevrow"><span class="pl">Solde après versement</span><span class="pr" id="adp-after">—</span></div>
-      <div class="prevrow"><span class="pl">Déblocage le</span><span class="pv" id="adp-date">—</span></div>
-    </div>
+    <div class="sbar"><div class="sdot"></div><div class="slbl">Heure serveur</div><div class="stime" id="ck2">--:--:--</div></div>
+    <div class="card" style="padding:13px 16px;"><div style="font-size:11px;color:var(--g400);margin-bottom:4px;">Solde disponible</div><div style="font-size:22px;font-weight:700;"><span style="font-size:12px;color:var(--g400);margin-right:3px;">CFA</span><span id="ad-bal">50 000</span></div></div>
+    <div style="font-size:11px;color:var(--g400);font-weight:600;margin-bottom:4px;">MONTANT RAPIDE</div>
+    <div class="quick-row"><button class="qbtn" onclick="setQAmt(1000)">1 000</button><button class="qbtn" onclick="setQAmt(5000)">5 000</button><button class="qbtn" onclick="setQAmt(10000)">10 000</button><button class="qbtn" onclick="setQAmt(25000)">25 000</button></div>
+    <div class="igrp"><div class="irow"><div class="iico r" id="ad-ico"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div><div class="iwrap"><label>Montant à verser</label><input type="number" id="ad-amt" placeholder="Ex : 5 000" inputmode="numeric" min="500" step="1" oninput="adChange()"></div><div class="isuf-r" id="ad-suf">CFA</div></div></div>
+    <div id="ad-gprev"></div>
+    <div class="pvbox" id="ad-prev"><div class="pvrow"><span class="pla">Versement dans</span><span class="pv" id="adp-vault">—</span></div><div class="pvrow"><span class="pla">Montant</span><span id="adp-amt" class="pr">—</span></div><div class="pvrow"><span class="pla">Solde après</span><span id="adp-after" class="pr">—</span></div><div class="pvrow" id="adp-info"><span class="pla" id="adp-il">—</span><span class="pv" id="adp-iv">—</span></div></div>
     <div class="ebox" id="ad-err"></div>
-    <div class="wbox"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><span>Cet argent sera bloqué dans le coffre jusqu'à la date de déblocage. Modifier l'heure de votre téléphone est sans effet.</span></div>
-    <button class="btnp" id="ad-btn" onclick="goAdConfirm()" disabled><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Continuer</button>
+    <div class="wbox"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><span>Cet argent sera bloqué dans le coffre. Vérification côté serveur Airtel uniquement.</span></div>
+    <button id="ad-btn" onclick="goAdConfirm()" disabled class="btn-r"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Continuer</button>
   </div></div>
 </div>
 
-<!-- ══════ PAGE: CONFIRMATION ══════ -->
+<!-- PAGE CONFIRMATION -->
 <div class="pg off-r" id="pg-cf">
-  <div class="tbar">
-    <div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:38px"></div></div>
-    <h1>Confirmation</h1><p>Vérifiez avant de confirmer</p>
-  </div>
+  <div class="tbar dark"><div class="tbar-row"><button class="ibtn" onclick="back()"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button><span class="logo">airtel money</span><div style="width:38px"></div></div><h1>Confirmation</h1><p>Vérifiez avant de confirmer</p></div>
   <div class="scroll"><div class="pad">
-    <div class="cfhero">
-      <div class="cficon"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
-      <div class="cflbl">Montant à placer dans le coffre</div>
-      <div class="cfnum"><span class="cfcfa">CFA</span><span id="cf-amt">—</span></div>
-    </div>
-    <div class="cflist">
-      <div class="cfrow"><span class="cl">Coffre</span><span class="cv" id="cf-vault">—</span></div>
-      <div class="cfrow"><span class="cl">Déblocage le</span><span class="cv" id="cf-date">—</span></div>
-      <div class="cfrow"><span class="cl">Nouveau total coffre</span><span class="cr" id="cf-newtot">—</span></div>
-      <div class="cfrow"><span class="cl">Solde avant</span><span class="cv" id="cf-before">—</span></div>
-      <div class="cfrow"><span class="cl">Solde après</span><span class="cr" id="cf-after">—</span></div>
-      <div class="cfrow"><span class="cl">Retrait anticipé</span><span class="cr">Impossible</span></div>
-      <div class="cfrow"><span class="cl">Manip. heure tél.</span><span class="cr">Sans effet</span></div>
-    </div>
-    <div class="wbox"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><span>Une fois confirmé, ce montant sera indisponible jusqu'à la date de déblocage. Action irréversible.</span></div>
-    <button class="btnp" onclick="execDeposit()"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Confirmer le versement</button>
-    <button class="btns" onclick="back()">Annuler</button>
+    <div class="cfhero"><div class="cficon r" id="cf-ico">🔒</div><div class="cflbl">Versement dans le coffre</div><div class="cfnum"><span class="cfcfa">CFA</span><span id="cf-amt">—</span></div></div>
+    <div class="cflist"><div class="cfrow"><span class="cl">Coffre</span><span class="cv" id="cf-vault">—</span></div><div class="cfrow"><span class="cl">Type</span><span class="cv" id="cf-type">—</span></div><div class="cfrow"><span class="cl" id="cf-il">—</span><span class="cv" id="cf-iv">—</span></div><div class="cfrow"><span class="cl">Nouveau total</span><span id="cf-newtot" class="cr">—</span></div><div class="cfrow"><span class="cl">Solde avant</span><span class="cv" id="cf-before">—</span></div><div class="cfrow"><span class="cl">Solde après</span><span id="cf-after" class="cr">—</span></div><div class="cfrow"><span class="cl">Retrait anticipé</span><span class="cr">Impossible</span></div></div>
+    <div class="wbox"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><span>Action irréversible. Argent indisponible jusqu'au déblocage.</span></div>
+    <button id="cf-btn" onclick="execDeposit()" class="btn-r"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Confirmer</button>
+    <button class="btn-or" onclick="back()">Annuler</button>
   </div></div>
 </div>
 
-<!-- ══════ PAGE: SUCCÈS ══════ -->
+<!-- PAGE SUCCÈS -->
 <div class="pg off-r" id="pg-suc">
-  <div class="tbar" style="padding-bottom:18px;"><div class="tbar-row"><span class="logo">airtel money</span></div></div>
+  <div class="tbar dark" style="padding-bottom:16px;"><div class="tbar-row"><span class="logo">airtel money</span></div></div>
   <div class="scroll"><div class="sucwrap">
-    <div class="sucico"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-    <div class="suctitle">Versement effectué !</div>
+    <div class="sucico r" id="suc-ico">✅</div>
+    <div class="suctitle" id="suc-title">Versement effectué !</div>
     <div class="sucsub" id="suc-msg">—</div>
     <div class="sbar" style="width:100%;"><div class="sdot"></div><div class="slbl">Heure serveur</div><div class="stime" id="ck4">--:--:--</div></div>
-    <div class="ibox" style="width:100%;text-align:left;"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><span>Le déblocage sera effectué automatiquement par le serveur Airtel à la date programmée.</span></div>
-    <div class="sucbtns">
-      <button class="btnp" onclick="sucViewVault()">Voir mon coffre</button>
-      <button class="btns" onclick="goTab('home')">Retour à l'accueil</button>
-    </div>
+    <div id="suc-prog" style="width:100%;"></div>
+    <div class="ibox" style="width:100%;text-align:left;"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><span>Déblocage automatique géré exclusivement par le serveur Airtel.</span></div>
+    <div class="sucbtns"><button id="suc-vbtn" onclick="goDetail()" class="btn-r">Voir mon coffre</button><button class="btn-or" onclick="goTab('home')">Retour à l'accueil</button></div>
   </div></div>
 </div>
 
-<!-- ══════ PAGE: HISTORIQUE ══════ -->
+<!-- PAGE HISTORIQUE -->
 <div class="pg off-r" id="pg-hist">
-  <div class="tbar"><div class="tbar-row"><span class="logo">airtel money</span></div><h1>Historique</h1><p>Tous les versements</p></div>
-  <div class="scroll"><div class="pad"><div id="histlist"><div class="empty"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg><p>Aucun historique.</p></div></div></div></div>
+  <div class="tbar dark"><div class="tbar-row"><span class="logo">airtel money</span></div><h1>Historique</h1><p>Tous les versements</p></div>
+  <div class="scroll"><div class="pad"><div id="histlist"></div></div></div>
   <nav class="bnav">
     <button class="nbtn" onclick="goTab('home')"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>Coffres</button>
     <button class="nbtn on" onclick="goTab('hist')"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Historique</button>
@@ -532,20 +412,19 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
   </nav>
 </div>
 
-<!-- ══════ PAGE: À PROPOS ══════ -->
+<!-- PAGE À PROPOS -->
 <div class="pg off-r" id="pg-about">
-  <div class="tbar"><div class="tbar-row"><span class="logo">airtel money</span></div><h1>À propos</h1><p>Coffre-Fort Airtel Money</p></div>
+  <div class="tbar dark"><div class="tbar-row"><span class="logo">airtel money</span></div><h1>À propos</h1><p>Coffre-Fort Airtel Money v6</p></div>
   <div class="scroll"><div class="pad">
-    <div class="card" style="display:flex;flex-direction:column;gap:10px;"><div style="font-size:14px;font-weight:700;">Comment ça marche ?</div><div style="font-size:13px;color:var(--g600);line-height:1.8;">Créez un coffre avec un nom et une date de déblocage. Versez de l'argent quand vous voulez, autant de fois que vous souhaitez. Tout est bloqué jusqu'à la date choisie — aucun retrait possible avant.</div></div>
-    <div class="card" style="display:flex;flex-direction:column;gap:10px;"><div style="font-size:14px;font-weight:700;">Heure serveur</div><div style="font-size:13px;color:var(--g600);line-height:1.8;">La date de déblocage est vérifiée exclusivement côté serveur Airtel. Modifier l'heure de votre téléphone n'a aucun effet sur le verrouillage.</div></div>
-    <div class="card" style="display:flex;flex-direction:column;gap:10px;"><div style="font-size:12px;color:var(--g400);font-weight:600;">Proposé par</div><div style="font-size:17px;font-weight:700;color:var(--red);">BOULOUDI MOUNGUENGUI</div><div style="font-size:14px;color:var(--g600);">Claine Pascal — 077 976 906</div><div style="font-size:12px;color:var(--g400);margin-top:2px;">Libreville, Gabon — 2026</div></div>
+    <div class="card" style="gap:10px;display:flex;flex-direction:column;"><div style="font-size:14px;font-weight:700;">Deux types de coffres</div><div style="font-size:13px;color:var(--g600);line-height:1.8;"><strong>📅 À durée :</strong> bloqué jusqu'à une date précise.<br><strong>🎯 À objectif :</strong> débloqué automatiquement quand le montant cible est atteint.</div></div>
+    <div class="card" style="gap:10px;display:flex;flex-direction:column;"><div style="font-size:14px;font-weight:700;">Sécurité serveur</div><div style="font-size:13px;color:var(--g600);line-height:1.8;">Le déblocage est vérifié exclusivement côté serveur Airtel. Modifier l'heure de votre téléphone est sans effet.</div></div>
+    <div class="card" style="gap:10px;display:flex;flex-direction:column;"><div style="font-size:12px;color:var(--g400);font-weight:600;">Proposé par</div><div style="font-size:16px;font-weight:700;color:var(--red);">BOULOUDI MOUNGUENGUI</div><div style="font-size:13px;color:var(--g600);">Claine Pascal — 077 976 906</div><div style="font-size:12px;color:var(--g400);">Libreville, Gabon — 2026</div></div>
     <div class="card">
-      <div style="font-size:13px;color:var(--g600);margin-bottom:14px;">Prototype de démonstration — solde simulé à 50 000 CFA.</div>
-      <button class="btns" onclick="resetApp()" style="font-size:13px;padding:13px;margin-bottom:10px;">Réinitialiser (50 000 CFA)</button>
-      <div style="height:1px;background:var(--g100);margin:4px 0 14px;"></div>
-      <div style="font-size:11px;color:var(--g400);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Mode démonstration</div>
-      <button onclick="unlockAllForDemo()" style="background:var(--grn);color:#fff;border:none;border-radius:14px;padding:13px;font-size:13px;font-weight:700;width:100%;cursor:pointer;font-family:var(--font);margin-bottom:8px;">Simuler le déblocage des coffres</button>
-      <div style="font-size:11px;color:var(--g400);line-height:1.6;">Avance la date de tous les coffres au passé pour simuler un déblocage et tester le retrait.</div>
+      <div style="font-size:13px;color:var(--g600);margin-bottom:12px;">Prototype de démonstration — solde simulé à 50 000 CFA.</div>
+      <button class="btn-or" onclick="resetApp()" style="font-size:13px;padding:13px;margin-bottom:10px;">Réinitialiser (50 000 CFA)</button>
+      <div style="height:1px;background:var(--g100);margin:4px 0 12px;"></div>
+      <div style="font-size:11px;color:var(--g400);font-weight:600;margin-bottom:8px;">MODE DÉMO</div>
+      <button onclick="unlockAllForDemo()" style="background:var(--grn);color:#fff;border:none;border-radius:14px;padding:13px;font-size:13px;font-weight:700;width:100%;cursor:pointer;font-family:var(--font);">Simuler le déblocage des coffres</button>
     </div>
   </div></div>
   <nav class="bnav">
@@ -555,419 +434,354 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--g
   </nav>
 </div>
 
-</div><!-- #app -->
+</div>
 <script>
-// ── STATE ──────────────────────────────────────────────────────────
-const SK='cfa_v6';
-function load(){try{const r=localStorage.getItem(SK);if(r)return JSON.parse(r);}catch(e){}return{bal:50000,vaults:[]};  // balance always stored as integer}
+// ── STATE ───────────────────────────────────────────────
+const SK='cfa_v7';
+function load(){try{const r=localStorage.getItem(SK);if(r)return JSON.parse(r);}catch(e){}return{bal:50000,vaults:[]};}
 function save(){localStorage.setItem(SK,JSON.stringify(S));}
-let S=load(), stk=['pg-home'], curVid=null, pendingAmt=0;
+let S=load(),stk=['pg-home'],curVid=null,pendingAmt=0,selType=null;
 
-// ── NAVIGATION ─────────────────────────────────────────────────────
-function go(id){
-  const cur=stk[stk.length-1];
-  document.getElementById(cur).className='pg off-l';
-  document.getElementById(id).className='pg on';
-  stk.push(id);
-}
-function back(){
-  if(stk.length<=1)return;
-  const cur=stk.pop();
-  document.getElementById(cur).className='pg off-r';
-  document.getElementById(stk[stk.length-1]).className='pg on';
-}
-function goTab(t){
-  const m={home:'pg-home',hist:'pg-hist',about:'pg-about'};
-  const target=m[t];
-  ['pg-home','pg-hist','pg-about','pg-new-vault','pg-detail','pg-add-dep','pg-cf','pg-suc'].forEach(id=>{
-    document.getElementById(id).className='pg off-r';
-  });
-  document.getElementById(target).className='pg on';
-  stk=[target];
-  if(t==='hist')renderHist();
-  if(t==='home'){renderHome();window.scrollTo&&window.scrollTo(0,0);}
-}
+// ── NAV ─────────────────────────────────────────────────
+function go(id){const c=stk[stk.length-1];document.getElementById(c).className='pg off-l';document.getElementById(id).className='pg on';stk.push(id);}
+function back(){if(stk.length<=1)return;const c=stk.pop();document.getElementById(c).className='pg off-r';document.getElementById(stk[stk.length-1]).className='pg on';}
+function goTab(t){const m={home:'pg-home',hist:'pg-hist',about:'pg-about'};const tgt=m[t];['pg-home','pg-hist','pg-about','pg-choose-type','pg-form-date','pg-form-goal','pg-detail','pg-add-dep','pg-cf','pg-suc'].forEach(id=>document.getElementById(id).className='pg off-r');document.getElementById(tgt).className='pg on';stk=[tgt];if(t==='hist')renderHist();if(t==='home')renderHome();}
 
-// ── CLOCK ──────────────────────────────────────────────────────────
-function tick(){
-  const t=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  ['ck0','ck1','ck2','ck3','ck4'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=t;});
-}
-setInterval(tick,1000);tick();
-setInterval(renderHome,60000);
+// ── CLOCK ────────────────────────────────────────────────
+function tick(){const t=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});['ck0','ck1','ck2','ck3','ck4','ck5'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=t;});}
+setInterval(tick,1000);tick();setInterval(renderHome,60000);
 
-// ── FORMAT ─────────────────────────────────────────────────────────
+// ── FORMAT ──────────────────────────────────────────────
 const fN=n=>Math.floor(n).toLocaleString('fr-FR');
 const fD=d=>d.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
 const fDs=d=>d.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'});
 const dL=ts=>Math.max(0,Math.ceil((ts-Date.now())/86400000));
 const isDone=ts=>ts<=Date.now();
+const vTot=v=>v.deposits.reduce((a,d)=>a+d.amount,0);
+const isGoalDone=v=>v.type==='goal'&&vTot(v)>=v.target;
 const MONTHS=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 
-// ── DATE PICKER ────────────────────────────────────────────────────
-let dpY=0,dpM=0,dpSel=null,dpCtx='';
+// ── TYPE SELECTION ───────────────────────────────────────
+function selectType(t){
+  selType=t;
+  document.getElementById('tc-date').className='type-card'+(t==='date'?' sel-date':'');
+  document.getElementById('tc-goal').className='type-card'+(t==='goal'?' sel-goal':'');
+  const cd=document.getElementById('chk-date'),cg=document.getElementById('chk-goal');
+  const chkSVG='<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
+  cd.className='type-check'+(t==='date'?' cd':'');cd.innerHTML=t==='date'?chkSVG:'';
+  cg.className='type-check'+(t==='goal'?' cg':'');cg.innerHTML=t==='goal'?chkSVG:'';
+  document.getElementById('btn-next').disabled=false;
+}
 
-function openDatePicker(ctx){
-  dpCtx=ctx;
-  const today=new Date();
-  dpY=today.getFullYear();dpM=today.getMonth();
-  dpSel=null;
-  renderCal();
-  document.getElementById('sheet-date').classList.add('open');
+function goToForm(){
+  if(!selType)return;
+  if(selType==='date'){
+    document.getElementById('fd-bal').textContent=fN(S.bal);
+    initFD();go('pg-form-date');
+  } else {
+    document.getElementById('fg-bal').textContent=fN(S.bal);
+    initFG();go('pg-form-goal');
+  }
 }
-function closeDateCancel(){document.getElementById('sheet-date').classList.remove('open');}
-function confirmDate(){
-  if(!dpSel)return;
-  document.getElementById(dpCtx+'-date-disp').textContent=fDs(dpSel);
-  document.getElementById(dpCtx+'-date-disp').classList.remove('pmt');
-  document.getElementById('sheet-date').classList.remove('open');
-  nvCheck();
-}
+
+// ── DATE PICKER ──────────────────────────────────────────
+let dpY=0,dpM=0,dpSel=null,dpCtx='';
+function openDatePicker(ctx){dpCtx=ctx;const t=new Date();dpY=t.getFullYear();dpM=t.getMonth();dpSel=null;renderCal();document.getElementById('sh-date').classList.add('open');}
+function closeDateCancel(){document.getElementById('sh-date').classList.remove('open');}
+function confirmDate(){if(!dpSel)return;const d=document.getElementById(dpCtx+'-date-disp');d.textContent=fDs(dpSel);d.classList.remove('pmt');document.getElementById('sh-date').classList.remove('open');if(dpCtx==='fd')fdCheck();}
 function dpPrev(){dpM--;if(dpM<0){dpM=11;dpY--;}renderCal();}
 function dpNext(){dpM++;if(dpM>11){dpM=0;dpY++;}renderCal();}
 function renderCal(){
   document.getElementById('dp-lbl').textContent=MONTHS[dpM]+' '+dpY;
-  const today=new Date();today.setHours(0,0,0,0);
-  const tom=new Date(today);tom.setDate(tom.getDate()+1);
-  let startDow=new Date(dpY,dpM,1).getDay();
-  startDow=(startDow+6)%7;
-  const dim=new Date(dpY,dpM+1,0).getDate();
-  let h='';
-  for(let i=0;i<startDow;i++)h+='<div></div>';
-  for(let d=1;d<=dim;d++){
-    const date=new Date(dpY,dpM,d);
-    const isToday=date.toDateString()===today.toDateString();
-    const isPast=date<tom;
-    const isSel=dpSel&&date.toDateString()===dpSel.toDateString();
-    h+=`<button class="dp-day${isToday?' today':''}${isSel?' sel':''}" ${isPast?'disabled':''} onclick="dpPick(${dpY},${dpM},${d})">${d}</button>`;
-  }
+  const today=new Date();today.setHours(0,0,0,0);const tom=new Date(today);tom.setDate(tom.getDate()+1);
+  let dow=new Date(dpY,dpM,1).getDay();dow=(dow+6)%7;const dim=new Date(dpY,dpM+1,0).getDate();
+  let h='';for(let i=0;i<dow;i++)h+='<div></div>';
+  for(let d=1;d<=dim;d++){const dt=new Date(dpY,dpM,d);const isT=dt.toDateString()===today.toDateString();const isPast=dt<tom;const isSel=dpSel&&dt.toDateString()===dpSel.toDateString();h+=`<button class="dpd${isT?' today':''}${isSel?' sel':''}" ${isPast?'disabled':''} onclick="dpPick(${dpY},${dpM},${d})">${d}</button>`;}
   document.getElementById('dp-days').innerHTML=h;
 }
 function dpPick(y,m,d){dpSel=new Date(y,m,d);renderCal();}
 
-// ── TIME PICKER ─────────────────────────────────────────────────────
-let tpH=8,tpMin=0,tpCtx='';
-const tpVals={};
-
+// ── TIME PICKER ──────────────────────────────────────────
+let tpH=8,tpMin=0,tpCtx='';const tpVals={};
 function buildDrum(id,count,cur){
-  const el=document.getElementById(id);
-  let h='<div class="tp-spacer"></div>';
-  for(let i=0;i<count;i++){
-    h+=`<div class="tp-item${i===cur?' active':''}" data-v="${i}">${String(i).padStart(2,'0')}</div>`;
-  }
-  h+='<div class="tp-spacer"></div>';
-  el.innerHTML=h;
-  // Scroll to current without animation
-  el.style.scrollBehavior='auto';
-  el.scrollTop=cur*50;
-  setTimeout(()=>{el.style.scrollBehavior='smooth';},50);
-  // Snap on scroll end
-  let timer;
-  el.addEventListener('scroll',()=>{
-    clearTimeout(timer);
-    timer=setTimeout(()=>{
-      const idx=Math.round(el.scrollTop/50);
-      const clamped=Math.max(0,Math.min(idx,count-1));
-      el.scrollTop=clamped*50;
-      if(id==='drum-h')tpH=clamped;
-      else tpMin=clamped;
-      el.querySelectorAll('.tp-item').forEach((it,i)=>it.classList.toggle('active',i===clamped));
-    },100);
-  },{passive:true});
+  const el=document.getElementById(id);let h='<div class="tpsp"></div>';
+  for(let i=0;i<count;i++)h+=`<div class="tpi${i===cur?' on':''}" data-v="${i}">${String(i).padStart(2,'0')}</div>`;
+  h+='<div class="tpsp"></div>';el.innerHTML=h;
+  el.style.scrollBehavior='auto';el.scrollTop=cur*50;setTimeout(()=>{el.style.scrollBehavior='smooth';},50);
+  let timer;el.addEventListener('scroll',()=>{clearTimeout(timer);timer=setTimeout(()=>{const idx=Math.round(el.scrollTop/50);const cl=Math.max(0,Math.min(idx,count-1));el.scrollTop=cl*50;if(id==='drum-h')tpH=cl;else tpMin=cl;el.querySelectorAll('.tpi').forEach((it,i)=>it.classList.toggle('on',i===cl));},100);},{passive:true});
 }
+function openTimePicker(ctx){tpCtx=ctx;tpH=tpVals[ctx]?tpVals[ctx].h:8;tpMin=tpVals[ctx]?tpVals[ctx].m:0;buildDrum('drum-h',24,tpH);buildDrum('drum-m',60,tpMin);document.getElementById('sh-time').classList.add('open');}
+function closeTimeCancel(){document.getElementById('sh-time').classList.remove('open');}
+function confirmTime(){tpVals[tpCtx]={h:tpH,m:tpMin};const l=String(tpH).padStart(2,'0')+':'+String(tpMin).padStart(2,'0');const d=document.getElementById(tpCtx+'-time-disp');d.textContent=l;d.classList.remove('pmt');document.getElementById('sh-time').classList.remove('open');if(tpCtx==='fd')fdCheck();}
 
-function openTimePicker(ctx){
-  tpCtx=ctx;
-  tpH=tpVals[ctx]?tpVals[ctx].h:8;
-  tpMin=tpVals[ctx]?tpVals[ctx].m:0;
-  buildDrum('drum-h',24,tpH);
-  buildDrum('drum-m',60,tpMin);
-  document.getElementById('sheet-time').classList.add('open');
+// ── QUICK HELPERS ────────────────────────────────────────
+function setQDur(months,btn){
+  const d=new Date();d.setMonth(d.getMonth()+months);
+  dpSel=new Date(d.getFullYear(),d.getMonth(),d.getDate());dpY=dpSel.getFullYear();dpM=dpSel.getMonth();
+  const el=document.getElementById('fd-date-disp');el.textContent=fDs(dpSel);el.classList.remove('pmt');
+  document.querySelectorAll('#qdur .qbtn').forEach(b=>b.classList.remove('qs-date'));
+  if(btn)btn.classList.add('qs-date');fdCheck();
 }
-function closeTimeCancel(){document.getElementById('sheet-time').classList.remove('open');}
-function confirmTime(){
-  tpVals[tpCtx]={h:tpH,m:tpMin};
-  const label=String(tpH).padStart(2,'0')+':'+String(tpMin).padStart(2,'0');
-  document.getElementById(tpCtx+'-time-disp').textContent=label;
-  document.getElementById(tpCtx+'-time-disp').classList.remove('pmt');
-  document.getElementById('sheet-time').classList.remove('open');
-  nvCheck();
-}
+function setQAmt(amt){document.getElementById('ad-amt').value=amt;adChange();}
 
-// ── VAULT FORM ─────────────────────────────────────────────────────
 function getUnlockTs(){
-  if(!dpSel)return null;
-  const h=tpVals['nv']?tpVals['nv'].h:0;
-  const m=tpVals['nv']?tpVals['nv'].m:0;
+  if(!dpSel)return null;const h=tpVals['fd']?tpVals['fd'].h:0,m=tpVals['fd']?tpVals['fd'].m:0;
   return new Date(dpSel.getFullYear(),dpSel.getMonth(),dpSel.getDate(),h,m,0).getTime();
 }
 
-function nvCheck(){
-  const err=document.getElementById('nv-err');
-  const prev=document.getElementById('nv-prev');
-  const btn=document.getElementById('nv-btn');
+// ── DATE FORM ────────────────────────────────────────────
+function initFD(){document.getElementById('fd-name').value='';document.getElementById('fd-amt').value='';document.getElementById('fd-date-disp').textContent='Choisir une date';document.getElementById('fd-date-disp').classList.add('pmt');document.getElementById('fd-time-disp').textContent='Choisir une heure';document.getElementById('fd-time-disp').classList.add('pmt');document.getElementById('fd-prev').style.display='none';document.getElementById('fd-err').style.display='none';document.getElementById('fd-btn').disabled=true;dpSel=null;delete tpVals['fd'];document.querySelectorAll('#qdur .qbtn').forEach(b=>b.classList.remove('qs-date'));}
+
+function fdCheck(){
+  const err=document.getElementById('fd-err'),prev=document.getElementById('fd-prev'),btn=document.getElementById('fd-btn');
   err.style.display='none';prev.style.display='none';btn.disabled=true;
-  const ts=getUnlockTs();
-  if(!ts)return;
-  if(ts<=Date.now()){err.textContent='La date doit être dans le futur (heure serveur).';err.style.display='block';return;}
+  const ts=getUnlockTs();if(!ts)return;
+  if(ts<=Date.now()){err.textContent='La date doit être dans le futur.';err.style.display='block';return;}
   const days=Math.ceil((ts-Date.now())/86400000);
-  const name=document.getElementById('nv-name').value||'Mon coffre';
+  const name=document.getElementById('fd-name').value||'Mon coffre';
+  const amt=Math.floor(parseFloat(document.getElementById('fd-amt').value)||0);
+  if(amt>0&&amt>S.bal-100){err.textContent='Solde insuffisant (100 CFA de frais inclus).';err.style.display='block';return;}
   prev.style.display='block';
-  document.getElementById('nvp-name').textContent=name;
-  document.getElementById('nvp-date').textContent=fD(new Date(ts));
-  document.getElementById('nvp-days').textContent=days+' jour'+(days>1?'s':'');
+  document.getElementById('fdp-name').textContent=name;
+  document.getElementById('fdp-date').textContent=fD(new Date(ts));
+  document.getElementById('fdp-days').textContent=days+' jour'+(days>1?'s':'');
+  document.getElementById('fdp-amt').textContent=amt>0?'CFA '+fN(amt):'Aucun';
   btn.disabled=false;
 }
 
-function createVault(){
-  const name=(document.getElementById('nv-name').value.trim()||'Mon coffre');
-  const ts=getUnlockTs();
-  if(!ts||ts<=Date.now())return;
-  const vault={id:'v'+Date.now(),name,unlockTs:ts,createdAt:Date.now(),deposits:[]};
-  S.vaults.push(vault);save();renderHome();
-  // Reset form
-  document.getElementById('nv-name').value='';
-  document.getElementById('nv-date-disp').textContent='Choisir une date';
-  document.getElementById('nv-date-disp').classList.add('pmt');
-  document.getElementById('nv-time-disp').textContent='Choisir une heure';
-  document.getElementById('nv-time-disp').classList.add('pmt');
-  document.getElementById('nv-prev').style.display='none';
-  document.getElementById('nv-btn').disabled=true;
-  dpSel=null;delete tpVals['nv'];
-  curVid=vault.id;
-  // Go to detail — stack so back returns to new-vault form, but also offer home
-  openDetail(vault.id);
-  showToast('Coffre "'+name+'" créé !');
+// ── GOAL FORM ────────────────────────────────────────────
+function initFG(){document.getElementById('fg-name').value='';document.getElementById('fg-target').value='';document.getElementById('fg-amt').value='';document.getElementById('fg-preview').style.display='none';document.getElementById('fg-err').style.display='none';document.getElementById('fg-btn').disabled=true;}
+
+function fgCheck(){
+  const err=document.getElementById('fg-err'),btn=document.getElementById('fg-btn'),prev=document.getElementById('fg-preview');
+  err.style.display='none';btn.disabled=true;prev.style.display='none';
+  const target=Math.floor(parseFloat(document.getElementById('fg-target').value)||0);
+  const amt=Math.floor(parseFloat(document.getElementById('fg-amt').value)||0);
+  if(!target||target<1000){if(target>0){err.textContent='Objectif minimum : 1 000 CFA.';err.style.display='block';}return;}
+  if(amt>0&&amt>=target){err.textContent='Le versement initial ne peut pas atteindre ou dépasser l\'objectif.';err.style.display='block';return;}
+  if(amt>0&&amt>S.bal-100){err.textContent='Solde insuffisant (100 CFA de frais inclus).';err.style.display='block';return;}
+  const pct=amt>0?Math.round((amt/target)*100):0;const rem=target-amt;
+  prev.style.display='block';
+  document.getElementById('fgp-cur').textContent='CFA '+fN(amt||0);
+  document.getElementById('fgp-tgt').textContent='CFA '+fN(target);
+  document.getElementById('fgp-bar').style.width=pct+'%';
+  document.getElementById('fgp-pct').textContent=pct+'% atteint';
+  document.getElementById('fgp-rem').textContent=amt>0?'Il vous reste CFA '+fN(rem)+' pour atteindre votre objectif':'Commencez à épargner pour atteindre CFA '+fN(target);
+  btn.disabled=false;
 }
 
-// ── RENDER HOME ─────────────────────────────────────────────────────
+// ── CREATE VAULT ─────────────────────────────────────────
+function createVault(type){
+  const FRAIS=100;
+  if(type==='date'){
+    const name=document.getElementById('fd-name').value.trim()||'Mon coffre';
+    const ts=getUnlockTs();const amt=Math.floor(parseFloat(document.getElementById('fd-amt').value)||0);
+    if(!ts||ts<=Date.now())return;if(S.bal<FRAIS+(amt>0?amt:0)){showToast('Solde insuffisant');return;}
+    const v={id:'v'+Date.now(),type:'date',name,unlockTs:ts,createdAt:Date.now(),deposits:[]};
+    if(amt>0){v.deposits.push({amount:amt,date:Date.now()});S.bal=S.bal-amt;}
+    S.bal=S.bal-FRAIS;S.vaults.push(v);save();renderHome();curVid=v.id;showSuccVault(v,amt>0?amt:null);
+  } else {
+    const name=document.getElementById('fg-name').value.trim()||'Mon objectif';
+    const target=Math.floor(parseFloat(document.getElementById('fg-target').value)||0);
+    const amt=Math.floor(parseFloat(document.getElementById('fg-amt').value)||0);
+    if(!target||target<1000)return;if(S.bal<FRAIS+(amt>0?amt:0)){showToast('Solde insuffisant');return;}
+    const v={id:'v'+Date.now(),type:'goal',name,target,createdAt:Date.now(),deposits:[]};
+    if(amt>0){v.deposits.push({amount:amt,date:Date.now()});S.bal=S.bal-amt;}
+    S.bal=S.bal-FRAIS;S.vaults.push(v);save();renderHome();curVid=v.id;showSuccVault(v,amt>0?amt:null);
+  }
+}
+
+function showSuccVault(v,initAmt){
+  const tot=vTot(v);const isG=v.type==='goal';
+  const ico=document.getElementById('suc-ico');ico.className='sucico '+(isG?'g':'r');ico.textContent=isG?'🎯':'🔒';
+  document.getElementById('suc-title').textContent=`Coffre "${v.name}" créé !`;
+  document.getElementById('suc-vbtn').className=isG?'btn-g':'btn-r';
+  if(initAmt&&initAmt>0){
+    document.getElementById('suc-msg').textContent=isG?`CFA ${fN(initAmt)} versés. Il vous reste CFA ${fN(v.target-tot)} pour atteindre l'objectif.`:`CFA ${fN(initAmt)} versés. Bloqué jusqu'au ${fDs(new Date(v.unlockTs))}.`;
+    if(isG){const pct=Math.round((tot/v.target)*100);document.getElementById('suc-prog').innerHTML=`<div class="goal-box" style="width:100%;"><div class="gp-amounts"><span class="gp-cur">CFA ${fN(tot)}</span><span class="gp-tgt">/ CFA ${fN(v.target)}</span></div><div class="gp-bg"><div class="gp-fill" style="width:${pct}%"></div></div><div class="gp-pct">${pct}% atteint</div><div class="gp-rem">Il vous reste CFA ${fN(v.target-tot)} pour atteindre votre objectif</div></div>`;}
+    else document.getElementById('suc-prog').innerHTML='';
+  } else {document.getElementById('suc-msg').textContent='Votre coffre est prêt. Ajoutez de l\'argent quand vous voulez.';document.getElementById('suc-prog').innerHTML='';}
+  ['pg-home','pg-hist','pg-about','pg-choose-type','pg-form-date','pg-form-goal','pg-detail','pg-add-dep','pg-cf'].forEach(id=>document.getElementById(id).className='pg off-l');
+  document.getElementById('pg-suc').className='pg on';stk=['pg-suc'];
+}
+
+// ── RENDER HOME ──────────────────────────────────────────
 function renderHome(){
-  const allTot=S.vaults.reduce((s,v)=>s+v.deposits.reduce((a,d)=>a+d.amount,0),0);
+  const allTot=S.vaults.reduce((s,v)=>s+vTot(v),0);
   document.getElementById('hbal').textContent=fN(S.bal);
   document.getElementById('hvlt').textContent=fN(allTot);
+  const dc=S.vaults.filter(v=>v.type==='date'&&!v.withdrawn).length;
+  const gc=S.vaults.filter(v=>v.type==='goal'&&!v.withdrawn).length;
+  const sb=document.getElementById('sum-badges');sb.innerHTML='';
+  if(dc>0)sb.innerHTML+=`<div style="flex:1;background:var(--rlight);border:1px solid var(--rmid);border-radius:10px;padding:8px 12px;font-size:12px;color:var(--rdark);font-weight:600;">📅 ${dc} à durée</div>`;
+  if(gc>0)sb.innerHTML+=`<div style="flex:1;background:var(--grnl);border:1px solid #bbf7d0;border-radius:10px;padding:8px 12px;font-size:12px;color:var(--grnd);font-weight:600;">🎯 ${gc} à objectif</div>`;
   const list=document.getElementById('vaultlist');
-  if(!S.vaults.length){
-    list.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><p>Aucun coffre pour le moment.<br>Appuyez sur <strong>+</strong> pour créer votre premier coffre.</p></div>';
-    return;
-  }
+  if(!S.vaults.length){list.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><p>Aucun coffre pour le moment.<br>Appuyez sur <strong>+</strong> pour créer votre premier coffre.</p></div>';return;}
   list.innerHTML=S.vaults.map(v=>{
-    const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
-    const days=dL(v.unlockTs);const done=isDone(v.unlockTs);
-    const ul=new Date(v.unlockTs);
-    const totalD=Math.max(1,Math.ceil((v.unlockTs-v.createdAt)/86400000));
-    const pct=Math.max(3,Math.min(97,Math.round(((totalD-days)/totalD)*100)));
-    if(v.withdrawn){
-      return`<div class="vcard done-vault">
-        <div class="vcard-head">
-          <div><div class="vcard-name">${v.name}</div><div class="vcard-date">Retiré le ${fDs(new Date(v.withdrawnAt))}</div></div>
-          <div><div class="vcard-amtlbl">Montant retiré</div><div class="vcard-amt">CFA ${fN(v.withdrawnAmount||0)}</div></div>
-        </div>
-        <div class="vcard-body">
-          <div class="vcard-prog"><div class="vcard-progf done" style="width:100%"></div></div>
-          <div class="vcard-row"><span class="vl">Statut</span><span class="vg">✓ Retiré — terminé</span></div>
-        </div>
-        <div class="vcard-actions">
-          <button class="vbtn-detail" onclick="deleteVault('${v.id}')" style="flex:1;color:#E3001B;border-color:#E3001B;">
-            Supprimer ce coffre
-          </button>
-        </div>
-      </div>`;
+    const tot=vTot(v);const isG=v.type==='goal';const done=isG?isGoalDone(v):isDone(v.unlockTs);
+    if(v.withdrawn){return`<div class="vcard"><div class="${isG?'vh-grn':'vh-red'} vh-done"><div><div class="vcard-name">${v.name}</div><div class="vcard-type">${isG?'🎯':'📅'} TERMINÉ</div></div><div><div class="vcard-amtlbl">Retiré</div><div class="vcard-amt">CFA ${fN(v.withdrawnAmount||0)}</div></div></div><div class="vcard-body"><div class="vrow"><span class="vl">Statut</span><span class="vg">✓ Retiré</span></div></div><div class="vcard-acts"><button class="vbtn ${isG?'og':'or'}" onclick="deleteVault('${v.id}')">Supprimer</button></div></div>`;}
+    if(isG){
+      const pct=v.target>0?Math.min(100,Math.round((tot/v.target)*100)):0;const rem=Math.max(0,v.target-tot);
+      return`<div class="vcard"><div class="vh-grn"><div><div class="vcard-name">${v.name}</div><div class="vcard-type">🎯 COFFRE À OBJECTIF</div></div><div><div class="vcard-amtlbl">${fN(tot)} / ${fN(v.target)}</div><div class="vcard-amt">${pct}%</div></div></div><div class="vcard-body"><div class="prog-bar"><div class="prog-grn" style="width:${pct}%"></div></div><div class="vrow"><span class="vl">${done?'Objectif atteint !':'Reste à atteindre'}</span><span class="vg">${done?'✓ Débloqué':'CFA '+fN(rem)}</span></div><div class="vrow"><span class="vl">Versements</span><span class="vv">${v.deposits.length}</span></div></div><div class="vcard-acts"><button class="vbtn ${done?'bg':'bg'}" onclick="openDetail('${v.id}')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>${done?'Retirer':'Verser'}</button><button class="vbtn og" onclick="openDetail('${v.id}')">Détails</button></div></div>`;
+    } else {
+      const days=dL(v.unlockTs);const totalD=Math.max(1,Math.ceil((v.unlockTs-v.createdAt)/86400000));const pct=done?100:Math.max(3,Math.min(97,Math.round(((totalD-days)/totalD)*100)));
+      return`<div class="vcard"><div class="vh-red"><div><div class="vcard-name">${v.name}</div><div class="vcard-type">📅 COFFRE À DURÉE</div></div><div><div class="vcard-amtlbl">Total</div><div class="vcard-amt">CFA ${fN(tot)}</div></div></div><div class="vcard-body"><div class="prog-bar"><div class="prog-red" style="width:${pct}%"></div></div><div class="vrow"><span class="vl">Statut</span><span class="${done?'vg':'vr'}">${done?'✓ Débloqué':days+' jour'+(days>1?'s':'')+' restants'}</span></div><div class="vrow"><span class="vl">Versements</span><span class="vv">${v.deposits.length}</span></div></div><div class="vcard-acts"><button class="vbtn br" onclick="openDetail('${v.id}')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>${done?'Retirer':'Verser'}</button><button class="vbtn or" onclick="openDetail('${v.id}')">Détails</button></div></div>`;
     }
-    return`<div class="vcard">
-      <div class="vcard-head">
-        <div><div class="vcard-name">${v.name}</div><div class="vcard-date">Déblocage le ${fDs(ul)}</div></div>
-        <div><div class="vcard-amtlbl">Total</div><div class="vcard-amt">CFA ${fN(tot)}</div></div>
-      </div>
-      <div class="vcard-body">
-        <div class="vcard-prog"><div class="vcard-progf ${done?'done':''}" style="width:${pct}%"></div></div>
-        <div class="vcard-row"><span class="vl">Versements</span><span class="vv">${v.deposits.length} versement${v.deposits.length!==1?'s':''}</span></div>
-        <div class="vcard-row"><span class="vl">Statut</span><span class="${done?'vg':'vr'}">${done?'✓ Débloqué — retrait disponible':days+' jour'+(days>1?'s':'')+' restants'}</span></div>
-      </div>
-      <div class="vcard-actions">
-        <button class="vbtn-add" onclick="openDetail('${v.id}')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>${done?'Retirer':'Verser'}</button>
-        <button class="vbtn-detail" onclick="openDetail('${v.id}')">Détails</button>
-      </div>
-    </div>`;
   }).join('');
 }
 
-// ── RENDER HISTORY ──────────────────────────────────────────────────
-function renderHist(){
-  const all=[];
-  S.vaults.forEach(v=>v.deposits.forEach(d=>all.push({...d,vaultName:v.name,unlockTs:v.unlockTs})));
-  all.sort((a,b)=>b.date-a.date);
-  const list=document.getElementById('histlist');
-  if(!all.length){list.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg><p>Aucun historique.</p></div>';return;}
-  list.innerHTML=all.map(d=>{
-    const done=dL(d.unlockTs)===0;
-    return`<div class="hitem"><div class="hdot ${done?'done':''}"></div><div class="hinfo"><div class="hname">Coffre : ${d.vaultName}</div><div class="hdate">Versé le ${fDs(new Date(d.date))}</div></div><div class="hright"><div class="hamt">CFA ${fN(d.amount)}</div><div class="hstat">${done?'✓ Débloqué':'Verr. jusqu\'au '+fDs(new Date(d.unlockTs))}</div></div></div>`;
-  }).join('');
-}
-
-// ── DETAIL ──────────────────────────────────────────────────────────
+// ── DETAIL ───────────────────────────────────────────────
 function openDetail(vid){
-  curVid=vid;
-  const v=S.vaults.find(x=>x.id===vid);if(!v)return;
-  const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
-  const days=dL(v.unlockTs);
-  const done=isDone(v.unlockTs);
-  const ul=new Date(v.unlockTs);
-  const totalD=Math.max(1,Math.ceil((v.unlockTs-v.createdAt)/86400000));
-  const elapsed=totalD-days;
-  const pct=done?100:Math.max(3,Math.min(97,Math.round((elapsed/totalD)*100)));
+  curVid=vid;const v=S.vaults.find(x=>x.id===vid);if(!v)return;
+  const tot=vTot(v);const isG=v.type==='goal';const done=isG?isGoalDone(v):isDone(v.unlockTs);
+  document.getElementById('det-tbar').className='tbar '+(isG?'green':'red');
   document.getElementById('det-title').textContent=v.name;
-  document.getElementById('det-sub').textContent=done?'✓ Coffre débloqué':'Déblocage le '+fD(ul);
-  document.getElementById('det-total').textContent=fN(tot);
-  document.getElementById('det-badge').textContent=done?'✓ Débloqué':days+' j restants';
-  document.getElementById('det-prog').style.width=pct+'%';
+  document.getElementById('det-sub').textContent=isG?`🎯 Objectif : CFA ${fN(v.target)}`:`📅 Déblocage le ${fD(new Date(v.unlockTs))}`;
   document.getElementById('det-bal').textContent=fN(S.bal);
-  document.getElementById('det-locked-msg').style.display=done?'none':'flex';
-  document.getElementById('det-open-msg').style.display=done&&tot>0?'flex':'none';
-  document.getElementById('det-add-btn').style.display=done?'none':'flex';
-  // Withdraw button — show prominently when unlocked
-  const wb=document.getElementById('det-withdraw-btn');
-  wb.style.display=done&&tot>0?'flex':'none';
-  const dlist=document.getElementById('det-deposits');
-  if(!v.deposits.length){
-    dlist.innerHTML='<div style="font-size:13px;color:var(--g400);text-align:center;padding:20px 0;line-height:1.7;">Aucun versement encore.<br>Appuyez sur le bouton ci-dessus pour alimenter votre coffre.</div>';
+  const mc=document.getElementById('det-main');
+  if(isG){
+    const pct=v.target>0?Math.min(100,Math.round((tot/v.target)*100)):0;const rem=Math.max(0,v.target-tot);
+    mc.innerHTML=`<div class="goal-box"><div class="gp-amounts"><div><div style="font-size:10px;color:var(--grnd);margin-bottom:3px;">Total épargné</div><div class="gp-cur">CFA ${fN(tot)}</div></div><div style="text-align:right;"><div style="font-size:10px;color:var(--g400);margin-bottom:3px;">Objectif</div><div class="gp-tgt">CFA ${fN(v.target)}</div></div></div><div class="gp-bg"><div class="gp-fill" style="width:${pct}%"></div></div><div class="gp-pct">${pct}% atteint${done?' — 🎉 Objectif atteint !':''}</div><div class="gp-rem">${done?'Félicitations ! Votre objectif est atteint. Appuyez sur Retirer ci-dessous.':'Il vous reste CFA '+fN(rem)+' pour atteindre votre objectif'}</div></div>`;
   } else {
-    dlist.innerHTML=v.deposits.map((d,i)=>`
-      <div class="dep-chip">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div class="dep-dot"></div>
-          <div class="dep-chip-info">
-            <div class="dcname">Versement ${i+1}</div>
-            <div class="dcdate">${fDs(new Date(d.date))}</div>
-          </div>
-        </div>
-        <div class="dep-chip-amt">CFA ${fN(d.amount)}</div>
-      </div>`).join('');
+    const days=dL(v.unlockTs);const totalD=Math.max(1,Math.ceil((v.unlockTs-v.createdAt)/86400000));const pct=done?100:Math.max(3,Math.min(97,Math.round(((totalD-days)/totalD)*100)));
+    let cdHtml='';
+    if(!done){const ms=v.unlockTs-Date.now();const d=Math.floor(ms/86400000);const h=Math.floor((ms%86400000)/3600000);const m=Math.floor((ms%3600000)/60000);cdHtml=`<div class="cd-box"><div class="cd-lbl">⏳ Temps restant</div><div class="cd-nums"><div class="cd-unit"><div class="cd-n">${String(d).padStart(2,'0')}</div><div class="cd-u">JOURS</div></div><div class="cd-sep">:</div><div class="cd-unit"><div class="cd-n">${String(h).padStart(2,'0')}</div><div class="cd-u">HEURES</div></div><div class="cd-sep">:</div><div class="cd-unit"><div class="cd-n">${String(m).padStart(2,'0')}</div><div class="cd-u">MIN</div></div></div></div>`;}
+    mc.innerHTML=`<div class="card-red"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;"><div><div style="font-size:11px;opacity:.8;margin-bottom:4px;">Total dans ce coffre</div><div style="font-size:26px;font-weight:700;"><span style="font-size:13px;opacity:.8;margin-right:3px;">CFA</span>${fN(tot)}</div></div><div style="background:rgba(255,255,255,.2);border-radius:20px;font-size:10px;font-weight:600;padding:4px 10px;color:#fff;">${done?'✓ Débloqué':days+' j restants'}</div></div><div style="height:5px;background:rgba(255,255,255,.25);border-radius:100px;overflow:hidden;"><div style="height:100%;background:#fff;border-radius:100px;width:${pct}%;transition:width .4s;"></div></div></div>${cdHtml}`;
   }
+  const ab=document.getElementById('det-add-btn');ab.className=isG?'btn-g':'btn-r';
+  ab.innerHTML=`<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Ajouter de l'argent`;ab.style.display='flex';
+  const msg=document.getElementById('det-msg');
+  if(!done)msg.innerHTML=`<div class="${isG?'ibox':'wbox'}"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><span>${isG?'Continuez à verser pour atteindre CFA '+fN(v.target)+'. Déblocage automatique à l\'objectif atteint.':'Coffre scellé jusqu\'au '+fD(new Date(v.unlockTs))+'. Vous pouvez continuer à verser.'}</span></div>`;
+  else msg.innerHTML=`<div class="ibox"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span>${isG?'🎉 Objectif atteint ! Appuyez sur Retirer pour récupérer votre argent.':'✓ Coffre débloqué ! Appuyez sur Retirer pour récupérer votre argent.'}</span></div>`;
+  const wb=document.getElementById('det-wd-btn');
+  if(done&&tot>0){wb.className=isG?'btn-g':'btn-r';wb.innerHTML=`<svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Retirer vers mon solde Airtel Money`;wb.style.display='flex';ab.style.display='none';}
+  else wb.style.display='none';
+  const dl=document.getElementById('det-deps');
+  if(!v.deposits.length)dl.innerHTML=`<div style="font-size:13px;color:var(--g400);text-align:center;padding:20px 0;line-height:1.7;">Aucun versement encore.<br>${isG?'Commencez à épargner pour atteindre votre objectif.':'Appuyez sur le bouton ci-dessus.'}</div>`;
+  else dl.innerHTML=v.deposits.map((d,i)=>`<div class="dchip"><div style="display:flex;align-items:center;gap:10px;"><div class="${isG?'ddot-g':'ddot-r'}"></div><div><div class="dcname">Versement ${i+1}</div><div class="dcdate">${fDs(new Date(d.date))}</div></div></div><div class="dcamt">CFA ${fN(d.amount)}</div></div>`).join('');
   go('pg-detail');
 }
 
-// ── ADD DEPOSIT ─────────────────────────────────────────────────────
+// ── ADD DEPOSIT ──────────────────────────────────────────
 function openAddDeposit(){
   const v=S.vaults.find(x=>x.id===curVid);if(!v)return;
-  document.getElementById('add-dep-sub').textContent='Coffre : '+v.name;
+  const isG=v.type==='goal';const tot=vTot(v);
+  document.getElementById('ad-sub').textContent='Coffre : '+v.name;
+  document.getElementById('ad-tbar').className='tbar '+(isG?'green':'red');
   document.getElementById('ad-bal').textContent=fN(S.bal);
   document.getElementById('ad-amt').value='';
   document.getElementById('ad-prev').style.display='none';
   document.getElementById('ad-err').style.display='none';
   document.getElementById('ad-btn').disabled=true;
-  document.getElementById('adp-vault').textContent=v.name;
-  document.getElementById('adp-date').textContent=fD(new Date(v.unlockTs));
+  document.getElementById('ad-btn').className=isG?'btn-g':'btn-r';
+  document.getElementById('ad-suf').className=isG?'isuf-g':'isuf-r';
+  document.getElementById('ad-ico').className='iico '+(isG?'g':'r');
+  document.getElementById('adp-il').textContent=isG?'Reste après versement':'Déblocage le';
+  document.getElementById('adp-iv').textContent=isG?'—':fD(new Date(v.unlockTs));
+  const gp=document.getElementById('ad-gprev');
+  if(isG){const pct=v.target>0?Math.min(100,Math.round((tot/v.target)*100)):0;const rem=Math.max(0,v.target-tot);gp.innerHTML=`<div class="goal-box"><div class="gp-amounts"><div><div style="font-size:10px;color:var(--grnd);margin-bottom:3px;">Actuellement</div><div class="gp-cur">CFA ${fN(tot)}</div></div><div style="text-align:right;"><div style="font-size:10px;color:var(--g400);margin-bottom:3px;">Objectif</div><div class="gp-tgt">CFA ${fN(v.target)}</div></div></div><div class="gp-bg"><div class="gp-fill" id="ad-gbar" style="width:${pct}%"></div></div><div class="gp-pct" id="ad-gpct">${pct}% atteint</div><div class="gp-rem" id="ad-grem">Il vous reste CFA ${fN(rem)}</div></div>`;gp.style.display='block';}
+  else gp.style.display='none';
   go('pg-add-dep');
 }
 
 function adChange(){
-  // Parse as integer to avoid float rounding issues
-  const raw=document.getElementById('ad-amt').value;
-  const amt=raw===''?0:Math.floor(parseFloat(raw));
-  const v=S.vaults.find(x=>x.id===curVid);
-  const err=document.getElementById('ad-err');
-  const prev=document.getElementById('ad-prev');
-  const btn=document.getElementById('ad-btn');
+  const v=S.vaults.find(x=>x.id===curVid);if(!v)return;
+  const isG=v.type==='goal';const tot=vTot(v);
+  const amt=Math.floor(parseFloat(document.getElementById('ad-amt').value)||0);
+  const err=document.getElementById('ad-err'),prev=document.getElementById('ad-prev'),btn=document.getElementById('ad-btn');
   err.style.display='none';prev.style.display='none';btn.disabled=true;
-  if(!amt||!v)return;
+  if(!amt)return;
   if(amt<500){err.textContent='Montant minimum : 500 CFA.';err.style.display='block';return;}
   if(amt>S.bal){err.textContent='Solde insuffisant. Disponible : CFA '+fN(S.bal)+'.';err.style.display='block';return;}
-  const remaining=S.bal-amt;
   prev.style.display='block';
-  document.getElementById('adp-amt').textContent='CFA '+fN(amt);
-  document.getElementById('adp-after').textContent='CFA '+fN(remaining);
+  document.getElementById('adp-vault').textContent=v.name;
+  document.getElementById('adp-amt').textContent='CFA '+fN(amt);document.getElementById('adp-amt').className=isG?'pg':'pr';
+  document.getElementById('adp-after').textContent='CFA '+fN(S.bal-amt);document.getElementById('adp-after').className=isG?'pg':'pr';
+  if(isG){
+    const newTot=tot+amt;const pct=Math.min(100,Math.round((newTot/v.target)*100));const rem=Math.max(0,v.target-newTot);
+    document.getElementById('adp-il').textContent='Progression après';
+    document.getElementById('adp-iv').textContent=pct+'% — reste CFA '+fN(rem);
+    const bar=document.getElementById('ad-gbar');const pctEl=document.getElementById('ad-gpct');const remEl=document.getElementById('ad-grem');
+    if(bar)bar.style.width=Math.min(100,Math.round((tot/v.target)*100))+'%';
+    if(pctEl)pctEl.textContent=Math.min(100,Math.round((tot/v.target)*100))+'% actuellement (→ '+pct+'% après ce versement)';
+    if(remEl)remEl.textContent=rem>0?'Il vous restera CFA '+fN(rem)+' pour l\'objectif':'🎉 Ce versement atteindra votre objectif !';
+  }
   btn.disabled=false;
 }
 
 function goAdConfirm(){
+  const v=S.vaults.find(x=>x.id===curVid);if(!v)return;
+  const isG=v.type==='goal';const tot=vTot(v);
   const amt=Math.floor(parseFloat(document.getElementById('ad-amt').value)||0);
-  const v=S.vaults.find(x=>x.id===curVid);
-  if(!amt||!v||amt>S.bal)return;
+  if(!amt||amt<500||amt>S.bal)return;
   pendingAmt=amt;
-  const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
+  document.getElementById('cf-ico').textContent=isG?'🎯':'🔒';document.getElementById('cf-ico').className='cficon '+(isG?'g':'r');
   document.getElementById('cf-amt').textContent=fN(amt);
   document.getElementById('cf-vault').textContent=v.name;
-  document.getElementById('cf-date').textContent=fD(new Date(v.unlockTs));
-  document.getElementById('cf-newtot').textContent='CFA '+fN(tot+amt);
+  document.getElementById('cf-type').textContent=isG?'🎯 Coffre à objectif':'📅 Coffre à durée';
+  document.getElementById('cf-il').textContent=isG?'Objectif':'Déblocage le';
+  document.getElementById('cf-iv').textContent=isG?'CFA '+fN(v.target):fD(new Date(v.unlockTs));
+  document.getElementById('cf-newtot').textContent='CFA '+fN(tot+amt);document.getElementById('cf-newtot').className=isG?'cg':'cr';
   document.getElementById('cf-before').textContent='CFA '+fN(S.bal);
-  document.getElementById('cf-after').textContent='CFA '+fN(S.bal-amt);
+  document.getElementById('cf-after').textContent='CFA '+fN(S.bal-amt);document.getElementById('cf-after').className=isG?'cg':'cr';
+  document.getElementById('cf-btn').className=isG?'btn-g':'btn-r';
   go('pg-cf');
 }
 
 function execDeposit(){
-  const v=S.vaults.find(x=>x.id===curVid);
-  if(!v||!pendingAmt)return;
-  S.bal=S.bal-pendingAmt; // exact integer subtraction
-  v.deposits.push({amount:pendingAmt,date:Date.now()});
-  save();
-  const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
-  document.getElementById('suc-msg').textContent=
-    'CFA '+fN(pendingAmt)+' versés dans "'+v.name+'".\nTotal : CFA '+fN(tot)+' — bloqué jusqu\'au '+fDs(new Date(v.unlockTs))+'.';
+  const v=S.vaults.find(x=>x.id===curVid);if(!v||!pendingAmt)return;
+  const isG=v.type==='goal';
+  S.bal=S.bal-pendingAmt;v.deposits.push({amount:pendingAmt,date:Date.now()});save();
+  const tot=vTot(v);const goalDone=isG&&tot>=v.target;
+  const ico=document.getElementById('suc-ico');ico.className='sucico '+(isG?'g':'r');ico.textContent=isG?'🎯':'🔒';
+  document.getElementById('suc-vbtn').className=isG?'btn-g':'btn-r';
+  document.getElementById('suc-title').textContent=goalDone?'🎉 Objectif atteint !':'Versement effectué !';
+  if(isG){const pct=Math.min(100,Math.round((tot/v.target)*100));const rem=Math.max(0,v.target-tot);document.getElementById('suc-msg').textContent=goalDone?`Félicitations ! Objectif CFA ${fN(v.target)} atteint !`:`CFA ${fN(pendingAmt)} versés. Il vous reste CFA ${fN(rem)} pour l'objectif.`;document.getElementById('suc-prog').innerHTML=`<div class="goal-box" style="width:100%;"><div class="gp-amounts"><span class="gp-cur">CFA ${fN(tot)}</span><span class="gp-tgt">/ CFA ${fN(v.target)}</span></div><div class="gp-bg"><div class="gp-fill" style="width:${pct}%"></div></div><div class="gp-pct">${pct}% atteint</div><div class="gp-rem">${goalDone?'✓ Objectif atteint — déblocage automatique !':'Il vous reste CFA '+fN(rem)}</div></div>`;}
+  else{document.getElementById('suc-msg').textContent=`CFA ${fN(pendingAmt)} versés dans "${v.name}". Total : CFA ${fN(tot)}.`;document.getElementById('suc-prog').innerHTML='';}
   pendingAmt=0;renderHome();renderHist();
-  ['pg-home','pg-hist','pg-about','pg-new-vault','pg-detail','pg-add-dep','pg-cf'].forEach(id=>document.getElementById(id).className='pg off-l');
-  document.getElementById('pg-suc').className='pg on';
-  stk=['pg-suc'];
+  ['pg-home','pg-hist','pg-about','pg-choose-type','pg-form-date','pg-form-goal','pg-detail','pg-add-dep','pg-cf'].forEach(id=>document.getElementById(id).className='pg off-l');
+  document.getElementById('pg-suc').className='pg on';stk=['pg-suc'];
 }
 
+function goDetail(){openDetail(curVid);}
+
+// ── WITHDRAW ─────────────────────────────────────────────
 function withdrawVault(){
-  const v=S.vaults.find(x=>x.id===curVid);
-  if(!v)return;
-  const tot=v.deposits.reduce((a,d)=>a+d.amount,0);
-  if(tot<=0)return;
-  const msg='Retirer CFA '+fN(tot)+' vers votre solde Airtel Money ?\n\nVotre solde passera de CFA '+fN(S.bal)+' à CFA '+fN(S.bal+tot)+'.';
+  const v=S.vaults.find(x=>x.id===curVid);if(!v)return;
+  const tot=vTot(v);if(tot<=0)return;
+  const msg=`Retirer CFA ${fN(tot)} vers votre solde Airtel Money ?\n\nSolde actuel : CFA ${fN(S.bal)}\nSolde après : CFA ${fN(S.bal+tot)}`;
   if(!confirm(msg))return;
-  S.bal=S.bal+tot; // exact integer addition
-  v.withdrawn=true;
-  v.withdrawnAt=Date.now();
-  v.withdrawnAmount=tot;
-  v.deposits=[];
-  save();
-  renderHome();
-  showToast('CFA '+fN(tot)+' retournés sur votre solde !');
-  // Go to home and show delete option
-  goTab('home');
+  S.bal=S.bal+tot;v.withdrawn=true;v.withdrawnAt=Date.now();v.withdrawnAmount=tot;v.deposits=[];
+  save();renderHome();showToast('CFA '+fN(tot)+' retournés sur votre solde !');goTab('home');
 }
 
 function deleteVault(vid){
-  const v=S.vaults.find(x=>x.id===vid);
-  if(!v)return;
-  if(!confirm('Supprimer le coffre "'+v.name+'" ?\nCette action est irréversible.'))return;
-  S.vaults=S.vaults.filter(x=>x.id!==vid);
-  save();
-  renderHome();
-  showToast('Coffre "'+v.name+'" supprimé.');
+  const v=S.vaults.find(x=>x.id===vid);if(!v)return;
+  if(!confirm(`Supprimer le coffre "${v.name}" ?\nAction irréversible.`))return;
+  S.vaults=S.vaults.filter(x=>x.id!==vid);save();renderHome();showToast(`Coffre "${v.name}" supprimé.`);
 }
 
-function sucViewVault(){openDetail(curVid);}
-
-// ── UTILS ───────────────────────────────────────────────────────────
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
+// ── HISTORY ──────────────────────────────────────────────
+function renderHist(){
+  const all=[];S.vaults.forEach(v=>v.deposits.forEach(d=>all.push({...d,vn:v.name,vt:v.type,target:v.target||null})));all.sort((a,b)=>b.date-a.date);
+  const list=document.getElementById('histlist');
+  if(!all.length){list.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg><p>Aucun historique.</p></div>';return;}
+  list.innerHTML=all.map(d=>`<div class="hitem"><div class="hdot ${d.vt==='goal'?'g':'r'}"></div><div style="flex:1;"><div style="font-size:13px;font-weight:600;margin-bottom:2px;">${d.vt==='goal'?'🎯':'📅'} ${d.vn}</div><div style="font-size:11px;color:var(--g400);">${fDs(new Date(d.date))}</div></div><div style="text-align:right;"><div style="font-size:14px;font-weight:700;">CFA ${fN(d.amount)}</div><div style="font-size:11px;color:var(--g400);">${d.vt==='goal'?'Objectif':'Durée'}</div></div></div>`).join('');
 }
+
+// ── UTILS ────────────────────────────────────────────────
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
 function unlockAllForDemo(){
-  if(!S.vaults.length){showToast('Aucun coffre à débloquer');return;}
-  const active=S.vaults.filter(v=>!v.withdrawn&&v.deposits.length>0);
-  if(!active.length){showToast('Aucun coffre actif avec versements');return;}
-  active.forEach(v=>{
-    // Set unlock date to 1 hour ago
-    v.unlockTs=Date.now()-(3600*1000);
-  });
-  save();renderHome();
-  showToast(active.length+' coffre'+(active.length>1?'s':'')+'  débloqué'+(active.length>1?'s':'')+'  !');
-  goTab('home');
+  const active=S.vaults.filter(v=>!v.withdrawn);if(!active.length){showToast('Aucun coffre actif');return;}
+  active.forEach(v=>{if(v.type==='date')v.unlockTs=Date.now()-3600000;else{const tot=vTot(v);if(tot<v.target)v.deposits.push({amount:v.target-tot,date:Date.now()});}});
+  save();renderHome();showToast(`${active.length} coffre${active.length>1?'s':''} débloqué${active.length>1?'s':''}  !`);goTab('home');
 }
 
-function resetApp(){
-  if(!confirm('Réinitialiser ? Tous les coffres supprimés, solde remis à 50 000 CFA.'))return;
-  localStorage.removeItem(SK);S=load();renderHome();renderHist();
-  showToast('Application réinitialisée');goTab('home');
-}
+function resetApp(){if(!confirm('Réinitialiser ? Tous les coffres supprimés, solde remis à 50 000 CFA.'))return;localStorage.removeItem(SK);S=load();renderHome();renderHist();showToast('Application réinitialisée');goTab('home');}
 
-// ── INIT ────────────────────────────────────────────────────────────
-renderHome();
+// ── INIT ─────────────────────────────────────────────────
+renderHome();renderHist();
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
